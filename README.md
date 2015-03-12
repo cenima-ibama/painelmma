@@ -27,7 +27,7 @@ npm install -g grunt-cli
 
 Clonando este respositório: 
 ```
-git clone https://github.com/ibamacsr/new_op.git
+git clone https://github.com/ibamacsr/estatisticas.git
 ```
 
 Entre na pasta do sistema e execute:
@@ -45,7 +45,7 @@ git config --global url."https://".insteadOf git://
 
 Clonando este respositório: 
 ```
-git clone https://github.com/ibamacsr/new_op.git
+git clone https://github.com/ibamacsr/estatisticas.git
 ```
 
 Entre na pasta do sistema e execute:
