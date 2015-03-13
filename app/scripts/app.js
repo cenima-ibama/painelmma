@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular
+ angular
   .module('estatisticasApp', [
     'ngAnimate',
     'ngCookies',

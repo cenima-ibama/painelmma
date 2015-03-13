@@ -9,12 +9,12 @@
  */
 angular.module('estatisticasApp')
   .factory('RestApi', function ($resource) {
-    return $resource('http://localhost/modulePainel/:type/', {},
+    return $resource('http://localhost/modulePainel.php?:type', {},
       {
         get: {
           method:'GET',
           params:{ format:'json' },
-          isArray: false,
+          isArray: true
         },
         post: {
           method:'POST',
@@ -22,7 +22,6 @@ angular.module('estatisticasApp')
             'Content-Type': 'application/json'
           },
           isArray: true,
-          params:{extra_url: ''}
         },
       },
       {stripTrailingSlashes: false}

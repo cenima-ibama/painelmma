@@ -9,6 +9,6 @@
 angular.module('estatisticasApp')
   .directive('topbar', function () {
     return {
-    	 templateUrl: "views/topbar.html"
+    	 templateUrl: 'views/partials/topbar.html'
     };
   });
