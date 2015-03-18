@@ -7,6 +7,8 @@
  * # RestApi
  * Factory in the estatisticasApp.
  */
+
+ 
 angular.module('estatisticasApp')
   .factory('RestApi', function ($resource) {
     return $resource('http://localhost/modulePainel.php?:type', {},

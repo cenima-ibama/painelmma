@@ -50,12 +50,6 @@ angular.module('estatisticasApp')
   		}
   	);
 
-  	// RestApi.query({query: 'public_cloud'},
-  	// 	function success(data, status){
-  	// 		$rootScope.$broadcast('load_cloud', data);
-  	// 	}
-  	// );
-
   	RestApi.query({query: 'public_diary'},
   		function success(data, status){
   			$rootScope.$broadcast('load_diary', data);
@@ -70,14 +64,14 @@ angular.module('estatisticasApp')
 
 
 
-
-// ranking_assentamento
-// ranking_assentamento_estadual
-// ranking_terra_indigena
-// ranking_unidades_de_conservacao_protecao_integral
-// ranking_unidades_de_conservacao_protecao_integral_estadual
-// ranking_unidades_de_conservacao_uso_sustentavel
-// ranking_unidades_de_conservacao_uso_sustentavel_estadual
+  // The other querys
+  // ranking_assentamento
+  // ranking_assentamento_estadual
+  // ranking_terra_indigena
+  // ranking_unidades_de_conservacao_protecao_integral
+  // ranking_unidades_de_conservacao_protecao_integral_estadual
+  // ranking_unidades_de_conservacao_uso_sustentavel
+  // ranking_unidades_de_conservacao_uso_sustentavel_estadual
 
 
 
