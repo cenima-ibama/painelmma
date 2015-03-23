@@ -1,12 +1,31 @@
+<div id="page">
+	<form id='form-chart' ng-submit='changeForm()' class='text-center'>
+		    
+		<div class="center" >
+			<figure class="quick quick-btn" id="selectMap">
+				<img id="{{ufs.name}}" href="#" class="item"
+				     ng-repeat="ufs in ufs" ng-src="{{ufs.image}}"
+				     value="{{ufs.name}}">
+			</figure>
+		</div>
+		<br />
 
-    
-<div style="heigth: 400px; width: 500px"> 
-	<div class="box-header">NUVEM</div>
-	<cloud></cloud> 
+
+		<!-- <div style="display: inline-block"> -->
+		<select class='btn btn-default' ng-options='mes for mes in meses' ng-model='mes'></select> 
+		<select class='btn btn-default' ng-options='ano for ano in anos' ng-model='ano'></select> 
+		<button class='btn btn-primary' type='submit'>Pesquisar</button>
+
+		<!-- </div> -->
+	</form>
+	    
+	<div class='chart' > 
+		<div class="box-header"><h2>Alerta DETER: Taxa(%) de Nuvens</h2></div>
+		<cloud></cloud> 
+	</div>
+
 </div>
-
 <!-- 
-
 <b>prodes:</b>
 <div style="max-height: 300px; overflow-y: auto" >
 	 {{prodes}}
@@ -19,5 +38,6 @@
 <div style="max-height: 200px; overflow-y: auto" >
 	 {{diary}}
 </div>
- -->
 
+
+ -->

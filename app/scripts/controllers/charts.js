@@ -19,18 +19,33 @@ angular.module('estatisticasApp')
     $scope.systemInfo = 'Teste de Aplicação';
     $rootScope.SystemName = 'Painel de desmatamento';
 
-    $scope.states = [
-	    {name: 'AC', value: 'AC' },
-	    {name: 'AP', value: 'AP' },
-	    {name: 'AM', value: 'AM' },
-	    {name: 'PA', value: 'PA' },
-	    {name: 'RO', value: 'RO' },
-	    {name: 'RR', value: 'RR' },
-	    {name: 'TO', value: 'TO' },
-	    {name: 'MT', value: 'MT' },
-	    {name: 'MA', value: 'MA' },
-	    {name: 'Amazônia Legal', value: 'AMAZONIA LEGAL'}
-	];
+    $scope.baseUrl = 'images/icons';
+    
+    $scope.ufs = [
+        { name: 'AC', image: $scope.baseUrl + '/AC.png' },
+        { name: 'AM', image: $scope.baseUrl + '/AM.png' },
+        { name: 'AP', image: $scope.baseUrl + '/AP.png' },
+        { name: 'MA', image: $scope.baseUrl + '/MA.png' },
+        { name: 'MT', image: $scope.baseUrl + '/MT.png' },
+        { name: 'PA', image: $scope.baseUrl + '/PA.png' },
+        { name: 'RO', image: $scope.baseUrl + '/RO.png' },
+        { name: 'RR', image: $scope.baseUrl + '/RR.png' },
+        { name: 'TO', image: $scope.baseUrl + '/TO.png' },
+        { name: 'BR', image: $scope.baseUrl + '/BR.png' }
+    ];
+
+    $scope.anos = [];
+
+    var year = new Date();
+
+    // Aumentar ano / Diminuir ano
+    for(var i=2004; i<= year.getFullYear(); i++){
+      $scope.anos.push(i.toString());
+    }
+
+    $scope.meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+
 
 	//Retorno do broadcast para utilizar no escopo do ChartsCtrl
 	$rootScope.$on('load_diary', function(event, data){$scope.diary = data;});
@@ -42,25 +57,25 @@ angular.module('estatisticasApp')
 	//utilizando RestApi abaixo
 	//Requisição enviada ao controlador que retorna via broadcast
 	//Dados serão capturados em $rootScope.$on
-  	RestApi.query({query: 'public_prodes'},
-  		function success(data, status){
-  			//Broadcasting data para o escopo global
-  			//Por que este servico retorna o dado para um escopo diferente
-  			$rootScope.$broadcast('load_prodes', data);
-  		}
-  	);
+  	// RestApi.query({query: 'public_prodes'},
+  	// 	function success(data, status){
+  	// 		//Broadcasting data para o escopo global
+  	// 		//Por que este servico retorna o dado para um escopo diferente
+  	// 		$rootScope.$broadcast('load_prodes', data);
+  	// 	}
+  	// );
 
-  	RestApi.query({query: 'public_diary'},
-  		function success(data, status){
-  			$rootScope.$broadcast('load_diary', data);
-  		}
-  	);
+  	// RestApi.query({query: 'public_diary'},
+  	// 	function success(data, status){
+  	// 		$rootScope.$broadcast('load_diary', data);
+  	// 	}
+  	// );
 
-  	RestApi.query({query: 'dado_prodes_consolidado'},
-  		function success(data, status){
-  			$rootScope.$broadcast('load_consolidado', data);
-  		}
-  	);
+  	// RestApi.query({query: 'dado_prodes_consolidado'},
+  	// 	function success(data, status){
+  	// 		$rootScope.$broadcast('load_consolidado', data);
+  	// 	}
+  	// );
 
 
 

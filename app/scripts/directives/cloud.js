@@ -10,7 +10,7 @@
 angular.module('estatisticasApp')
   .directive('cloud', function (RestApi, $rootScope) {
     return {
-      template: '<canvas  class="chart chart-line" data="data" labels="labels" legend="true" series="series"></canvas>',
+      template: '<canvas  class="chart-line chart-stats" data="data" labels="labels" legend="true" series="series"></canvas>',
       restrict: 'AE',
       link: function postLink($scope, element, attrs) {
 
@@ -64,6 +64,8 @@ angular.module('estatisticasApp')
 	  		}
 
 	  	);
+
+		Chart.defaults.global.colours = ["#00B2EE", "#F7464A", "#46BFBD", "#7B68EE", "#FDB45C", "#949FB1", "#4D5360"];
 
 	  	$rootScope.$on('load_cloud', function(event, dado){
 
