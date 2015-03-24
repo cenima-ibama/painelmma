@@ -56,8 +56,8 @@ angular.module('estatisticasApp')
   				}
 
 	  			//Broadcasting data para o escopo global
-	  			//Por que este servico retorna o dado para um escopo diferente
-	  			//porque incrivelmente, o modo assíncrono
+	  			// Por que este servico retorna o dado para um escopo diferente
+	  			// porque incrivelmente, o modo assíncrono
 	  			// retorna o dado pra um escopo totalmente diferente do usual
 	  			$rootScope.$broadcast('load_cloud', dado);
 
