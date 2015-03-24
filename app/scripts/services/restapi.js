@@ -8,10 +8,10 @@
  * Factory in the estatisticasApp.
  */
 
- 
+
 angular.module('estatisticasApp')
   .factory('RestApi', function ($resource) {
-    return $resource('http://localhost/modulePainel.php?:type', {},
+    return $resource('http://10.1.8.55/modulePainel.php?:type', {},
       {
         get: {
           method:'GET',
