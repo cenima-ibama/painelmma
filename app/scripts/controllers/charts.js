@@ -9,7 +9,7 @@
  */
 
 angular.module('estatisticasApp')
-  .controller('ChartsCtrl', function ($scope, $rootScope, RestApi) {
+  .controller('ChartsCtrl', function ($scope, $rootScope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -34,13 +34,17 @@ angular.module('estatisticasApp')
         { name: 'BR', image: $scope.baseUrl + '/BR.png' }
     ];
 
-    $scope.anos = [];
+    $rootScope.estados = ['AC','AM', 'AP', 'MA', 'MT', 'PA', 'RO', 'RR', 'TO'];
+
+
+    $rootScope.anos = [];
 
     var year = new Date();
 
     // Aumentar ano / Diminuir ano
-    for(var i=2004; i<= year.getFullYear(); i++){
-      $scope.anos.push(i.toString());
+    // for(var i=2004; i<= year.getFullYear(); i++){
+    for(var i=2004; i< year.getFullYear(); i++){
+      $rootScope.anos.push(i.toString());
     }
 
     $scope.meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];

@@ -12,9 +12,14 @@
   border-radius: 0;
 }
 
+.chart-container{
+  max-width: 651px !important;
+  max-height: 250px !important;
+}
+
 .chart-stats{
   width: 651px;
-  height: 220px;
+  height: 200px;
 }
 
 .chart{
