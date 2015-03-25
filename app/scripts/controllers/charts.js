@@ -35,59 +35,48 @@ angular.module('estatisticasApp')
     ];
 
     $rootScope.estados = ['AC','AM', 'AP', 'MA', 'MT', 'PA', 'RO', 'RR', 'TO'];
-
-
     $rootScope.anos = [];
+
+    $scope.meses = [
+      {name: 'Janeiro', value: 'JANEIRO'},
+      {name: 'Fevereiro', value: 'FEVEREIRO'}, 
+      {name: 'Março', value: 'MARCO'},
+      {name: 'Abril', value: 'ABRIL'}, 
+      {name: 'Maio', value: 'MAIO'}, 
+      {name: 'Junho', value: 'JUNHO'}, 
+      {name: 'Julho', value: 'JULHO'}, 
+      {name: 'Agosto', value: 'AGOSTO'}, 
+      {name: 'Setembro', value: 'SETEMBRO'}, 
+      {name: 'Outubro', value: 'OUTUBRO'}, 
+      {name: 'Novembro', value: 'NOVEMBRO'}, 
+      {name: 'Dezembro', value: 'DEZEMBRO'}
+    ];
 
     var year = new Date();
 
+    $scope.$on('load_public_diary', function(event, data){
+      $scope.indiceMensal = data;
+      console.log($scope.indiceMensal);
+      $rootScope.$broadcast('load_mensal', data.BR);
+    });
+
     // Aumentar ano / Diminuir ano
     // for(var i=2004; i<= year.getFullYear(); i++){
-    for(var i=2004; i< year.getFullYear(); i++){
+    for(var i=2004; i < year.getFullYear(); i++){
       $rootScope.anos.push(i.toString());
     }
 
-    $scope.meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-
-
-    $scope.changeForm = function(uf, mes, ano){
-      console.log(uf);
-      console.log(mes);
-      console.log(ano);
-
+    $scope.changeClass = function(item){
+      var state = item.$$watchers[0].last;
+      var datac = $scope.indiceMensal[state];
+      $rootScope.$broadcast('load_mensal', datac);
     }
 
-	//Retorno do broadcast para utilizar no escopo do ChartsCtrl
-	$rootScope.$on('load_diary', function(event, data){$scope.diary = data;});
-	$rootScope.$on('load_cloud', function(event, data){$scope.cloud = data;});
-	$rootScope.$on('load_consolidado', function(event, data){$scope.consolidado = data;});
-	$rootScope.$on('load_prodes', function(event, data){$scope.prodes = data;});
 
-
-	//utilizando RestApi abaixo
-	//Requisição enviada ao controlador que retorna via broadcast
-	//Dados serão capturados em $rootScope.$on
-  	// RestApi.query({query: 'public_prodes'},
-  	// 	function success(data, status){
-  	// 		//Broadcasting data para o escopo global
-  	// 		//Por que este servico retorna o dado para um escopo diferente
-  	// 		$rootScope.$broadcast('load_prodes', data);
-  	// 	}
-  	// );
-
-  	// RestApi.query({query: 'public_diary'},
-  	// 	function success(data, status){
-  	// 		$rootScope.$broadcast('load_diary', data);
-  	// 	}
-  	// );
-
-  	// RestApi.query({query: 'dado_prodes_consolidado'},
-  	// 	function success(data, status){
-  	// 		$rootScope.$broadcast('load_consolidado', data);
-  	// 	}
-  	// );
-
-
+    $scope.changeForm = function(mes, ano){
+      console.log(mes);
+      console.log(ano);
+    }
 
   // The other querys
   // ranking_assentamento

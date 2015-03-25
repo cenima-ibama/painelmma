@@ -31,8 +31,8 @@ angular.module('estatisticasApp')
 
 
     var baseMaps = {
-      "Thunder Forest": thunderforest,
-      "OpenStreetMap": osm
+      "OpenStreetMap": osm,
+      "Thunder Forest": thunderforest
     };
 
     L.control.layers(baseMaps).addTo($scope.map);
