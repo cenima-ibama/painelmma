@@ -8,12 +8,11 @@
  */
 
 angular.module('estatisticasApp')
-  .directive('cloud', function (RestApi, $rootScope) {
+  .directive('cloud', function (RestApi) {
     return {
       template: '<canvas  class="chart-line chart-stats" data="data" labels="labels" legend="true" series="series"></canvas>',
       restrict: 'AE',
-      link: function postLink($scope, element, attrs) {
-
+      link: function postLink(scope, element, attrs) {
 
 	  	RestApi.query({query: 'public_cloud'},
 	  		function success(data, status){
@@ -24,9 +23,10 @@ angular.module('estatisticasApp')
 				for (var i = 2008; i<= today.getFullYear(); i++){
 					years.push(i.toString());
 				};
-				
+
+				// Invertendo dado para que a consulta no dado retornado
+				// traga um ganho mínimo de processamento
 				years.reverse();
-				
 
 				dado[0] = years;
 				dado[1] = [];
@@ -59,7 +59,7 @@ angular.module('estatisticasApp')
 	  			// Por que este servico retorna o dado para um escopo diferente
 	  			// porque incrivelmente, o modo assíncrono
 	  			// retorna o dado pra um escopo totalmente diferente do usual
-	  			$rootScope.$broadcast('load_cloud', dado);
+	  			scope.$broadcast('load_cloud', dado);
 
 	  		}
 
@@ -67,7 +67,7 @@ angular.module('estatisticasApp')
 
 		Chart.defaults.global.colours = ["#00B2EE", "#F7464A", "#46BFBD", "#7B68EE", "#FDB45C", "#949FB1", "#4D5360"];
 
-	  	$rootScope.$on('load_cloud', function(event, dado){
+	  	scope.$on('load_cloud', function(event, dado){
 
 
 	  		var labels = [];
@@ -96,10 +96,10 @@ angular.module('estatisticasApp')
 	  			}
 	  		}
 
-	  		$rootScope.cloud = dado;
-	  		$scope.labels = ['AGO', 'SET','OUT', 'NOV', 'DEZ','JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL']; 
-	  		$scope.series = labels;
-	  		$scope.data = data;
+	  		scope.cloud = dado;
+	  		scope.labels = ['AGO', 'SET','OUT', 'NOV', 'DEZ','JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL']; 
+	  		scope.series = labels;
+	  		scope.data = data;
 	  	})
       }
     };

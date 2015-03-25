@@ -1,11 +1,11 @@
 <div id="page">
-	<form id='form-chart' ng-submit='changeForm()' class='text-center'>
+	<form id='form-chart' ng-submit='changeForm(uf, mes, ano)' class='text-center'>
 		    
-		<div class="center" >
+		<div class="center">
 			<figure class="quick quick-btn" id="selectMap">
 				<img id="{{ufs.name}}" href="#" class="item"
 				     ng-repeat="ufs in ufs" ng-src="{{ufs.image}}"
-				     value="{{ufs.name}}">
+				     value="{{ufs.name}}" ng-model="uf">
 			</figure>
 		</div>
 		<br />
@@ -18,7 +18,11 @@
 
 		<!-- </div> -->
 	</form>
-	    
+	
+	<br />
+	<hr>
+	<br />
+
 	<div class='chart' > 
 		<div class="box-header"><h2>Alerta DETER: Taxa(%) de Nuvens</h2></div>
 		<cloud></cloud> 

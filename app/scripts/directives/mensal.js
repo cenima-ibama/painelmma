@@ -17,19 +17,6 @@ angular.module('estatisticasApp')
       			var dado = [];
       			scope.public_diary = data;
 
-/*
-      			for (var i=0; i<scope.estados.length; i++){
-      				dado[scope.estados[i]] = [];
-      				for(var count = 0; count<data.length; count++){
-						if(data[count].estado == scope.estados[i]){					
-							dado[scope.estados[i]].push(data[count]);
-						}      					
-      				}
-					 				
-      			}
-
-*/
-
 				var months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
       			for (var i=0; i<scope.estados.length; i++){

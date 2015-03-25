@@ -50,6 +50,12 @@ angular.module('estatisticasApp')
     $scope.meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
 
+    $scope.changeForm = function(uf, mes, ano){
+      console.log(uf);
+      console.log(mes);
+      console.log(ano);
+
+    }
 
 	//Retorno do broadcast para utilizar no escopo do ChartsCtrl
 	$rootScope.$on('load_diary', function(event, data){$scope.diary = data;});

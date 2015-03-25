@@ -13,13 +13,13 @@
 }
 
 .chart-container{
-  max-width: 651px !important;
-  max-height: 250px !important;
+  max-width: 605px !important;
+  max-height: 270px !important;
 }
 
 .chart-stats{
-  width: 651px;
-  height: 200px;
+  width: 631px;
+  height: 230px;
 }
 
 .chart{
