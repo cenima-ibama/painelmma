@@ -10,7 +10,7 @@
 angular.module('estatisticasApp')
   .directive('cloud', function (RestApi) {
     return {
-      template: '<canvas  class="chart-line chart-stats" data="data" labels="labels" legend="true" series="series"></canvas>',
+      template: '<canvas  class="chart-line chart-stats" data="data" labels="labels" legend="true" series="series" options="options"></canvas>',
       restrict: 'AE',
       link: function postLink(scope, element, attrs) {
 
@@ -20,19 +20,18 @@ angular.module('estatisticasApp')
 				var dado = [];
 				var years = [];
 
-				for (var i = 2008; i<= today.getFullYear(); i++){
+
+				// Invertendo dado para que a consulta no dado retornado
+				// Facilitando a comparação com o dado retornado do banco
+				for (var i = today.getFullYear(); i>= 2008 ; i--){
 					years.push(i.toString());
 				};
 
-				// Invertendo dado para que a consulta no dado retornado
-				// traga um ganho mínimo de processamento
-				years.reverse();
-
 				dado[0] = years;
-				dado[1] = [];
+				var retorno = [];
 
 				for(var x=0; x < years.length; x++){
-					dado[1][x] = []
+					retorno[x] = []
 					for (var m = 1; m <= 12; m++){	
 						var lastDay = 0;
 						var end = 0;
@@ -51,13 +50,12 @@ angular.module('estatisticasApp')
 							}
 							
 						}
-						dado[1][x].push(parseFloat(end) * 100);
+						retorno[x].push(Math.round(parseFloat(end) * 100));
 					}
   				}
+  				dado.push(retorno);
 
-	  			//Broadcasting data para o escopo global
-	  			// Por que este servico retorna o dado para um escopo diferente
-	  			// porque incrivelmente, o modo assíncrono
+	  			// Broadcasting data para o escopo global, modo assíncrono
 	  			// retorna o dado pra um escopo totalmente diferente do usual
 	  			scope.$broadcast('load_cloud', dado);
 
@@ -68,6 +66,21 @@ angular.module('estatisticasApp')
 		Chart.defaults.global.colours = ["#00B2EE", "#F7464A", "#46BFBD", "#7B68EE", "#FDB45C", "#949FB1", "#4D5360"];
 
 	  	scope.$on('load_cloud', function(event, dado){
+
+
+	  		// scope.ProdesDado = function(arrayLocal, arrayAno, arrayMes){
+  			// 	var data = [];
+	  		// 	if(arrayLocal == true){
+	  		// 		for(var l=0; l<arrayLocal.length; l++){
+	  		// 			data[l] = [];
+	  		// 			for (var ano =)
+	  		// 		}
+	  		// 	}
+
+	  		// 	for (var i=0; i<lengthLocal; i++){
+
+	  		// 	}
+	  		// }
 
 
 	  		var labels = [];

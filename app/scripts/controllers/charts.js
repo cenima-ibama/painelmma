@@ -56,8 +56,13 @@ angular.module('estatisticasApp')
 
     $scope.$on('load_public_diary', function(event, data){
       $scope.indiceMensal = data;
-      console.log($scope.indiceMensal);
       $rootScope.$broadcast('load_mensal', data.BR);
+    });
+
+    $scope.$on('load_public_prodes', function(event, data){
+      $scope.prodesState = data;
+      var dado = [data.br, data.anos];
+      $rootScope.$broadcast('load_prodes_state', dado)
     });
 
     // Aumentar ano / Diminuir ano
@@ -68,8 +73,11 @@ angular.module('estatisticasApp')
 
     $scope.changeClass = function(item){
       var state = item.$$watchers[0].last;
-      var datac = $scope.indiceMensal[state];
-      $rootScope.$broadcast('load_mensal', datac);
+      var data = $scope.indiceMensal[state];
+      var dataProdes = [$scope.prodesState[state.toLowerCase()], $scope.prodesState.anos];
+      $rootScope.$broadcast('load_mensal', data);
+
+      $rootScope.$broadcast('load_prodes_state', dataProdes);
     }
 
 
@@ -77,6 +85,9 @@ angular.module('estatisticasApp')
       console.log(mes);
       console.log(ano);
     }
+
+
+    
 
   // The other querys
   // ranking_assentamento
