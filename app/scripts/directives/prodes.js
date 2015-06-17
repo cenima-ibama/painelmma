@@ -9,13 +9,10 @@
 angular.module('estatisticasApp')
   .directive('prodes', function (RestApi) {
 	return {
-
-		// template: '<div>{{dadoProdes}}</div>', 
 		template: '<canvas class="chart-line chart-stats" data="dataProdes" ' +
 		'labels="labelsProdes" legend="true" series="seriesProdes" options="options"></canvas>',
 		restrict: 'AE',
 		link: function postLink(scope, element, attrs) {
-
 			Object.size = function(obj) {
 			    var size = 0, key;
 			    for (key in obj) {
@@ -24,61 +21,91 @@ angular.module('estatisticasApp')
 			    return size;
 			};
 
-			RestApi.query({query: 'public_prodes'},
+			scope.$on('sincronoProdes', function(event, acumuladoDeter){
+				scope.acumuladoDeter = acumuladoDeter.acumuladoDeter;
+				
+				RestApi.query({query: 'public_prodes'},
 
-				function success(data, event){
+					function success(data, event){
 					
-					var estados = ['ac', 'am', 'ap', 'ma', 'mt', 'pa', 'ro', 'rr', 'to'];
-					var anos = [];
-					var dado = [];
-					var perState = [];
+						var estados = ['ac', 'am', 'ap', 'ma', 'mt', 'pa', 'ro', 'rr', 'to'];
+						var dado = {};
+						var br = {};
+						var dadoAnos = 	{};
+						var dadoEstados = {};
+						var prodesAnosBD = [];
 
-					var br = [];
+						for(var i=0; i<data.length; i++){
+							var dataSplited = data[i].ano_prodes.split('/')[0] + '-' + data[i].ano_prodes.split('/')[1];					
+							prodesAnosBD.push(dataSplited);
+							dadoAnos[dataSplited] = {};
 
-					for(var i=0; i<data.length; i++){
-						anos.push(data[i].ano_prodes);
-						dado[i] = [data[i].ac, data[i].am, data[i].ap, data[i].ma, data[i].mt, data[i].pa, data[i].ro, data[i].rr, data[i].to];
-					}
-					console.log(dado);
-
-					for(var count=0; count< estados.length; count++){
-						perState[estados[count]] = [];
-						for(var years=0; years<Object.size(data[count]); years++){
-							perState[estados[count]].push(dado[years][count]);
+							// Forçando comparação dos anos
+							if(dataSplited === prodesAnosBD[i]){
+								delete data[i].ano_prodes;
+								dadoAnos[prodesAnosBD[i]] = data[i].toJSON();
+							}
 						}
-					}
 
-					for (var count=0; count< dado.length; count++){
-						br[count] = 0;
-						for (var counter=0; counter<dado[count].length; counter++){
-							br[count]==undefined ? 0 : br[count][counter];
-							br[count]+= parseFloat(dado[count][counter]);
+						for(var state = 0; state < estados.length; state++){
+							dadoEstados[estados[state]] = {};
+							for (var year = 0; year < Object.size(dadoAnos); year++){
+								dadoEstados[estados[state]][prodesAnosBD[year]] = parseFloat(dadoAnos[prodesAnosBD[year]][estados[state]]);
+							}
 						}
+
+						for(var year = 0; year < prodesAnosBD.length; year++){
+							br[prodesAnosBD[year]] = 0;
+							for(var state = 0; state < estados.length; state++){
+								br[prodesAnosBD[year]] == undefined ? 0 : br[prodesAnosBD[year]];
+								br[prodesAnosBD[year]] += parseFloat(dadoAnos[prodesAnosBD[year]][estados[state]]);
+								br[prodesAnosBD[year]] = parseFloat(br[prodesAnosBD[year]]);
+							}
+						}
+
+						dadoEstados.br = br;
+						dado.anosProdes = dadoAnos;
+						dado.estadosProdes = dadoEstados;
+						dado.labelsProdes = prodesAnosBD;
+
+						// Dado acumulado recebido por broadcast
+						dado.acumuladoDeter = scope.acumuladoDeter;
+						dado.acumuladoDeterAno = acumuladoDeter.acumuladoDeterAno;
+
+						scope.$broadcast('load_public_prodes', dado);
+
+
+					},
+					function error(data, event){
+						alert('Error query! Try Refresh Your Page');
 					}
+				);
+			});
 
-					perState.br = br;
+			scope.$on('chart_2', function(event, data){
+				scope.dataProdes = [];
+				scope.labelsProdes = [];
+				scope.seriesProdes = ['Taxa PRODES', 'Taxa DETER'];
 
-					perState['anos'] = anos;
-					scope.$broadcast('load_public_prodes', perState);
+				var prodesAcumulado = [];
 
-				},
-				function error(data, event){
-					alert('Error query!');
-				}
-			);
+				angular.forEach(data.estados, function(value, key){
+					prodesAcumulado.push(value);
+					scope.labelsProdes.push(key); 
+				});
 
-			scope.$on('load_prodes_state', function(event, data){
-					scope.labelsProdes = data[1];
-					scope.dataProdes = [data[0]];
-					scope.seriesProdes = ['Taxa PRODES'];
+
+				var acumuladoDeter = [];
+				angular.forEach(data.prodes, function(value, key){
+					acumuladoDeter.push(value);
+				});
+
+
+				scope.dataProdes.push(prodesAcumulado);
+				scope.dataProdes.push(acumuladoDeter);
 
 			});
 
-
-			scope.options = {
-				animationSteps: 5,
-				bezierCurve : false
-			};
 
 
    		}

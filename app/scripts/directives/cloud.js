@@ -67,22 +67,6 @@ angular.module('estatisticasApp')
 
 	  	scope.$on('load_cloud', function(event, dado){
 
-
-	  		// scope.ProdesDado = function(arrayLocal, arrayAno, arrayMes){
-  			// 	var data = [];
-	  		// 	if(arrayLocal == true){
-	  		// 		for(var l=0; l<arrayLocal.length; l++){
-	  		// 			data[l] = [];
-	  		// 			for (var ano =)
-	  		// 		}
-	  		// 	}
-
-	  		// 	for (var i=0; i<lengthLocal; i++){
-
-	  		// 	}
-	  		// }
-
-
 	  		var labels = [];
 	  		var emptyData = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0];
 	  		var data = [];
@@ -91,7 +75,7 @@ angular.module('estatisticasApp')
 	  		dado[1].reverse();
 
 	  		for (var i=0; i < dado[0].length - 1; i++) {
-	  			labels.push(dado[0][i] + " - " + dado[0][i+1]);
+	  			labels.push(dado[0][i] + "-" + dado[0][i+1]);
 	  		}
 
 	  		for (var i=0; i < dado[1].length; i++) {
@@ -109,16 +93,12 @@ angular.module('estatisticasApp')
 	  			}
 	  		}
 
-	  		scope.cloud = dado;
+	  		// scope.cloud = dado;
 	  		scope.labels = ['AGO', 'SET','OUT', 'NOV', 'DEZ','JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL']; 
-	  		scope.series = labels;
-	  		scope.data = data;
+	  		scope.series = [labels[labels.length-4],labels[labels.length-3], labels[labels.length-2]];
+	  		scope.data = [data[3], data[4], data[5]];
 	  	})
       }
     };
   });
-
-
-
-
 

@@ -3,45 +3,51 @@
 		    
 		<div class='center'>
 			<figure class='quick quick-btn' id='selectMap'>
-				<img id='{{ufs.name}}' href='#' class='item'
-				     ng-repeat='ufs in ufs' ng-src='{{ufs.image}}'
-				     value='{{ufs.name}}' ng-model='uf'
-				     class='{{newCLass}}' ng-click='changeClass(this)'>
-			</figure>
+				<a ng-repeat='ufs in ufs' class='item' ng-click='changeClass(this)'>
+					<img id='{{ufs.name}}' href='#' ng-src='{{ufs.image}}' value='{{ufs.name}}'>
+					<span class=''>{{ufs.subtitle}}</span>
+				</a>
+				
+ 			</figure>
 		</div>
-		<br />
-
-
+		<!-- <br /> -->
+<!-- 
 		<select class='btn btn-default' ng-options='mes.name for mes in meses' ng-model='mes'></select> 
 		<select class='btn btn-default' ng-options='ano for ano in anos' ng-model='ano'></select> 
 		<button class='btn btn-primary' type='submit'>Pesquisar</button>
-
+-->
 	</form>
 	
-	<br />
+	<!-- <br /> -->
 	<hr>
-	<br />
+	<!-- <br /> -->
+
+
+	<div class='chart' id="chart_1"> 
+		<div class='box-header'><h2>Alerta DETER: Índice Mensal (em Km²) </h2></div>
+		<mensal></mensal> 
+	</div>
+
+	<div class='chart' > 
+		<div class='box-header'><h2>Alerta DETER: UF's (em Km²)</h2></div>
+		<deterufs></deterufs>
+	</div>
+	
+
+	<div class='chart' > 
+		<div class='box-header'><h2>Taxa PRODES: Acumulado (em Km²)</h2></div>
+		<prodes></prodes>
+	</div>
+
+	<div class='chart' > 
+		<div class='box-header'><h2>Taxa Prodes: UF's (em Km²)</h2></div>
+		<prodesuf></prodesuf>
+	</div>	
 
 	<div class='chart' > 
 		<div class='box-header'><h2>Alerta DETER: Taxa(%) de Nuvens</h2></div>
 		<cloud></cloud> 
 	</div>	
-	<div class='chart' > 
-		<div class='box-header'><h2>Alerta DETER: Índice Mensal</h2></div>
-		<mensal></mensal> 
-	</div>
-
-	<div class='chart' > 
-		<div class='box-header'><h2>Taxa PRODES: Acumulado</h2></div>
-		<prodes></prodes>
-	</div>
-
-
-	<div class='chart' > 
-		<div class='box-header'><h2>Taxa Prodes: UF</h2></div>
-		<prodesuf></prodesuf>
-	</div>
-
-
 
 </div>
+

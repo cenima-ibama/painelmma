@@ -20,22 +20,18 @@ angular.module('estatisticasApp')
     $rootScope.SystemName = 'Painel de desmatamento';
 
     $scope.baseUrl = 'images/icons';
-    
     $scope.ufs = [
-        { name: 'AC', image: $scope.baseUrl + '/AC.png' },
-        { name: 'AM', image: $scope.baseUrl + '/AM.png' },
-        { name: 'AP', image: $scope.baseUrl + '/AP.png' },
-        { name: 'MA', image: $scope.baseUrl + '/MA.png' },
-        { name: 'MT', image: $scope.baseUrl + '/MT.png' },
-        { name: 'PA', image: $scope.baseUrl + '/PA.png' },
-        { name: 'RO', image: $scope.baseUrl + '/RO.png' },
-        { name: 'RR', image: $scope.baseUrl + '/RR.png' },
-        { name: 'TO', image: $scope.baseUrl + '/TO.png' },
-        { name: 'BR', image: $scope.baseUrl + '/BR.png' }
+        { name: 'AC', image: $scope.baseUrl + '/AC.png', subtitle: 'AC' },
+        { name: 'AM', image: $scope.baseUrl + '/AM.png', subtitle: 'AM' },
+        { name: 'AP', image: $scope.baseUrl + '/AP.png', subtitle: 'AP' },
+        { name: 'MA', image: $scope.baseUrl + '/MA.png', subtitle: 'MA' },
+        { name: 'MT', image: $scope.baseUrl + '/MT.png', subtitle: 'MT' },
+        { name: 'PA', image: $scope.baseUrl + '/PA.png', subtitle: 'PA' },
+        { name: 'RO', image: $scope.baseUrl + '/RO.png', subtitle: 'RO' },
+        { name: 'RR', image: $scope.baseUrl + '/RR.png', subtitle: 'RR' },
+        { name: 'TO', image: $scope.baseUrl + '/TO.png', subtitle: 'TO' },
+        { name: 'BR', image: $scope.baseUrl + '/BR.png', subtitle: 'Amazônia Legal' }
     ];
-
-    $rootScope.estados = ['AC','AM', 'AP', 'MA', 'MT', 'PA', 'RO', 'RR', 'TO'];
-    $rootScope.anos = [];
 
     $scope.meses = [
       {name: 'Janeiro', value: 'JANEIRO'},
@@ -52,18 +48,16 @@ angular.module('estatisticasApp')
       {name: 'Dezembro', value: 'DEZEMBRO'}
     ];
 
+    $rootScope.estados = ['AC','AM', 'AP', 'MA', 'MT', 'PA', 'RO', 'RR', 'TO'];
+    $rootScope.anos = [];
+    $scope.yearsProdes = [];
+
     var year = new Date();
 
-    $scope.$on('load_public_diary', function(event, data){
-      $scope.indiceMensal = data;
-      $rootScope.$broadcast('load_mensal', data.BR);
-    });
-
-    $scope.$on('load_public_prodes', function(event, data){
-      $scope.prodesState = data;
-      var dado = [data.br, data.anos];
-      $rootScope.$broadcast('load_prodes_state', dado)
-    });
+    $scope.options = {
+      animationSteps: 5,
+      bezierCurve : false
+    };
 
     // Aumentar ano / Diminuir ano
     // for(var i=2004; i<= year.getFullYear(); i++){
@@ -71,34 +65,51 @@ angular.module('estatisticasApp')
       $rootScope.anos.push(i.toString());
     }
 
-    $scope.changeClass = function(item){
-      var state = item.$$watchers[0].last;
-      var data = $scope.indiceMensal[state];
-      var dataProdes = [$scope.prodesState[state.toLowerCase()], $scope.prodesState.anos];
-      $rootScope.$broadcast('load_mensal', data);
-
-      $rootScope.$broadcast('load_prodes_state', dataProdes);
+    for (var i=0; i < $scope.anos.length; i++) {
+      $scope.yearsProdes.push($scope.anos[i] + "-" + $scope.anos[i+1]);
     }
-
-
-    $scope.changeForm = function(mes, ano){
-      console.log(mes);
-      console.log(ano);
-    }
-
-
     
 
-  // The other querys
-  // ranking_assentamento
-  // ranking_assentamento_estadual
-  // ranking_terra_indigena
-  // ranking_unidades_de_conservacao_protecao_integral
-  // ranking_unidades_de_conservacao_protecao_integral_estadual
-  // ranking_unidades_de_conservacao_uso_sustentavel
-  // ranking_unidades_de_conservacao_uso_sustentavel_estadual
+    $scope.$on('load_public_diary', function(event, data){
+      $rootScope.indiceMensal = data;
+      $rootScope.$broadcast('sincronoProdes', data);
+      $rootScope.$broadcast('chart_1', data.BR);
+    });
+
+    $scope.$on('load_public_prodes', function(event, data){
+      var dado = new Object;
+      dado.estados = data.estadosProdes.br;
+      dado.labels = data.labelsProdes;
+      dado.prodes = data.acumuladoDeter.BR;
+
+      $rootScope.$broadcast('chart_2', dado);
+      $rootScope.dadosProdes = data;
+
+    });
+    
+    $scope.$on('load_prodes_uf', function(event, data){
+      var dado = new Object;
+      dado.acumuladoDeter = data.acumuladoDeter;
+      dado.acumuladoProdes = data.acumuladoProdes;
+      dado.acumuladoDeterAno = data.acumuladoDeterAno;
+
+      $rootScope.$broadcast('chart_3', dado);
+    });
 
 
+    $scope.changeClass = function(item){
+      var state = item.$$watchers[1].last;
+      var data = $scope.indiceMensal[state];
+      var stateLower = state.toLowerCase();
+      var dadoProdes = {};
+
+      dadoProdes.estados = $scope.dadosProdes.estadosProdes[stateLower];
+      dadoProdes.labels = $scope.dadosProdes.labelsProdes;
+      dadoProdes.prodes = $scope.dadosProdes.acumuladoDeter[state];
+
+      $rootScope.$broadcast('chart_1', data);
+      $rootScope.$broadcast('chart_2', dadoProdes);
+    }
 
   });
 

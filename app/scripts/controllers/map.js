@@ -21,18 +21,18 @@ angular.module('estatisticasApp')
 
     $scope.map = L.map('map').setView([-12, -52], 5);
 
-    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo($scope.map);
 
     var thunderforest = L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png', {
       maxZoom: 18
     }).addTo($scope.map);
 
+    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo($scope.map);
 
     var baseMaps = {
+      "Thunder Forest": thunderforest,
       "OpenStreetMap": osm,
-      "Thunder Forest": thunderforest
     };
 
     L.control.layers(baseMaps).addTo($scope.map);
