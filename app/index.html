@@ -22,7 +22,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <topbar resizable ng-style="{ width: windowWidth, height: windowHeight}"></topbar>
+    <topbar resizable ng-style="{ width: windowWidth}"></topbar>
 
     <div ng-view=""></div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -66,17 +66,18 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/directives/resizable.js"></script>
-        <script src="scripts/directives/topbar.js"></script>
         <script src="scripts/controllers/charts.js"></script>
         <script src="scripts/controllers/map.js"></script>
+        <script src="scripts/directives/resizable.js"></script>
+        <script src="scripts/directives/topbar.js"></script>
         <script src="scripts/directives/map.js"></script>
-        <script src="scripts/services/restapi.js"></script>
         <script src="scripts/directives/cloud.js"></script>
         <script src="scripts/directives/mensal.js"></script>
         <script src="scripts/directives/prodes.js"></script>
         <script src="scripts/directives/prodesuf.js"></script>
         <script src="scripts/directives/deterufs.js"></script>
+        <script src="scripts/services/restapi.js"></script>
+        <script src="scripts/services/formdata.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -2,27 +2,25 @@
 	<form id='form-chart' ng-submit='changeForm(uf, mes, ano)' class='text-center'>
 		    
 		<div class='center'>
-			<figure class='quick quick-btn' id='selectMap'>
-				<a ng-repeat='ufs in ufs' class='item' ng-click='changeClass(this)'>
+			<figure class='quick quick-btn' id='selectMap' >
+				<a ng-repeat='ufs in estados' class='item' ng-click='changeClass(this)'  >
 					<img id='{{ufs.name}}' href='#' ng-src='{{ufs.image}}' value='{{ufs.name}}'>
 					<span class=''>{{ufs.subtitle}}</span>
 				</a>
 				
  			</figure>
 		</div>
-		<!-- <br /> -->
-<!-- 
+		<br />
+ 
 		<select class='btn btn-default' ng-options='mes.name for mes in meses' ng-model='mes'></select> 
 		<select class='btn btn-default' ng-options='ano for ano in anos' ng-model='ano'></select> 
 		<button class='btn btn-primary' type='submit'>Pesquisar</button>
--->
+
 	</form>
 	
-	<!-- <br /> -->
 	<hr>
-	<!-- <br /> -->
 
-
+<!-- 
 	<div class='chart' id="chart_1"> 
 		<div class='box-header'><h2>Alerta DETER: Índice Mensal (em Km²) </h2></div>
 		<mensal></mensal> 
@@ -47,7 +45,7 @@
 	<div class='chart' > 
 		<div class='box-header'><h2>Alerta DETER: Taxa(%) de Nuvens</h2></div>
 		<cloud></cloud> 
-	</div>	
+	</div>	 -->
 
 </div>
 
