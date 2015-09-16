@@ -28,16 +28,16 @@ angular.module('estatisticasApp')
  			anos: anos,
 
 	    	estados: [
-		        { name: 'AC', image: baseUrl + '/AC.png', subtitle: 'AC' },
-		        { name: 'AM', image: baseUrl + '/AM.png', subtitle: 'AM' },
-		        { name: 'AP', image: baseUrl + '/AP.png', subtitle: 'AP' },
-		        { name: 'MA', image: baseUrl + '/MA.png', subtitle: 'MA' },
-		        { name: 'MT', image: baseUrl + '/MT.png', subtitle: 'MT' },
-		        { name: 'PA', image: baseUrl + '/PA.png', subtitle: 'PA' },
-		        { name: 'RO', image: baseUrl + '/RO.png', subtitle: 'RO' },
-		        { name: 'RR', image: baseUrl + '/RR.png', subtitle: 'RR' },
-		        { name: 'TO', image: baseUrl + '/TO.png', subtitle: 'TO' },
-		        { name: 'BR', image: baseUrl + '/BR.png', subtitle: 'Amazônia Legal' }
+		        { name: 'AC', image: baseUrl + '/AC.png', subtitle: 'AC', selected:""},
+		        { name: 'AM', image: baseUrl + '/AM.png', subtitle: 'AM', selected:"" },
+		        { name: 'AP', image: baseUrl + '/AP.png', subtitle: 'AP', selected:"" },
+		        { name: 'MA', image: baseUrl + '/MA.png', subtitle: 'MA', selected:"" },
+		        { name: 'MT', image: baseUrl + '/MT.png', subtitle: 'MT', selected:"" },
+		        { name: 'PA', image: baseUrl + '/PA.png', subtitle: 'PA', selected:"" },
+		        { name: 'RO', image: baseUrl + '/RO.png', subtitle: 'RO', selected:"" },
+		        { name: 'RR', image: baseUrl + '/RR.png', subtitle: 'RR', selected:"" },
+		        { name: 'TO', image: baseUrl + '/TO.png', subtitle: 'TO', selected:"" },
+		        { name: 'BR', image: baseUrl + '/BR.png', subtitle: 'Amazônia Legal', selected:"active" }
 	        ],
 
 	        meses: [
@@ -53,6 +53,10 @@ angular.module('estatisticasApp')
 				{name: 'Outubro', value: 'OUTUBRO'}, 
 				{name: 'Novembro', value: 'NOVEMBRO'}, 
 				{name: 'Dezembro', value: 'DEZEMBRO'}
+	        ],
+
+	        tipos: [
+				{name: 'DETER', value: 'deter'}
 	        ]
  			
  		};

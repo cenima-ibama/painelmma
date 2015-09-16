@@ -1,24 +1,114 @@
 <div id='page'>
+
+	<div class="alert alert-info alert-block fade in message">
+		<button class="close" data-dismiss="alert">×</button>
+		<h4>Importante:</h4>
+		<br>
+		<p>
+		As informações do DETER/INPE devem ser usadas com cuidado, pois este sistema não foi concebido para medição de áreas desmatadas. Informação:
+		<a href="http://www.obt.inpe.br/deter/metodologia_v2.pdf">Metodologia DETER</a>
+		</p>
+	</div>
+
 	<form id='form-chart' ng-submit='changeForm(uf, mes, ano)' class='text-center'>
 		    
+ 		<div class="center filter-select">
+ 			<div class="form-group div-select">
+	 			<label> Mês</label>
+				<select class='btn btn-default form-control' ng-options='mes.name for mes in meses' ng-model='mes'></select> 
+			</div>
+ 			<div class="form-group div-select">
+	 			<label> Ano</label>
+				<select class='btn btn-default form-control' ng-options='ano for ano in anos' ng-model='ano'></select> 
+			</div>
+ 			<div class="form-group div-select">
+	 			<label> Tipo</label>
+				<select class='btn btn-default form-control' ng-options='tipo.name for tipo in tipos' ng-model='tipo'></select> 
+			</div>
+ 			<div class="form-group">
+				<button class='btn btn-primary form-control button-select' type='submit'>Pesquisar</button>	
+			</div>
+		</div>
+
+		<br />
+
 		<div class='center'>
 			<figure class='quick quick-btn' id='selectMap' >
-				<a ng-repeat='ufs in estados' class='item' ng-click='changeClass(this)'  >
+				<a ng-repeat='ufs in estados' class='item {{ufs.selected}}' ng-click='changeClass(ufs)'  >
 					<img id='{{ufs.name}}' href='#' ng-src='{{ufs.image}}' value='{{ufs.name}}'>
 					<span class=''>{{ufs.subtitle}}</span>
 				</a>
 				
  			</figure>
 		</div>
-		<br />
- 
-		<select class='btn btn-default' ng-options='mes.name for mes in meses' ng-model='mes'></select> 
-		<select class='btn btn-default' ng-options='ano for ano in anos' ng-model='ano'></select> 
-		<button class='btn btn-primary' type='submit'>Pesquisar</button>
 
 	</form>
 	
-	<hr>
+	<hr />
+
+	<div class="col-lg-12 chart-div">
+		<line-chart 
+			name='"Alerta DETER: Índice Diário [" + mes.name + "]"' 
+			data="lineChart1"
+			option-but='true'
+			legend='false'>
+		</line-chart>
+
+		<line-chart 
+			name='"Alerta DETER: Índice Mensal (em Km²)"' 
+			data="lineChart2" 
+			add-but="true" 
+			option-but='true'
+			legend='true'
+			vertical-lines='"false"'>
+		</line-chart>
+
+		<bar-chart 
+			name='"Alerta DETER: UFs"' 
+			data="barChart1" 
+			add-but="true"
+			option-but='true'>
+		</bar-chart>
+
+		<line-chart 
+			name='"Taxa PRODES|Alerta DETER: Acumulado Períodos"' 
+			data="lineChart3" 
+			option-but='true'
+			legend='true'>
+		</line-chart>
+
+		<bar-chart 
+			name='"Taxa PRODES|Alerta DETER: UFs [" + prodesAno + "]"' 
+			data="barChart2" 
+			next-prev-but="true"
+			option-but='true'>
+		</bar-chart>
+
+		<line-chart 
+			name='"Alerta DETER: Taxa(%) de Nuvens"' 
+			data="lineChart4" 
+			add-but="true" 
+			option-but='true'
+			legend="true">
+		</line-chart>
+
+		<pie-chart 
+			name='prodesAno' 
+			data="pieChart1" 
+			next-prev-but="true" 
+			option-but='true'
+			size='"small"'
+			legend="true">
+		</pie-chart>
+
+		<pie-chart 
+			name='mes.name.substr(0,3) + ", " + ano' 
+			data="pieChart2" 
+			option-but='true'
+			size='"small"'
+			legend="true">
+		</pie-chart>
+	</div>
 
 <!-- 
 	<div class='chart' id="chart_1"> 

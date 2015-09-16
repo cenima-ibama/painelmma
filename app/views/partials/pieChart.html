@@ -1,0 +1,78 @@
+<div class="{{sizeClass}} panel-default">
+	<div class="panel-heading">
+		<!-- <h2>
+			<div class="header-left">
+				<div class="btn-group btn-group-xs" ng-if="nextPrevBut">
+					<button class="btn btn-default">
+						<span class="glyphicon glyphicon-arrow-left"></span>
+					</button>
+					<button class="btn btn-default">
+						<span class="glyphicon glyphicon-arrow-right"></span>
+					</button>
+				</div>
+				<div class="btn-group btn-group-sm" ng-if="addBut">
+					<button class="btn btn-default">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
+					<button class="btn btn-default">
+						<span class="glyphicon glyphicon-minus"></span>
+					</button>
+				</div>
+				<span class="break" ng-if="addBut"></span>
+				<div class="head-title">{{name}}</div>
+			</div>
+			<div class="btn-group btn-group-sm header-right" ng-if="optionBut">
+				<button class="btn btn-default">
+					<span class="glyphicon glyphicon-list-alt"></span>
+				</button>
+				<button class="btn btn-default">
+					<span class="glyphicon glyphicon-download-alt"></span>
+				</button>
+				<button class="btn btn-default">
+					<span class="glyphicon glyphicon-chevron-up"></span>
+				</button>
+				<button class="btn btn-default">
+					<span class="glyphicon glyphicon-resize-full"></span>
+				</button>
+			</div>
+		</h2> -->
+		<div class="header-left">
+			<div class="btn-group btn-group-sm" ng-if="nextPrevBut">
+				<button class="btn btn-default">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+				<button class="btn btn-default">
+					<span class="glyphicon glyphicon-arrow-right"></span>
+				</button>
+			</div>
+			<div class="btn-group btn-group-sm" ng-if="addBut">
+				<button class="btn btn-default">
+					<span class="glyphicon glyphicon-plus"></span>
+				</button>
+				<button class="btn btn-default">
+					<span class="glyphicon glyphicon-minus"></span>
+				</button>
+			</div>
+			<span class="break" ng-if="addBut || nextPrevBut"></span>
+			<div class="head-title">{{name}}</div>
+		</div>
+		<div class="btn-group btn-group-sm header-right" ng-if="optionBut">
+			<button class="btn btn-default">
+				<span class="glyphicon glyphicon-list-alt"></span>
+			</button>
+			<button class="btn btn-default">
+				<span class="glyphicon glyphicon-download-alt"></span>
+			</button>
+			<button class="btn btn-default">
+				<span class="glyphicon glyphicon-chevron-up"></span>
+			</button>
+			<button class="btn btn-default">
+				<span class="glyphicon glyphicon-resize-full"></span>
+			</button>
+		</div>
+	</div>
+	<div class="panel-body">
+		<canvas class="chart chart-pie chart-stats {{size}}" chart-data="dat" chart-labels="lab" chart-legend="legend">
+		</canvas>
+	</div>
+</div>
