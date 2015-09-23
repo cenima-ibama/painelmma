@@ -29,7 +29,7 @@
 				<button class="btn btn-default glyphicon glyphicon-plus"></button>
 				<button class="btn btn-default glyphicon glyphicon-minus"></button>
 			</div>
-			<span class="break" ng-if="addBut"></span>
+			<span class="break" ng-if="addBut || nextPrevBut"></span>
 			<div class="head-title">{{name}}</div>
 		</div>
 		<div class="btn-group btn-group-sm header-right" ng-if="optionBut">
@@ -40,7 +40,8 @@
 		</div>
 	</div>
 	<div class="panel-body">
-		<canvas class="chart-line chart-stats" chart-data='dat' chart-labels='lab' chart-series='ser' chart-legend='{{legend}}' chart-options="options">
+		<spinner ng-if="loading"></spinner>
+		<canvas class="chart-line chart-stats" chart-data='dat' chart-labels='lab' chart-series='ser' chart-legend='{{legend}}' chart-options="options" ng-if="!loading">
 		</canvas>
 	</div>
 </div>

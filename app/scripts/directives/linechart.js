@@ -20,7 +20,8 @@ angular.module('estatisticasApp')
         optionBut: '=',
         size: '=',
         legend: '=',
-        verticalLines: '='
+        verticalLines: '=',
+        loading: '='
       },
       link: function postLink(scope) {
   			
@@ -29,7 +30,10 @@ angular.module('estatisticasApp')
         scope.options = {
           animationSteps: 3,
           bezierCurve : false,
-          scaleShowVerticalLines: showVerticalLines
+          scaleShowVerticalLines: showVerticalLines,
+          pointDot : false,
+          pointHitDetectionRadius: 5,
+          tooltipTemplate: "<%if (label){%>Dia <%=label%>: <%}%><%= value.toFixed(2) %> Km²",
         };
 
         scope.$watch('line',function(data){

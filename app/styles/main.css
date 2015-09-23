@@ -223,6 +223,7 @@
   /*padding: 23px;*/
   float: left;
   min-height: 92px;
+  max-width: 87px;
 }
 
 .quick-btn .item:hover {

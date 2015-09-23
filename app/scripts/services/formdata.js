@@ -37,26 +37,33 @@ angular.module('estatisticasApp')
 		        { name: 'RO', image: baseUrl + '/RO.png', subtitle: 'RO', selected:"" },
 		        { name: 'RR', image: baseUrl + '/RR.png', subtitle: 'RR', selected:"" },
 		        { name: 'TO', image: baseUrl + '/TO.png', subtitle: 'TO', selected:"" },
-		        { name: 'BR', image: baseUrl + '/BR.png', subtitle: 'Amazônia Legal', selected:"active" }
+		        { name: '', image: baseUrl + '/BR.png', subtitle: 'AML', selected:"active" }
 	        ],
 
 	        meses: [
-				{name: 'Janeiro', value: 'JANEIRO'},
-				{name: 'Fevereiro', value: 'FEVEREIRO'}, 
-				{name: 'Março', value: 'MARCO'},
-				{name: 'Abril', value: 'ABRIL'}, 
-				{name: 'Maio', value: 'MAIO'}, 
-				{name: 'Junho', value: 'JUNHO'}, 
-				{name: 'Julho', value: 'JULHO'}, 
-				{name: 'Agosto', value: 'AGOSTO'}, 
-				{name: 'Setembro', value: 'SETEMBRO'}, 
-				{name: 'Outubro', value: 'OUTUBRO'}, 
-				{name: 'Novembro', value: 'NOVEMBRO'}, 
-				{name: 'Dezembro', value: 'DEZEMBRO'}
+				{name: 'Janeiro', value: '1'},
+				{name: 'Fevereiro', value: '2'}, 
+				{name: 'Março', value: '3'},
+				{name: 'Abril', value: '4'}, 
+				{name: 'Maio', value: '5'}, 
+				{name: 'Junho', value: '6'}, 
+				{name: 'Julho', value: '7'}, 
+				{name: 'Agosto', value: '8'}, 
+				{name: 'Setembro', value: '9'}, 
+				{name: 'Outubro', value: '10'}, 
+				{name: 'Novembro', value: '11'}, 
+				{name: 'Dezembro', value: '12'}
 	        ],
 
 	        tipos: [
-				{name: 'DETER', value: 'deter'}
+				{name: 'Dados DETER', value: 'DETER'},
+				{name: 'Dados AWiFS', value: 'AWiFS'}
+	        ],
+
+	        estagios: [
+				{name: 'Degradacao', value: 'degradacao'},
+				{name: 'Desmatamento', value: 'desmatamento'},
+				{name: 'Cicatriz de Fogo', value: 'cicatriz'}
 	        ]
  			
  		};

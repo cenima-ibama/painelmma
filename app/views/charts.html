@@ -10,7 +10,7 @@
 		</p>
 	</div>
 
-	<form id='form-chart' ng-submit='changeForm(uf, mes, ano)' class='text-center'>
+	<form id='form-chart' ng-submit='filter(estado, mes, ano, tipo,estagio)' class='text-center'>
 		    
  		<div class="center filter-select">
  			<div class="form-group div-select">
@@ -24,6 +24,10 @@
  			<div class="form-group div-select">
 	 			<label> Tipo</label>
 				<select class='btn btn-default form-control' ng-options='tipo.name for tipo in tipos' ng-model='tipo'></select> 
+			</div>
+ 			<div class="form-group div-select">
+	 			<label> Estagio</label>
+				<select class='btn btn-default form-control' ng-options='estagio.name for estagio in estagios' ng-model='estagio'></select> 
 			</div>
  			<div class="form-group">
 				<button class='btn btn-primary form-control button-select' type='submit'>Pesquisar</button>	
@@ -51,7 +55,8 @@
 			name='"Alerta DETER: Índice Diário [" + mes.name + "]"' 
 			data="lineChart1"
 			option-but='true'
-			legend='false'>
+			legend='false'
+			loading='loadingChart1'>
 		</line-chart>
 
 		<line-chart 
