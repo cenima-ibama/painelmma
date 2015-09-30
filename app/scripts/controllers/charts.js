@@ -23,7 +23,7 @@ angular.module('estatisticasApp')
     $scope.mes = $scope.meses[new Date().getMonth()];
     $scope.ano = new Date().getFullYear();
     $scope.tipo = $scope.tipos.filter(function(a){if(a.value=='DETER')return a})[0];
-    $scope.estagio =  $scope.estagios.filter(function(a){if(a.value=='degradacao')return a})[0];
+    $scope.estagio = $scope.estagios.filter(function(a){if(a.value=='deter_modis')return a})[0];
     $scope.estado = '';
 
 
@@ -51,14 +51,78 @@ angular.module('estatisticasApp')
     };
 
 
-    var restResult;
+    var restChart1, restChart2;
+
+
+    $scope.getProperStage = function(key){
+      switch(key){
+        case 'degradacao':
+          return "Degradação";
+        case 'cicatriz_queimada':
+          return 'Cicatriz de Queimada';
+        case 'corte_raso':
+          return 'Corte Raso';
+        case 'mineracao':
+          return 'Mineração';
+        default:
+          return key;
+      }
+    }
+
+    $scope.fillLineObject = function(obj, data, labels, labelField, series, serieField){
+
+      var sum = 0;
+      var ele = 0;
+
+      obj.labels = labels;
+
+      if (!series) {
+        angular.forEach(data,function(value, key){
+          while (labels[ele] < value[labelField]) {
+            obj.data[0].push(sum);
+            ele++;  
+          }
+          sum += value.total;
+          obj.data[0].push(sum);
+          ele++;  
+        });
+
+        while(labels[ele] <= labels[labels.length - 1]) {
+          obj.data[0].push(sum);
+          ele++
+        }
+      } else {
+        angular.forEach(data, function(value,seriekey) {
+          obj.data[seriekey] = [0,0,0,0,0,0,0,0,0,0,0,0];
+          angular.forEach(value.data,function(value, labelkey){
+            obj.data[seriekey][value.mesid - 1] = value.total; 
+          });
+
+          for(var i=0;i<7;i++) obj.data[seriekey].push(obj.data[seriekey].shift());
+
+        });
+
+        obj.series = series;
+      }
+
+      return obj;
+    }
+
+    $scope.relabel = function(object, newLabels) {
+      object.labels = newLabels;
+      return object;
+    }
 
     $scope.filter = function(estado,mes,ano,tipo,estagio) {
+
+      var tipo_filtrado = (estagio != 'Degradação + Corte Raso' && tipo.value == 'DETER') ? 'DETER_QUALIF' : tipo.value;
+      var estagio_filtrado = (estagio == 'Degradação + Corte Raso') ? '' : $scope.getProperStage(estagio);
+
       $scope.loadingChart1 = true;
+      $scope.loadingChart2 = true;
       // console.log(estado + ', ' + mes.value + ', ' + ano + ', ' + tipo.value + ', ' + estagio.value);
-      restResult = RestApi.query({type:'diario', uf: $scope.estado, ano: $scope.ano, mes: $scope.mes.value, tipo: $scope.tipo.value}, function success(data,status){
+      restChart1 = RestApi.query({type:'diario', uf: $scope.estado, ano: $scope.ano, mes: $scope.mes.value, tipo: tipo_filtrado, estagio: estagio_filtrado}, function success(data,status){
     
-        // if (data[0].data.length) {
           var ret = {};
           ret.labels = [];
           ret.data = [];
@@ -70,37 +134,54 @@ angular.module('estatisticasApp')
           });
 
           var lastDay = new Date($scope.ano,($scope.mes.value),0).getDate();
+          var labels = [];
 
           for ( var i = 1; i <= lastDay; i++) {
-            ret.labels.push(i);
+            labels.push(i);
           };
 
-          var sum = 0;
-          var ele = 1;
+          var returnedObject = $scope.fillLineObject(ret, data[0].data, labels, 'dia');
+          $scope.lineChart1 = returnedObject; 
 
-          angular.forEach(data[0].data,function(value, key){
-            while (ele < value.dia) {
-              ret.data[0].push(sum);
-              ele++;  
-            }
-            sum += value.total;
-            ret.data[0].push(sum);
-            ele++;  
-          });
 
-          // while((ele <= lastDay) && (new Date().setDate(ele) <= $rootScope.today.setUTCHours(23))) {
-          while(ele <= lastDay) {
-            ret.data[0].push(sum);
-            ele++
-          }
-
-          $scope.lineChart1 = ret;
-        // }
       }).$promise;
 
-      restResult.then(function(){
+      restChart2 = RestApi.query({type:'mensal', uf: $scope.estado, ano: $scope.ano, tipo: tipo_filtrado, estagio: estagio_filtrado}, function success(data,status){
+    
+          var ret = {};
+          ret.labels = [];
+          ret.data = [];
+          ret.data[0] = [];
+
+
+          data[0].data.sort(function(a,b){
+            return a.dia-b.dia;
+          });
+
+          var lastDay = new Date($scope.ano,($scope.mes.value),0).getDate();
+          // var labels = [1,2,3,4,5,6,7,8,9,10,11,12];
+          var series = [];
+
+          angular.forEach(data, function(value,key){
+            if (series.indexOf(value.periodo) == -1) {
+              series.push(value.periodo);
+            }
+          });
+
+          var returnedObject = $scope.fillLineObject(ret, data, null, 'mesid', series,'periodo');
+          $scope.lineChart2 = $scope.relabel(returnedObject,['Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai','Jun','Jul']);
+
+
+      }).$promise;
+
+      restChart1.then(function(){
         $scope.loadingChart1 = false;
-      })
+      });
+      restChart2.then(function(){
+        $scope.loadingChart2 = false;
+      });
+
+
     };
 
 
@@ -119,7 +200,7 @@ angular.module('estatisticasApp')
     // });
 
     
-    $scope.filter($scope.estado,$scope.mes,$scope.ano,$scope.tipo,$scope.estagio);
+    $scope.filter($scope.estado,$scope.mes,$scope.ano,$scope.tipo,$scope.estagio.name);
 
     // $scope.$on('load_public_diary', function(event, data){
     //   $rootScope.indiceMensal = data;

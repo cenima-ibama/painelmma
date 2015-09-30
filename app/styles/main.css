@@ -37,6 +37,10 @@
   border-radius: 0;
 }
 
+.chart-default {
+  max-width: 50%;
+}
+
 .chart-div {
   text-align: left;
 }
