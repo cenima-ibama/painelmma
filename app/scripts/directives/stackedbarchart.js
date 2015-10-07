@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc directive
- * @name estatisticasApp.directive:barChart
+ * @name estatisticasApp.directive:stackedBarChart
  * @description
- * # barChart
+ * # stackedBarChart
  */
 angular.module('estatisticasApp')
-  .directive('barChart', function () {
+  .directive('stackedBarChart', function () {
     return {
-      templateUrl: 'views/partials/barChart.html',
+      templateUrl: 'views/partials/stackedBarChart.html',
       restrict: 'E',
       replace: true,
       scope: {
@@ -27,11 +27,11 @@ angular.module('estatisticasApp')
 
         var showVerticalLines = 'true' || scope.verticalLines;
 
-        scope.options = {
-          animationSteps: 2,
-          bezierCurve : false,
-          scaleShowVerticalLines: showVerticalLines
-        };
+        // scope.options = {
+        //   animationSteps: 2,
+        //   bezierCurve : false,
+        //   scaleShowVerticalLines: showVerticalLines
+        // };
 
         scope.$watch('bar',function(data){
 

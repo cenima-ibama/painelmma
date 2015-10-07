@@ -41,7 +41,7 @@
 	</div>
 	<div class="panel-body">
 		<spinner ng-if="loading"></spinner>
-		<canvas class="chart-bar chart-stats" chart-data='dat' chart-labels='lab' chart-series='ser' chart-legend='{{legend}}' chart-options="options" ng-if="!loading">
+		<canvas class="chart chart-base chart-stats" chart-type="StackedBar" data='dat' labels='lab'>
 		</canvas>
 	</div>
 </div>

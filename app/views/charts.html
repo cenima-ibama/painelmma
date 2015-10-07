@@ -10,7 +10,7 @@
 		</p>
 	</div>
 
-	<form id='form-chart' ng-submit='filter(estado, mes, ano, tipo,estagio)' class='text-center'>
+	<form id='form-chart' ng-submit='filter(estado, mes, ano, tipo, estagio)' class='text-center'>
 		    
  		<div class="center filter-select">
  			<div class="form-group div-select">
@@ -58,7 +58,7 @@
 			data="lineChart1"
 			option-but='true'
 			legend='false'
-			loading='loadingChart1'>
+			loading='loadingLineChart1'>
 		</line-chart>
 
 		<line-chart 
@@ -68,14 +68,31 @@
 			option-but='true'
 			legend='true'
 			vertical-lines='"false"'
-			loading='loadingChart2'>
+			loading='loadingLineChart2'>
 		</line-chart>
+<!-- 
+		TODO: MAKE STACKED BAR TO WORK
+		<stacked-bar-chart
+			name='"Alerta DETER: Índice Períodos"' 
+			data="stackedBarChart1" 
+			add-but="true"
+			option-but='true'>
+		</stacked-bar-chart> -->
+
+		<bar-chart
+			name='"Alerta DETER: Índice Períodos"' 
+			data="barChart1" 
+			add-but="true"
+			option-but='true'
+			loading='loadingBarChart1'>
+		</bar-chart> 
 
 		<bar-chart 
 			name='"Alerta DETER: UFs"' 
-			data="barChart1" 
+			data="barChart2" 
 			add-but="true"
-			option-but='true'>
+			option-but='true'
+			loading='loadingBarChart2'>
 		</bar-chart>
 
 		<line-chart 
