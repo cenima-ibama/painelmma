@@ -26,7 +26,14 @@ angular.module('estatisticasApp')
     $scope.estagio = $scope.estagios.filter(function(a){if(a.value=='deter_modis')return a})[0];
     $scope.estado = '';
 
-    $scope.lastFilter = {'mes': $scope.mes,'ano': $scope.ano,'tipo': $scope.tipo,'estagio': $scope.estagio,'estado': $scope.estado};
+
+    var estado = $scope.estado == '' ? 'AML' : $scope.estado
+
+    // $scope.chart1Title = "Alerta " + $scope.tipo.value + ": Índice Diário [" + $scope.mes.name + " / " + $scope.ano + " / " + $scope.estagio.name + " / " + estado + "]";
+    // $scope.chart2Title = "Alerta " + $scope.tipo.value + ": Índice Mensal em Km² [" + $scope.ano + " / " + $scope.estagio.name + "]";
+    // $scope.chart3Title = "Alerta DETER: Índice Diário [" + $scope.mes.name + "]";
+    // $scope.chart4Title = "Alerta DETER: Índice Diário [" + $scope.mes.name + "]";
+    // $scope.chart5Title = "Alerta DETER: Índice Diário [" + $scope.mes.name + "]";
 
 
     $scope.prodesAno = $scope.mes > 6 ? $scope.ano + "-" ($scope.ano + 1).toString.substr(2) : ($scope.ano - 1) + "-" + $scope.ano.toString().substr(2);
@@ -53,7 +60,7 @@ angular.module('estatisticasApp')
     };
 
 
-    var restChart1, restChart2, restChart3, restChart4;
+    var restChart1, restChart2, restChart3, restChart4, restChart5;
 
 
     $scope.getProperStage = function(key){
@@ -96,15 +103,14 @@ angular.module('estatisticasApp')
       } else {
         angular.forEach(data, function(value,seriekey) {
           // TODO: specific code, make it general
-          obj.data[seriekey] = [0,0,0,0,0,0,0,0,0,0,0,0];
+          // obj.data[seriekey] = [0,0,0,0,0,0,0,0,0,0,0,0];
+          obj.data[seriekey] = labels.map(function(a){return 0});
           angular.forEach(value.data,function(value, labelkey){
             // TODO: specific code, make it general
-            obj.data[seriekey][value[labelField] - 1] = value.total; 
+            // obj.data[seriekey][value[labelField] - 1] = value.total; 
+            var lab = obj.labels.indexOf(value[labelField]);
+            obj.data[seriekey][lab] = value.total; 
           });
-
-          // TODO: specific code, make it general
-          for(var i=0;i<7;i++) obj.data[seriekey].push(obj.data[seriekey].shift());
-
         });
 
         obj.series = series;
@@ -144,8 +150,6 @@ angular.module('estatisticasApp')
             obj.data[seriekey][lab] = value.total; 
           });
 
-          // for(var i=0;i<7;i++) obj.data[seriekey].push(obj.data[seriekey].shift());
-
         });
 
         obj.series = series;
@@ -161,17 +165,16 @@ angular.module('estatisticasApp')
 
     $scope.filter = function(estado,mes,ano,tipo,estagio) {
 
-      // lastFilter = {};
 
-
-      var tipo_filtrado = (estagio != 'Degradação + Corte Raso' && tipo.value == 'DETER') ? 'DETER_QUALIF' : tipo.value;
-      var estagio_filtrado = (estagio == 'Degradação + Corte Raso') ? '' : $scope.getProperStage(estagio);
+      var tipo_filtrado = (estagio.name != 'Degradação + Corte Raso' && tipo.value == 'DETER') ? 'DETER_QUALIF' : tipo.value;
+      var estagio_filtrado = (estagio.name == 'Degradação + Corte Raso') ? '' : $scope.getProperStage(estagio.name);
 
       $scope.loadingLineChart1 = true;
       $scope.loadingLineChart2 = true;
       $scope.loadingBarChart1 = true;
       $scope.loadingBarChart2 = true;
-      // console.log(estado + ', ' + mes.value + ', ' + ano + ', ' + tipo.value + ', ' + estagio.value);
+      $scope.loadingLineChart3 = true;
+
       restChart1 = RestApi.query({type:'diario', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()}, function success(data,status){
     
           var ret = {};
@@ -210,7 +213,7 @@ angular.module('estatisticasApp')
           // });
 
           var lastDay = new Date($scope.ano,($scope.mes.value),0).getDate();
-          // var labels = [1,2,3,4,5,6,7,8,9,10,11,12];
+          var labels = [8,9,10,11,12,1,2,3,4,5,6,7];
           var series = [];
 
           angular.forEach(data, function(value,key){
@@ -219,7 +222,11 @@ angular.module('estatisticasApp')
             }
           });
 
-          var returnedObject = $scope.fillLineObject(ret, data, null, 'mes_id', series,'periodo');
+          var returnedObject = $scope.fillLineObject(ret, data, labels, 'mes_id', series,'periodo');
+
+          // returnedObject.data[seriekey].shift()
+          // for(var i=0;i<7;i++) returnedObject.data[seriekey].push(returnedObject.data[seriekey].shift());
+
           $scope.lineChart2 = $scope.relabel(returnedObject,['Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai','Jun','Jul']);
 
 
@@ -242,19 +249,19 @@ angular.module('estatisticasApp')
           var series = [];
 
           angular.forEach(data, function(value,key){
-            if (series.indexOf(value.periodo) == -1) {
-              series.push(value.periodo);
+            if (series.indexOf(value.tipo) == -1) {
+              series.push(value.tipo);
             }
             angular.forEach(value.data, function(v,k){
-              if (labels.indexOf(v.estado) == -1) {
-                labels.push(v.estado);
+              if (labels.indexOf(v.periodo) == -1) {
+                labels.push(v.periodo);
               }
             });
           });
 
           labels.sort(function(a,b){return a-b});
 
-          var returnedObject = $scope.fillBarObject(ret, data, labels, 'estado', series,'periodo');
+          var returnedObject = $scope.fillBarObject(ret, data, labels, 'periodo', series,'tipo');
           $scope.barChart1 = returnedObject;
 
 
@@ -295,17 +302,67 @@ angular.module('estatisticasApp')
 
       }).$promise;
 
+      restChart5 = RestApi.query({type:'acumulado', uf: $scope.estado.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()}, function success(data,status){
+    
+          var ret = {};
+          ret.labels = [];
+          ret.data = [];
+          ret.data[0] = [];
+          var labels = [];
+
+          var lastDay = new Date($scope.ano,($scope.mes.value),0).getDate();
+
+          var series = [];
+
+          angular.forEach(data, function(value,key){
+            if (series.indexOf(value.taxa) == -1) {
+              series.push(value.taxa);
+            }
+            angular.forEach(value.data, function(v,k){
+              if (labels.indexOf(v.periodo_prodes) == -1) {
+                labels.push(v.periodo_prodes);
+              }
+            });
+          });
+
+          labels.sort(function(a,b){return a>b});
+
+          var returnedObject = $scope.fillLineObject(ret, data, labels, 'periodo_prodes', series,'taxa');
+          $scope.lineChart3 = returnedObject;
+
+
+      }).$promise;
+
       restChart1.then(function(){
         $scope.loadingLineChart1 = false;
+
+        var estado = $scope.estado == '' ? 'AML' : $scope.estado
+        $scope.chart1Title = "Alerta " + $scope.tipo.value + ": Índice Diário [" + $scope.mes.name + "/" + $scope.ano + "/" + $scope.estagio.name.replace(/\s/g,'') + "/" + estado + "]";
       });
       restChart2.then(function(){
         $scope.loadingLineChart2 = false;
+
+        var estado = $scope.estado == '' ? 'AML' : $scope.estado
+        $scope.chart2Title = "Alerta " + $scope.tipo.value + ": Índice Mensal em Km² [" + $scope.ano + "/" + $scope.estagio.name.replace(/\s/g,'') + "/" + estado + "]";
+        // $scope.chart2Title = "Alerta " + $scope.tipo.value +": Índice Diário [" + $scope.mes.name + " - " + $scope.ano + " - " + $scope.estagio.name + "]";
       });
       restChart3.then(function(){
         $scope.loadingBarChart1 = false;
+
+        var estado = $scope.estado == '' ? 'AML' : $scope.estado
+        $scope.chart3Title = "Alerta " + $scope.tipo.value + ": Índice Períodos [" + $scope.mes.name + "/" + $scope.ano + "/" + $scope.estagio.name.replace(/\s/g,'') + "/" + estado + "]";
       });
       restChart4.then(function(){
         $scope.loadingBarChart2 = false;
+
+        var estado = $scope.estado == '' ? 'AML' : $scope.estado
+        $scope.chart4Title = "Alerta " + $scope.tipo.value + ": UFs [" + $scope.mes.name + "/"  + $scope.ano + "/" + $scope.estagio.name.replace(/\s/g,'') + "]";
+      });
+      restChart5.then(function(){
+        $scope.loadingLineChart3 = false;
+
+        var estado = $scope.estado == '' ? 'AML' : $scope.estado
+        $scope.chart5Title = "PRODES | DETER | AWIFS: Acumulado Períodos [" + estado + "]";
       });
 
     };
@@ -313,7 +370,7 @@ angular.module('estatisticasApp')
 
     // $scope.lineChart1 = {'labels':['2008','2009','2010','2011','2012','2013','2014','2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87']]};
     // $scope.lineChart2 = {'labels':['2008','2009','2010','2011','2012','2013','2014','2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87'],['240.92','94.32','3.78','1149.32','150.42','390.89','681.95','7.85']], 'series':['2014-2015','2013-2014']};
-    $scope.lineChart3 = {'labels':['2007-2008','2008-2009','2009-2010','2010-2011','2011-2012','2012-2013','2013-2014','2014-2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87'],['240.92','94.32','3.78','1149.32','150.42','390.89','681.95','7.85']], 'series':['2014-2015','2013-2014']};
+    // $scope.lineChart3 = {'labels':['2007-2008','2008-2009','2009-2010','2010-2011','2011-2012','2012-2013','2013-2014','2014-2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87'],['240.92','94.32','3.78','1149.32','150.42','390.89','681.95','7.85']], 'series':['2014-2015','2013-2014']};
     $scope.lineChart4 = {'labels':['2008','2009','2010','2011','2012','2013','2014','2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87'],['240.92','94.32','3.78','1149.32','150.42','390.89','681.95','7.85']], 'series':['2014-2015','2013-2014']};
 
 
@@ -329,48 +386,7 @@ angular.module('estatisticasApp')
     // });
 
     
-    $scope.filter($scope.estado,$scope.mes,$scope.ano,$scope.tipo,$scope.estagio.name);
-
-    // $scope.$on('load_public_diary', function(event, data){
-    //   $rootScope.indiceMensal = data;
-    //   $rootScope.$broadcast('sincronoProdes', data);
-    //   $rootScope.$broadcast('chart_1', data.BR);
-    // });
-
-    // $scope.$on('load_public_prodes', function(event, data){
-    //   var dado = new Object;
-    //   dado.estados = data.estadosProdes.br;
-    //   dado.labels = data.labelsProdes;
-    //   dado.prodes = data.acumuladoDeter.BR;
-
-    //   $rootScope.$broadcast('chart_2', dado);
-    //   $rootScope.dadosProdes = data;
-
-    // });
-    
-    // $scope.$on('load_prodes_uf', function(event, data){
-    //   var dado = new Object;
-    //   dado.acumuladoDeter = data.acumuladoDeter;
-    //   dado.acumuladoProdes = data.acumuladoProdes;
-    //   dado.acumuladoDeterAno = data.acumuladoDeterAno;
-
-    //   $rootScope.$broadcast('chart_3', dado);
-    // });
-
-
-    // $scope.changeClass = function(item){
-    //   var state = item.$$watchers[1].last;
-    //   var data = $scope.indiceMensal[state];
-    //   var stateLower = state.toLowerCase();
-    //   var dadoProdes = {};
-
-    //   dadoProdes.estados = $scope.dadosProdes.estadosProdes[stateLower];
-    //   dadoProdes.labels = $scope.dadosProdes.labelsProdes;
-    //   dadoProdes.prodes = $scope.dadosProdes.acumuladoDeter[state];
-
-    //   $rootScope.$broadcast('chart_1', data);
-    //   $rootScope.$broadcast('chart_2', dadoProdes);
-    // }
+    $scope.filter($scope.estado,$scope.mes,$scope.ano,$scope.tipo,$scope.estagio);
 
   });
 
