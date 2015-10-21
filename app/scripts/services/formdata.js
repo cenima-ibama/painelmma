@@ -61,11 +61,11 @@ angular.module('estatisticasApp')
 	        ],
 
 	        estagios: [
-				{name: 'Degradação + Corte Raso', value: 'deter_modis', type:['DETER']},
-				{name: 'Degradação', value: 'degradacao', type:['AWIFS','DETER']},
 				{name: 'Corte Raso', value: 'corte_raso', type:['AWIFS','DETER']},
+				{name: 'Degradação', value: 'degradacao', type:['AWIFS','DETER']},
 				{name: 'Cicatriz de Queimada', value: 'cicatriz_queimada', type:['AWIFS','DETER']},
-				{name: 'Mineração', value: 'mineracao', type:['AWIFS']}
+				{name: 'Mineração', value: 'mineracao', type:['AWIFS']},
+				{name: 'Degradação + Corte Raso', value: 'deter_modis', type:['DETER']}
 	        ]
  			
  		};

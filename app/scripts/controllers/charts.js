@@ -23,8 +23,10 @@ angular.module('estatisticasApp')
     $scope.mes = $scope.meses[new Date().getMonth()];
     $scope.ano = new Date().getFullYear();
     $scope.tipo = $scope.tipos.filter(function(a){if(a.value=='DETER')return a})[0];
-    $scope.estagio = $scope.estagios.filter(function(a){if(a.value=='deter_modis')return a})[0];
+    $scope.estagio = $scope.estagios.filter(function(a){if(a.value=='corte_raso')return a})[0];
     $scope.estado = '';
+
+    $(".quick.quick-btn").hide()
 
 
     var estado = $scope.estado == '' ? 'AML' : $scope.estado
@@ -59,8 +61,27 @@ angular.module('estatisticasApp')
       });
     };
 
+    $scope.evaluateStage = function(stage, tipo) {
 
-    var restChart1, restChart2, restChart3, restChart4, restChart5;
+      if(stage == 'deter_modis' || tipo != 'DETER'){
+        $(".quick.quick-btn").show()
+      } else {
+        $(".quick.quick-btn").hide()
+        $scope.changeClass($scope.estados.filter(function(a){if(a.name == '') return a})[0])
+      }
+
+    }
+
+    // $scope.disableStates = function() {
+    //   $(".quick.quick-btn").hide()
+    // };
+    // $scope.enableStates = function() {
+    //   $(".quick.quick-btn").show()
+    // };
+
+
+
+    var restChart1, restChart2, restChart3, restChart4, restChart5, restChart6, restChart7;
 
 
     $scope.getProperStage = function(key){
@@ -174,6 +195,8 @@ angular.module('estatisticasApp')
       $scope.loadingBarChart1 = true;
       $scope.loadingBarChart2 = true;
       $scope.loadingLineChart3 = true;
+      $scope.loadingBarChart3 = true;
+      $scope.loadingLineChart4 = true;
 
       restChart1 = RestApi.query({type:'diario', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()}, function success(data,status){
     
@@ -275,7 +298,7 @@ angular.module('estatisticasApp')
           ret.data[0] = [];
           var labels = [];
 
-          var lastDay = new Date($scope.ano,($scope.mes.value),0).getDate();
+          // var lastDay = new Date($scope.ano,($scope.mes.value),0).getDate();
           if ($scope.estado != '')
             labels.push($scope.estado.trim());
           else 
@@ -333,36 +356,106 @@ angular.module('estatisticasApp')
 
       }).$promise;
 
+      restChart6 = RestApi.query({type:'uf_comparativo', ano: $scope.ano, mes: $scope.mes.value.trim(), uf: $scope.estado.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()}, function success(data,status){
+    
+          var ret = {};
+          ret.labels = [];
+          ret.data = [];
+          ret.data[0] = [];
+          var labels = [];
+
+          if ($scope.estado != '')
+            labels.push($scope.estado.trim());
+          else 
+            labels = ['AC','AM','AP','MA','MT','PA','RO','RR','TO'];
+
+          var series = [];
+
+          angular.forEach(data, function(value,key){
+            if (series.indexOf(value.taxa) == -1) {
+              series.push(value.taxa);
+            }
+            // angular.forEach(value.data, function(v,k){
+            //   if (labels.indexOf(v.periodo_prodes) == -1) {
+            //     labels.push(v.periodo_prodes);
+            //   }
+            // });
+          });
+
+          labels.sort(function(a,b){return a>b});
+
+          var returnedObject = $scope.fillBarObject(ret, data, labels, 'estado', series,'taxa');
+          $scope.barChart3 = returnedObject;
+
+
+      }).$promise;
+
+      restChart7 = RestApi.query({type:'nuvens', ano: $scope.ano, mes: $scope.mes.value.trim(), uf: $scope.estado.trim()}, function success(data,status){
+    
+          var ret = {};
+          ret.labels = [];
+          ret.data = [];
+          ret.data[0] = [];
+          var labels = [];
+
+          var labels = [8,9,10,11,12,1,2,3,4,5,6,7];
+
+          var series = [];
+
+          angular.forEach(data, function(value,key){
+            if (series.indexOf(value.taxa) == -1) {
+              series.push(value.taxa);
+            }
+          });
+
+          var returnedObject = $scope.fillLineObject(ret, data, labels, 'mes', series,'taxa');
+          $scope.lineChart4 = $scope.relabel(returnedObject,['Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai','Jun','Jul']);
+
+
+      }).$promise;
+
       restChart1.then(function(){
         $scope.loadingLineChart1 = false;
 
         var estado = $scope.estado == '' ? 'AML' : $scope.estado
-        $scope.chart1Title = "Alerta " + $scope.tipo.value + ": Índice Diário [" + $scope.mes.name + "/" + $scope.ano + "/" + $scope.estagio.name.replace(/\s/g,'') + "/" + estado + "]";
+        $scope.chart1Title = 'Alerta ' + $scope.tipo.value + ": Índice Diário [Filtros: " + $scope.mes.name + " / " + $scope.ano + " / " + $scope.estagio.name.replace(/\s\+\s/g,'+') + " / " + estado + "]";
       });
       restChart2.then(function(){
         $scope.loadingLineChart2 = false;
 
         var estado = $scope.estado == '' ? 'AML' : $scope.estado
-        $scope.chart2Title = "Alerta " + $scope.tipo.value + ": Índice Mensal em Km² [" + $scope.ano + "/" + $scope.estagio.name.replace(/\s/g,'') + "/" + estado + "]";
+        $scope.chart2Title = 'Alerta ' + $scope.tipo.value + ": Índice Mensal em Km² [Filtros: " + $scope.ano + " / " + $scope.estagio.name.replace(/\s\+\s/g,'+') + " / " + estado + "]";
         // $scope.chart2Title = "Alerta " + $scope.tipo.value +": Índice Diário [" + $scope.mes.name + " - " + $scope.ano + " - " + $scope.estagio.name + "]";
       });
       restChart3.then(function(){
         $scope.loadingBarChart1 = false;
 
         var estado = $scope.estado == '' ? 'AML' : $scope.estado
-        $scope.chart3Title = "Alerta " + $scope.tipo.value + ": Índice Períodos [" + $scope.mes.name + "/" + $scope.ano + "/" + $scope.estagio.name.replace(/\s/g,'') + "/" + estado + "]";
+        $scope.chart3Title = 'Alerta ' + $scope.tipo.value + ": Índice Períodos [Filtros: " + $scope.mes.name + " / " + $scope.estagio.name.replace(/\s\+\s/g,'+') + " / " + estado + "]";
       });
       restChart4.then(function(){
         $scope.loadingBarChart2 = false;
 
         var estado = $scope.estado == '' ? 'AML' : $scope.estado
-        $scope.chart4Title = "Alerta " + $scope.tipo.value + ": UFs [" + $scope.mes.name + "/"  + $scope.ano + "/" + $scope.estagio.name.replace(/\s/g,'') + "]";
+        $scope.chart4Title = 'Alerta ' + $scope.tipo.value + ": UFs [Filtros: " + $scope.mes.name + " / "  + $scope.ano + " / " + $scope.estagio.name.replace(/\s\+\s/g,'+') + " / " + estado + "]";
       });
       restChart5.then(function(){
         $scope.loadingLineChart3 = false;
 
         var estado = $scope.estado == '' ? 'AML' : $scope.estado
-        $scope.chart5Title = "PRODES | DETER | AWIFS: Acumulado Períodos [" + estado + "]";
+        $scope.chart5Title = "Taxa PRODES | Alerta DETER | Alerta AWIFS: Acumulado Períodos [Filtros: " + estado + "]";
+      });
+      restChart6.then(function(){
+        $scope.loadingBarChart3 = false;
+
+        var estado = $scope.estado == '' ? 'AML' : $scope.estado
+        // "Taxa PRODES|Alerta DETER: UFs [" + prodesAno + "]"
+        $scope.chart6Title = "Taxa PRODES | Alerta DETER | Alerta AWIFS: UFs [Filtros: 2014-2015 / " + estado + "]";
+      });
+      restChart7.then(function(){
+        $scope.loadingLineChart4 = false;
+
+        $scope.chart7Title = "Alerta DETER: Taxa(%) de Nuvens";
       });
 
     };
@@ -371,7 +464,7 @@ angular.module('estatisticasApp')
     // $scope.lineChart1 = {'labels':['2008','2009','2010','2011','2012','2013','2014','2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87']]};
     // $scope.lineChart2 = {'labels':['2008','2009','2010','2011','2012','2013','2014','2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87'],['240.92','94.32','3.78','1149.32','150.42','390.89','681.95','7.85']], 'series':['2014-2015','2013-2014']};
     // $scope.lineChart3 = {'labels':['2007-2008','2008-2009','2009-2010','2010-2011','2011-2012','2012-2013','2013-2014','2014-2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87'],['240.92','94.32','3.78','1149.32','150.42','390.89','681.95','7.85']], 'series':['2014-2015','2013-2014']};
-    $scope.lineChart4 = {'labels':['2008','2009','2010','2011','2012','2013','2014','2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87'],['240.92','94.32','3.78','1149.32','150.42','390.89','681.95','7.85']], 'series':['2014-2015','2013-2014']};
+    // $scope.lineChart4 = {'labels':['2008','2009','2010','2011','2012','2013','2014','2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87'],['240.92','94.32','3.78','1149.32','150.42','390.89','681.95','7.85']], 'series':['2014-2015','2013-2014']};
 
 
     // $scope.stackedBarChart1 = {'labels':['2008','2009','2010','2011','2012','2013','2014','2015'],'data':[['94.32','240.92','3.78','150.42','1149.32','681.95','390.89','152.87'],['240.92','94.32','3.78','1149.32','390.89','681.95','7.85','152.87']], 'series':['Alerta DETER','Taxa TESTE']};

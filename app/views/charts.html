@@ -23,11 +23,11 @@
 			</div>
  			<div class="form-group div-select">
 	 			<label> Tipo</label>
-				<select class='btn btn-default form-control' ng-options='tipo.name for tipo in tipos' ng-model='tipo'></select> 
+				<select class='btn btn-default form-control' ng-options='tipo.name for tipo in tipos' ng-model='tipo' ng-change='evaluateStage(estagio.value, tipo.value)'></select> 
 			</div>
  			<div class="form-group div-select">
 	 			<label> Estagio</label>
-				<select class='btn btn-default form-control' ng-model="estagio" ng-options="estagio.name for estagio in estagios | filter: {type: tipo.value}">
+				<select class='btn btn-default form-control' ng-model="estagio" ng-options="estagio.name for estagio in estagios | filter: {type: tipo.value}" ng-change='evaluateStage(estagio.value, tipo.value)'>
 					<!-- <option ng-repeat="estagio in estagios | filter: {type: tipo.value}" ng-selected="{{$first}}">{{estagio.name}}</option> -->
 				</select> 
 			</div>
@@ -99,22 +99,26 @@
 			name='chart5Title' 
 			data="lineChart3" 
 			option-but='true'
-			legend='true'>
+			legend='true'
+			loading='loadingLineChart3'>
 		</line-chart>
 
 		<bar-chart 
-			name='"Taxa PRODES|Alerta DETER: UFs [" + prodesAno + "]"' 
-			data="barChart2" 
+			name='chart6Title' 
+			data="barChart3" 
 			next-prev-but="true"
-			option-but='true'>
+			option-but='true'
+			loading='loadingBarChart3'
+			legend="true">
 		</bar-chart>
 
 		<line-chart 
-			name='"Alerta DETER: Taxa(%) de Nuvens"' 
+			name='chart7Title' 
 			data="lineChart4" 
 			add-but="true" 
 			option-but='true'
-			legend="true">
+			legend="true"
+			loading='loadingLineChart4'>
 		</line-chart>
 
 		<pie-chart 
