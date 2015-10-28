@@ -54,21 +54,21 @@
 
 	<div class="col-lg-12 chart-div">
 		<line-chart 
-			name='chart1Title' 
-			data="lineChart1"
+			name='chart1.title' 
+			data="chart1.data"
 			option-but='true'
 			legend='false'
-			loading='loadingLineChart1'>
+			loading='chart1.loading'>
 		</line-chart>
 
 		<line-chart 
-			name='chart2Title' 
-			data="lineChart2" 
+			name='chart2.title' 
+			data="chart2.data" 
 			add-but="true" 
 			option-but='true'
 			legend='true'
 			vertical-lines='"false"'
-			loading='loadingLineChart2'>
+			loading='chart2.loading'>
 		</line-chart>
 <!-- 
 		TODO: MAKE STACKED BAR TO WORK
@@ -80,62 +80,66 @@
 		</stacked-bar-chart> -->
 
 		<bar-chart
-			name='chart3Title' 
-			data="barChart1" 
+			name='chart3.title' 
+			data="chart3.data" 
 			add-but="true"
 			option-but='true'
-			loading='loadingBarChart1'>
+			loading='chart3.loading'>
 		</bar-chart> 
 
 		<bar-chart 
-			name='chart4Title' 
-			data="barChart2" 
+			name='chart4.title' 
+			data="chart4.data" 
 			add-but="true"
 			option-but='true'
-			loading='loadingBarChart2'>
+			loading='chart4.loading'>
 		</bar-chart>
 
 		<line-chart 
-			name='chart5Title' 
-			data="lineChart3" 
+			name='chart5.title' 
+			data="chart5.data" 
 			option-but='true'
 			legend='true'
-			loading='loadingLineChart3'>
+			loading='chart5.loading'>
 		</line-chart>
 
 		<bar-chart 
-			name='chart6Title' 
-			data="barChart3" 
+			name='chart6.title' 
+			data="chart6.data" 
 			next-prev-but="true"
 			option-but='true'
-			loading='loadingBarChart3'
+			loading='chart6.loading'
 			legend="true">
 		</bar-chart>
 
 		<line-chart 
-			name='chart7Title' 
-			data="lineChart4" 
+			name='chart7.title' 
+			data="chart7.data" 
 			add-but="true" 
 			option-but='true'
 			legend="true"
-			loading='loadingLineChart4'>
+			loading='chart7.loading'>
 		</line-chart>
 
 		<pie-chart 
-			name='prodesAno' 
-			data="pieChart1" 
+			name='chart8.title' 
+			data="chart8.data" 
 			next-prev-but="true" 
 			option-but='true'
 			size='"small"'
-			legend="true">
+			legend="true"
+			loading='chart8.loading'
+			ng-show="showPie1">
 		</pie-chart>
 
 		<pie-chart 
-			name='mes.name.substr(0,3) + ", " + ano' 
-			data="pieChart2" 
+			name='chart9.title' 
+			data="chart9.data" 
 			option-but='true'
 			size='"small"'
-			legend="true">
+			legend="true"
+			loading='chart9.loading'
+			ng-show="showPie2">
 		</pie-chart>
 	</div>
 

@@ -18,9 +18,19 @@ angular.module('estatisticasApp')
         addBut: '=',
         nextPrevBut: '=',
         optionBut: '=',
-        size: '='
+        size: '=',
+        legend: '=',
+        verticalLines: '=',
+        loading: '='
       },
       link: function postLink(scope) {
+
+        scope.options = {
+          animationSteps: 3,
+          pointDot : false,
+          pointHitDetectionRadius: 5,
+          tooltipTemplate: " <%=label%>: <%= numeral(value).format('(00[.]00)') %> (<%= numeral(circumference / 6.283).format('(0[.][00]%)') %>)"
+        };
 
       	scope.$watch('pie',function(data){
 
