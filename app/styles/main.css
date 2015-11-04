@@ -117,6 +117,7 @@
 .header-left {
   display:inline-flex;
   float:left;
+  max-height: 26px;
 }
 
 .header-right {

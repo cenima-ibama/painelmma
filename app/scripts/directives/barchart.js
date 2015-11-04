@@ -21,7 +21,8 @@ angular.module('estatisticasApp')
         size: '=',
         legend: '=',
         verticalLines: '=',
-        loading: '='
+        loading: '=',
+        object: '='
       },
       link: function postLink(scope) {
 
@@ -30,7 +31,9 @@ angular.module('estatisticasApp')
         scope.options = {
           animationSteps: 2,
           bezierCurve : false,
-          scaleShowVerticalLines: showVerticalLines
+          scaleShowVerticalLines: showVerticalLines,
+          scaleBeginAtZero: false,
+          responsive: true
         };
 
         scope.$watch('bar',function(data){

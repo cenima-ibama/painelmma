@@ -21,7 +21,8 @@ angular.module('estatisticasApp')
         size: '=',
         legend: '=',
         verticalLines: '=',
-        loading: '='
+        loading: '=',
+        object: '='
       },
       link: function postLink(scope) {
   			

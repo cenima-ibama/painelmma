@@ -54,6 +54,7 @@
 
 	<div class="col-lg-12 chart-div">
 		<line-chart 
+			id="chart1"
 			name='chart1.title' 
 			data="chart1.data"
 			option-but='true'
@@ -62,13 +63,15 @@
 		</line-chart>
 
 		<line-chart 
+			id="chart2"
 			name='chart2.title' 
 			data="chart2.data" 
 			add-but="true" 
 			option-but='true'
 			legend='true'
 			vertical-lines='"false"'
-			loading='chart2.loading'>
+			loading='chart2.loading'
+			object='chart2'>
 		</line-chart>
 <!-- 
 		TODO: MAKE STACKED BAR TO WORK
@@ -84,7 +87,8 @@
 			data="chart3.data" 
 			add-but="true"
 			option-but='true'
-			loading='chart3.loading'>
+			loading='chart3.loading'
+			object='chart3'>
 		</bar-chart> 
 
 		<bar-chart 
