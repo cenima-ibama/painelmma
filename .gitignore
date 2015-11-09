@@ -4,3 +4,9 @@
 */cache/*
 */cache/!index.html
 */cache/!.htaccess
+
+#DB Config Files
+*/config/database.php
+*/config/authldap.php
+*/inc/database.inc.php
+
