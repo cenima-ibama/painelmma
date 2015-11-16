@@ -38,14 +38,7 @@ angular.module('estatisticasApp')
         };
 
         scope.showTable = function(xLabel, yLabel=''){
-          // console.log(scope.line);
-
-          // if(scope.ser) {
-
-          // } else {
-
-          // }
-
+          console.log(scope.line);
         };
 
         scope.$watch('line',function(data){
