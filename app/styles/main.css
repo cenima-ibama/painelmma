@@ -38,7 +38,7 @@
 }
 
 .chart-default {
-  max-width: 50%;
+  /*max-width: 50%;*/
 }
 
 .chart-div {
@@ -53,7 +53,7 @@
 .chart-stats{
   width: 100% !important;
   /*max-width: 585px;*/
-  max-height: 201px !important;
+  max-height: 12.563em !important;
   margin: 10px 10px 0px 10px;
 }
 
@@ -176,6 +176,7 @@
 
 .header-left .btn-group {
   display: inline-flex;
+  max-height: 26px;
 }
 
 .quick-slct{
@@ -272,4 +273,38 @@
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+
+/*Fixing not having css for stacked bar legends*/
+.stackedbar-legend li {
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+  margin-bottom: 4px;
+  border-radius: 5px;
+  padding: 2px 8px 2px 28px;
+  font-size: smaller;
+  cursor: default;
+}
+.stackedbar-legend li span {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+}
+.stackedbar-legend {
+  list-style-type: none;
+  margin-top: 5px;
+  text-align: center;
+  /* NOTE: Browsers automatically add 40px of padding-left to all lists, so we should offset that, otherwise the legend is off-center */
+  -webkit-padding-start: 0;
+  /* Webkit */
+  -moz-padding-start: 0;
+  /* Mozilla */
+  padding-left: 0;
+  /* IE (handles all cases, really, but we should also include the vendor-specific properties just to be safe) */
 }

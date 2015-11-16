@@ -23,7 +23,7 @@
 			</div>
  			<div class="form-group div-select">
 	 			<label> Tipo</label>
-				<select class='btn btn-default form-control' ng-options='tipo.name for tipo in tipos' ng-model='tipo' ng-change='evaluateStage(estagio.value, tipo.value)'></select> 
+				<select class='btn btn-default form-control' ng-options='tipo.name for tipo in tipos' ng-model='tipo' ng-change='evaluateStage(estagio.value, tipo.value, true)'></select> 
 			</div>
  			<div class="form-group div-select">
 	 			<label> Estagio</label>
@@ -73,15 +73,25 @@
 			loading='chart2.loading'
 			object='chart2'>
 		</line-chart>
-<!-- 
-		TODO: MAKE STACKED BAR TO WORK
-		<stacked-bar-chart
-			name='"Alerta DETER: Índice Períodos"' 
-			data="stackedBarChart1" 
-			add-but="true"
-			option-but='true'>
-		</stacked-bar-chart> -->
 
+		<!-- TODO: MAKE STACKED BAR TO WORK -->
+		<stacked-bar-chart
+			id="chart3"
+			name='chart3.title' 
+			data="chart3.data" 
+			add-but="true"
+			option-but='true'
+			legend='true'
+			loading='chart3.loading'
+			object='chart3'>
+		</stacked-bar-chart>
+<!-- 
+		<div ng-controller="StackedBarCtrl">
+			<div class="chart-container">
+				<canvas class="chart chart-base" labels="labels" data="data" chart-type="type" width="523" height="261" style="width: 523px; height: 261px;"></canvas>
+			</div>
+		</div> -->
+<!--  
 		<bar-chart
 			name='chart3.title' 
 			data="chart3.data" 
@@ -89,14 +99,15 @@
 			option-but='true'
 			loading='chart3.loading'
 			object='chart3'>
-		</bar-chart> 
+		</bar-chart>  -->
 
 		<bar-chart 
 			name='chart4.title' 
 			data="chart4.data" 
 			add-but="true"
 			option-but='true'
-			loading='chart4.loading'>
+			loading='chart4.loading'
+			object='chart4'>
 		</bar-chart>
 
 		<line-chart 
@@ -113,7 +124,8 @@
 			next-prev-but="true"
 			option-but='true'
 			loading='chart6.loading'
-			legend="true">
+			legend="true"
+			object="chart6">
 		</bar-chart>
 
 		<line-chart 
@@ -122,7 +134,8 @@
 			add-but="true" 
 			option-but='true'
 			legend="true"
-			loading='chart7.loading'>
+			loading='chart7.loading'
+			object='chart7'>
 		</line-chart>
 
 		<pie-chart 
@@ -133,6 +146,7 @@
 			size='"small"'
 			legend="true"
 			loading='chart8.loading'
+			object='chart8'
 			ng-show="showPie1">
 		</pie-chart>
 

@@ -21,7 +21,8 @@ angular.module('estatisticasApp')
         size: '=',
         legend: '=',
         verticalLines: '=',
-        loading: '='
+        loading: '=',
+        object: '='
       },
       link: function postLink(scope) {
 
@@ -41,14 +42,14 @@ angular.module('estatisticasApp')
 
           switch (scope.size) {
             case 'small' :
-              scope.sizeClass = 'col-lg-3';
+              scope.sizeClass = 'col-sm-3';
               break;
             case 'large' :
-              scope.sizeClass = 'col-lg-12';
+              scope.sizeClass = 'col-sm-12';
               break;
             case 'medium':
             default :
-              scope.sizeClass = 'col-lg-6';
+              scope.sizeClass = 'col-sm-6';
               break;
           }
 
