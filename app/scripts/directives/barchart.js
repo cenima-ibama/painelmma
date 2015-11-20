@@ -27,6 +27,7 @@ angular.module('estatisticasApp')
       link: function postLink(scope) {
 
         var showVerticalLines = 'true' || scope.verticalLines;
+        scope.table = false;
 
         scope.options = {
           animationSteps: 2,
@@ -34,6 +35,10 @@ angular.module('estatisticasApp')
           scaleShowVerticalLines: showVerticalLines,
           scaleBeginAtZero: false,
           responsive: true
+        };
+
+        scope.toggleTable = function(){
+          scope.table = !scope.table;
         };
 
         scope.$watch('bar',function(data){

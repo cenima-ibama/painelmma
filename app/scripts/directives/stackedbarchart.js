@@ -27,15 +27,18 @@ angular.module('estatisticasApp')
       link: function postLink(scope) {
 
         var showVerticalLines = 'true' || scope.verticalLines;
+        scope.table = false;
         
-        // scope.dat = [[94,240,3,150,1149,681,390,152],[240,94,3,1149,390,681,7,152]];
-        // scope.lab = ['2008','2009','2010','2011','2012','2013','2014','2015'];
         scope.type = "StackedBar"
 
         scope.options = {
           animationSteps: 3,
         //   bezierCurve : false,
         //   scaleShowVerticalLines: showVerticalLines
+        };
+
+        scope.toggleTable = function(){
+          scope.table = !scope.table;
         };
 
         scope.$watch('bar',function(data){

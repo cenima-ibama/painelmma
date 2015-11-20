@@ -1,0 +1,15 @@
+<table class="table table-condensed">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th ng-repeat='serie in series' ng-if="series">{{serie}}</th>
+			<th ng-if="!series">Área</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat='label in labels' ng-init="parentIndex = $index">
+			<td>{{label}}</td>
+			<td ng-repeat="data in data">{{data[parentIndex]}}</td>
+		</tr>
+	</tbody>
+</table>

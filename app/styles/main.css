@@ -41,6 +41,12 @@
   /*max-width: 50%;*/
 }
 
+.table-default {    
+  overflow-x: auto;
+  overflow-y: auto;
+  height: 20em;
+}
+
 .chart-div {
   text-align: left;
 }
@@ -157,7 +163,7 @@
   border-left: 1px solid;
   border-right: 1px solid;
   border-color: #DDDDDD;
-  min-height: 288px;  
+  height: 288px;  
 }
 
 .panel-heading .break {

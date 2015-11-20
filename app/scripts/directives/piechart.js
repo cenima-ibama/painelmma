@@ -26,11 +26,17 @@ angular.module('estatisticasApp')
       },
       link: function postLink(scope) {
 
+        scope.table = false;
+
         scope.options = {
           animationSteps: 3,
           pointDot : false,
           pointHitDetectionRadius: 5,
           tooltipTemplate: " <%=label%>: <%= numeral(value).format('(00[.]00)') %> (<%= numeral(circumference / 6.283).format('(0[.][00]%)') %>)"
+        };
+        
+        scope.toggleTable = function(){
+          scope.table = !scope.table;
         };
 
       	scope.$watch('pie',function(data){

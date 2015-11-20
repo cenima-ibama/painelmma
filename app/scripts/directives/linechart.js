@@ -27,6 +27,7 @@ angular.module('estatisticasApp')
       link: function postLink(scope) {
   			
         var showVerticalLines = 'true' || scope.verticalLines;
+        scope.table = false;
 
         scope.options = {
           animationSteps: 3,
@@ -34,11 +35,11 @@ angular.module('estatisticasApp')
           scaleShowVerticalLines: showVerticalLines,
           pointDot : false,
           pointHitDetectionRadius: 5,
-          tooltipTemplate: "<%if (label){%>Dia <%=label%>: <%}%><%= value.toFixed(2) %> Km²",
+          tooltipTemplate: "<%if (label){%>Dia <%=label%>: <%}%><%= value %> Km²",
         };
 
-        scope.showTable = function(xLabel, yLabel=''){
-          console.log(scope.line);
+        scope.toggleTable = function(){
+          scope.table = !scope.table;
         };
 
         scope.$watch('line',function(data){

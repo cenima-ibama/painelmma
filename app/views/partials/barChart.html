@@ -33,15 +33,20 @@
 			<div class="head-title">{{name}}</div>
 		</div>
 		<div class="btn-group btn-group-sm header-right" ng-if="optionBut">
-			<button class="btn btn-default glyphicon glyphicon-list-alt"></button>
+			<button class="btn btn-default glyphicon glyphicon-list-alt" ng-click="toggleTable()"></button>
 			<button class="btn btn-default glyphicon glyphicon-download-alt"></button>
 			<button class="btn btn-default glyphicon glyphicon-chevron-up"></button>
 			<button class="btn btn-default glyphicon glyphicon-resize-full"></button>
 		</div>
 	</div>
-	<div class="panel-body">
-		<spinner ng-if="loading"></spinner>
-		<canvas class="chart-bar chart-stats" chart-data='dat' chart-labels='lab' chart-series='ser' chart-legend='{{legend}}' chart-options="options" ng-if="!loading">
+	<div class="panel-body" ng-if="loading">
+		<spinner></spinner>
+	</div>
+	<div class="panel-body" ng-if='!table && !loading'>
+		<canvas class="chart-bar chart-stats" chart-data='dat' chart-labels='lab' chart-series='ser' chart-legend='{{legend}}' chart-options="options">
 		</canvas>
+	</div>
+	<div class="panel-body table-default" ng-if='table && !loading'>
+		<table-chart series='ser' labels='lab' data='dat'></table-chart>
 	</div>
 </div>
