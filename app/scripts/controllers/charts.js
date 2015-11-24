@@ -125,314 +125,57 @@ angular.module('estatisticasApp')
       $scope.showPie1 = tipo_filtrado == 'DETER_QUALIF' ? false : true;
       $scope.showPie2 = tipo_filtrado == 'DETER_QUALIF' ? false : true;
 
-      $rootScope.chart1 = {loading: true};
-      $rootScope.chart2 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries};
-      $rootScope.chart3 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries};
-      $rootScope.chart4 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries};
-      $rootScope.chart5 = {loading: true};
-      $rootScope.chart6 = {loading: true, rightSeries: $scope.rightSeries, leftSeries: $scope.leftSeries};
-      $rootScope.chart7 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries};
-      $rootScope.chart8 = {loading: true, rightSeries: $scope.rightSeries, leftSeries: $scope.leftSeries, showPie: $scope.showPie1};
-      $rootScope.chart9 = {loading: true, showPie: $scope.showPie2};
+      $rootScope.chart1 = {loading: true, tagId: 'chart1'};
+      $rootScope.chart2 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries, tagId: 'chart2'};
+      $rootScope.chart3 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries, tagId: 'chart3'};
+      $rootScope.chart4 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries, tagId: 'chart4'};
+      $rootScope.chart5 = {loading: true, tagId: 'chart5'};
+      $rootScope.chart6 = {loading: true, rightSeries: $scope.rightSeries, leftSeries: $scope.leftSeries, tagId: 'chart6'};
+      $rootScope.chart7 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries, tagId: 'chart7'};
+      $rootScope.chart8 = {loading: true, rightSeries: $scope.rightSeries, leftSeries: $scope.leftSeries, showPie: $scope.showPie1, tagId: 'chart8'};
+      $rootScope.chart9 = {loading: true, showPie: $scope.showPie2, tagId: 'chart9'};
 
       $rootScope.ano = $scope.ano
       $rootScope.mes = $scope.mes
       $rootScope.estado = $scope.estado
 
-      // $rootScope.chart1.returnFunction = function success(data,status){
-    
-      //     var ret = {};
-      //     ret.labels = [];
-      //     ret.data = [];
-      //     ret.data[0] = [];
 
-
-      //     data[0].data.sort(function(a,b){
-      //       return a.dia-b.dia;
-      //     });
-
-      //     var lastDay = new Date($scope.ano,($scope.mes.value),0).getDate();
-      //     var labels = [];
-
-      //     for ( var i = 1; i <= lastDay; i++) {
-      //       labels.push(i);
-      //     };
-
-      //     var returnedObject = $scope.fillLineObject(ret, data[0].data, labels, 'dia');
-      //     // $scope.lineChart1 = returnedObject; 
-      //     $scope.chart1.data = returnedObject; 
-
-
-      // }
       $rootScope.chart1.restOptions = {type:'diario', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()}
       $rootScope.chart1.returnFunction = restFunctions.chart1;
       restChart1 = RestApi.query($rootScope.chart1.restOptions, $rootScope.chart1.returnFunction).$promise;
 
-      // $rootScope.chart2.returnFunction = function success(data,status){
-    
-      //     var ret = {};
-      //     ret.labels = [];
-      //     ret.data = [];
-      //     ret.data[0] = [];
-
-
-      //     // data[0].data.sort(function(a,b){
-      //     //   return a.dia-b.dia;
-      //     // });
-
-      //     var lastDay = new Date($scope.ano,($scope.mes.value),0).getDate();
-      //     var labels = [8,9,10,11,12,1,2,3,4,5,6,7];
-      //     var series = [];
-
-      //     angular.forEach(data, function(value,key){
-      //       if (series.indexOf(value.periodo) == -1) {
-      //         series.push(value.periodo);
-      //       }
-      //     });
-
-      //     var returnedObject = $scope.fillLineObject(ret, data, labels, 'mes_id', series,'periodo');
-
-      //     // $scope.lineChart2 = $scope.relabel(returnedObject,['Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai','Jun','Jul']);
-      //     $scope.chart2.data = $scope.relabel(returnedObject,['Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai','Jun','Jul']);
-
-      // }
       $rootScope.chart2.restOptions = {type:'mensal', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim(), frequencia: 0}
       $rootScope.chart2.returnFunction = restFunctions.chart2;
       restChart2 = RestApi.query($rootScope.chart2.restOptions, $rootScope.chart2.returnFunction).$promise;
 
-
-      // restChart2 = RestApi.query($scope.chart2.restOptions, $scope.chart2.returnFunction).$promise;
-
-      // $scope.chart3.returnFunction = function success(data,status){
-    
-      //     var ret = {};
-      //     ret.labels = [];
-      //     ret.data = [];
-      //     ret.data[0] = [];
-      //     var labels = [];
-
-      //     var lastDay = new Date($scope.ano,($scope.mes.value),0).getDate();
-
-      //     var series = [];
-
-      //     angular.forEach(data, function(value,key){
-      //       if (series.indexOf(value.tipo) == -1) {
-      //         series.push(value.tipo);
-      //       }
-      //       angular.forEach(value.data, function(v,k){
-      //         if (labels.indexOf(v.periodo) == -1) {
-      //           labels.push(v.periodo);
-      //         }
-      //       });
-      //     });
-
-      //     labels.sort(function(a,b){return a-b});
-
-      //     var returnedObject = $scope.fillBarObject(ret, data, labels, 'periodo', series,'tipo');
-      //     // $scope.barChart1 = returnedObject;
-      //     $scope.chart3.data = returnedObject;
-
-
-      // };
       $rootScope.chart3.restOptions = {type:'indice', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim(), frequencia: 0}
       $rootScope.chart3.returnFunction = restFunctions.chart3;
       restChart3 = RestApi.query($rootScope.chart3.restOptions, $rootScope.chart3.returnFunction).$promise;
 
-      // $rootScope.chart4.returnFunction = function success(data,status){
-    
-      //     var ret = {};
-      //     ret.labels = [];
-      //     ret.data = [];
-      //     ret.data[0] = [];
-      //     var labels = [];
-
-      //     if ($scope.estado != '')
-      //       labels.push($scope.estado.trim());
-      //     else 
-      //       labels = ['AC','AM','AP','MA','MT','PA','RO','RR','TO'];
-
-      //     var series = [];
-
-      //     angular.forEach(data, function(value,key){
-      //       if (series.indexOf(value.periodo) == -1) {
-      //         series.push(value.periodo);
-      //       }
-      //     });
-
-      //     labels.sort(function(a,b){return a-b});
-
-      //     var returnedObject = $scope.fillBarObject(ret, data, labels, 'estado', series,'periodo');
-      //     // $scope.barChart2 = returnedObject;
-      //     $scope.chart4.data = returnedObject;
-      //     // $scope.chart4.data = {'labels':['2010','2011','2012','2013','2014','2015'],'data':[['150.42','1149.32','681.95','390.89','152.87','7.85'],['1149.32','150.42','390.89','681.95','7.85','152.87']], 'series':['Alerta DETER','Taxa PRODES']};
-
-
-      // };
       $rootScope.chart4.restOptions = {type:'uf', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim(), frequencia: 0}
       $rootScope.chart4.returnFunction = restFunctions.chart4;
       restChart4 = RestApi.query($scope.chart4.restOptions, $scope.chart4.returnFunction).$promise;
 
-      // $scope.chart5.returnFunction = function success(data,status){
-    
-      //     var ret = {};
-      //     ret.labels = [];
-      //     ret.data = [];
-      //     ret.data[0] = [];
-      //     var labels = [];
-
-      //     var lastDay = new Date($scope.ano,($scope.mes.value),0).getDate();
-
-      //     var series = [];
-
-      //     angular.forEach(data, function(value,key){
-      //       if (series.indexOf(value.taxa) == -1) {
-      //         series.push(value.taxa);
-      //       }
-      //       angular.forEach(value.data, function(v,k){
-      //         if (labels.indexOf(v.periodo_prodes) == -1) {
-      //           labels.push(v.periodo_prodes);
-      //         }
-      //       });
-      //     });
-
-      //     labels.sort(function(a,b){return a>b});
-
-      //     var returnedObject = $scope.fillLineObject(ret, data, labels, 'periodo_prodes', series,'taxa');
-      //     // $scope.lineChart3 = returnedObject;
-      //     $scope.chart5.data = returnedObject;
-
-
-      // }
       $rootScope.chart5.restOptions = {type:'acumulado', uf: $scope.estado.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()}
       $rootScope.chart5.returnFunction = restFunctions.chart5;
       restChart5 = RestApi.query($rootScope.chart5.restOptions, $rootScope.chart5.returnFunction).$promise;
 
-      // $scope.chart6.returnFunction = function success(data,status){
-    
-      //     var ret = {};
-      //     ret.labels = [];
-      //     ret.data = [];
-      //     ret.data[0] = [];
-      //     var labels = [];
-
-      //     if ($scope.estado != '')
-      //       labels.push($scope.estado.trim());
-      //     else 
-      //       labels = ['AC','AM','AP','MA','MT','PA','RO','RR','TO'];
-
-      //     var series = [];
-
-      //     angular.forEach(data, function(value,key){
-      //       if (series.indexOf(value.taxa) == -1) {
-      //         series.push(value.taxa);
-      //       }
-      //     });
-
-      //     labels.sort(function(a,b){return a>b});
-
-      //     var returnedObject = $scope.fillBarObject(ret, data, labels, 'estado', series,'taxa');
-      //     // $scope.barChart3 = returnedObject;
-      //     $scope.chart6.data = returnedObject;
-
-
-      // }
       $rootScope.chart6.restOptions = {type:'uf_comparativo', ano: $scope.ano, mes: $scope.mes.value.trim(), uf: $scope.estado.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim(), indice: 0}
       $rootScope.chart6.returnFunction = restFunctions.chart6
       restChart6 = RestApi.query($rootScope.chart6.restOptions, $rootScope.chart6.returnFunction).$promise;
 
-      // $scope.chart7.returnFunction = function success(data,status){
-    
-      //     var ret = {};
-      //     ret.labels = [];
-      //     ret.data = [];
-      //     ret.data[0] = [];
-      //     var labels = [];
-
-      //     var labels = [8,9,10,11,12,1,2,3,4,5,6,7];
-
-      //     var series = [];
-
-      //     angular.forEach(data, function(value,key){
-      //       if (series.indexOf(value.taxa) == -1) {
-      //         series.push(value.taxa);
-      //       }
-      //     });
-
-      //     var returnedObject = $scope.fillLineObject(ret, data, labels, 'mes', series,'taxa');
-      //     // $scope.lineChart4 = $scope.relabel(returnedObject,['Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai','Jun','Jul']);
-      //     $scope.chart7.data = $scope.relabel(returnedObject,['Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai','Jun','Jul']);
-
-
-      // };
       $rootScope.chart7.restOptions = {type:'nuvens', ano: $scope.ano, mes: $scope.mes.value.trim(), uf: $scope.estado.trim(), frequencia: 0}
       $rootScope.chart7.returnFunction = restFunctions.chart7;
       restChart7 = RestApi.query($rootScope.chart7.restOptions, $rootScope.chart7.returnFunction).$promise;
 
-      // $scope.chart8.returnFunction = function success(data,status){
-    
-      //     var ret = {};
-      //     ret.labels = [];
-      //     ret.data = [];
-      //     var labels = [];
-      //     var states = ['AC','AM','AP','MA','MT','PA','RO','RR','TO'];
-
-      //     // if ($scope.estado != '') {
-      //     //   labels.push($scope.estado.trim());
-      //     // } else {
-      //       labels = data[0].data.map(function(d){ return d.estado});
-      //       states.map(function(s){if (labels.indexOf(s) == -1) labels.push(s);});
-      //     // }
-
-      //     var series = [];
-
-      //     angular.forEach(data, function(value,key){
-      //       if (series.indexOf(value.taxa) == -1) {
-      //         series.push(value.taxa);
-      //       }
-      //     });
-
-      //     var returnedObject = $scope.fillPieObject(ret, data[0].data, labels, 'estado');
-      //     // $scope.pieChart1 = returnedObject;
-      //     $scope.chart8.data = returnedObject;
-
-
-      // }
       $rootScope.chart8.restOptions = {type:'uf_periodo', ano: $scope.ano, mes: $scope.mes.value.trim(), uf: $scope.estado.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim(), indice: 0}
       $rootScope.chart8.returnFunction = restFunctions.chart8
       restChart8 = RestApi.query($rootScope.chart8.restOptions, $rootScope.chart8.returnFunction).$promise;
 
-      // $scope.chart9.returnFunction = function success(data,status){
-    
-      //     var ret = {};
-      //     ret.labels = [];
-      //     ret.data = [];
-      //     var labels = [];
-      //     var states = ['AC','AM','AP','MA','MT','PA','RO','RR','TO'];
-
-      //     // if ($scope.estado != '') {
-      //     //   labels.push($scope.estado.trim());
-      //     // } else {
-      //       labels = data[0].data.map(function(d){ return d.estado});
-      //       states.map(function(s){if (labels.indexOf(s) == -1) labels.push(s);});
-      //     // }
-
-      //     var series = [];
-
-      //     angular.forEach(data, function(value,key){
-      //       if (series.indexOf(value.taxa) == -1) {
-      //         series.push(value.taxa);
-      //       }
-      //     });
-
-      //     var returnedObject = $scope.fillPieObject(ret, data[0].data, labels, 'estado');
-      //     // $scope.pieChart2 = returnedObject;
-      //     $scope.chart9.data = returnedObject;
-
-
-      // }
       $rootScope.chart9.restOptions = {type:'uf_mes_periodo', ano: $scope.ano, mes: $scope.mes.value.trim(), uf: $scope.estado.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()}
       $rootScope.chart9.returnFunction = restFunctions.chart9;
       restChart9 = RestApi.query($rootScope.chart9.restOptions, $rootScope.chart9.returnFunction).$promise;
+
 
       $rootScope.chart1.promise = function(){
         $rootScope.chart1.loading = false;

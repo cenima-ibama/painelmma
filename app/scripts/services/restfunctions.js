@@ -105,9 +105,9 @@ angular.module('estatisticasApp')
         var returnedObject = fillLineObject(ret, data[0].data, labels, 'dia');
         $rootScope.chart1.data = returnedObject;
       },
+
       chart2: function success(data,status){
         var ret = {labels: [], data: [[]]};
-        var lastDay = new Date($rootScope.ano,($rootScope.mes.value),0).getDate();
         var labels = [8,9,10,11,12,1,2,3,4,5,6,7];
         var series = [];
 
@@ -125,10 +125,10 @@ angular.module('estatisticasApp')
 
         $rootScope.chart2.data = relabel(returnedObject,['Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai','Jun','Jul']);
       },
+
       chart3: function success(data,status){
         var ret = {labels: [], data: [[]]};
         var labels = [];
-        var lastDay = new Date($rootScope.ano,($rootScope.mes.value),0).getDate();
         var series = [];
 
         angular.forEach(data, function(value,key){
@@ -147,6 +147,7 @@ angular.module('estatisticasApp')
         var returnedObject = fillBarObject(ret, data, labels, 'periodo', series,'tipo');
         $rootScope.chart3.data = returnedObject;
       },
+
       chart4: function success(data,status){
         var ret = {labels: [], data: [[]]};
         var labels = [];
@@ -168,11 +169,11 @@ angular.module('estatisticasApp')
         var returnedObject = fillBarObject(ret, data, labels, 'estado', series,'periodo');
         $rootScope.chart4.data = returnedObject;
       },
+
       chart5: function success(data,status){
         var ret = {labels: [], data: [[]]};
         var labels = [];
         var series = [];
-        var lastDay = new Date($rootScope.ano,($rootScope.mes.value),0).getDate();
 
         angular.forEach(data, function(value,key){
           if (series.indexOf(value.taxa) == -1) {
@@ -190,6 +191,7 @@ angular.module('estatisticasApp')
         var returnedObject = fillLineObject(ret, data, labels, 'periodo_prodes', series,'taxa');
         $rootScope.chart5.data = returnedObject;
       },
+
       chart6: function success(data,status){    
         var ret = {labels: [], data: [[]]};
         var labels = [];
@@ -211,6 +213,7 @@ angular.module('estatisticasApp')
         var returnedObject = fillBarObject(ret, data, labels, 'estado', series,'taxa');
         $rootScope.chart6.data = returnedObject;
       },
+
       chart7: function success(data,status){
         var ret = {labels: [], data: [[]]};
         var labels = [8,9,10,11,12,1,2,3,4,5,6,7];
@@ -225,6 +228,7 @@ angular.module('estatisticasApp')
         var returnedObject = fillLineObject(ret, data, labels, 'mes', series,'taxa');
         $rootScope.chart7.data = relabel(returnedObject,['Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai','Jun','Jul']);
       },
+
       chart8: function success(data,status){
         var ret = {labels: [], data: []};
         var states = ['AC','AM','AP','MA','MT','PA','RO','RR','TO'];
@@ -242,6 +246,7 @@ angular.module('estatisticasApp')
         var returnedObject = fillPieObject(ret, data[0].data, labels, 'estado');
         $rootScope.chart8.data = returnedObject;
       },
+
       chart9: function success(data,status){
         var ret = {labels: [], data: []};
         var labels = data[0].data.map(function(d){ return d.estado});

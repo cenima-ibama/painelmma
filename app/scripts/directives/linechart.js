@@ -38,9 +38,21 @@ angular.module('estatisticasApp')
           tooltipTemplate: "<%if (label){%>Dia <%=label%>: <%}%><%= value %> Km²",
         };
 
+        scope.initiateCollapseEl = function() {
+          $("#" + scope.object.tagId + " .panel-body").collapse();          
+        }
+
         scope.toggleTable = function(){
           scope.table = !scope.table;
         };
+
+        scope.hideGraph = function() {
+          $("#" + scope.object.tagId + " .panel-body").collapse('hide')
+        }
+
+        scope.showGraph = function() {
+          $("#" + scope.object.tagId + " .panel-body").collapse('show')
+        }
 
         scope.$watch('line',function(data){
 
