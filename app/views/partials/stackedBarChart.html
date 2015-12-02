@@ -14,8 +14,7 @@
 		</div>
 		<div class="btn-group btn-group-sm header-right" ng-if="optionBut">
 			<button class="btn btn-default glyphicon glyphicon-list-alt" ng-click="toggleTable()"></button>
-			<button class="btn btn-default glyphicon glyphicon-download-alt"></button>
-			<button class="btn btn-default glyphicon glyphicon-chevron-up"></button>
+			<button class="btn btn-default glyphicon glyphicon-download-alt" ng-csv="formatCsv(dat, lab)" csv-header="formatHeader(ser)" filename="{{formatName(name)}}"></button>
 			<button class="btn btn-default glyphicon glyphicon-resize-full"></button>
 		</div>
 	</div>
@@ -23,7 +22,7 @@
 		<spinner></spinner>
 	</div>
 	<div class="panel-body" ng-if='!table && !loading'>			
-		<canvas class="chart chart-base chart-stats" chart-labels="lab" chart-data="dat" chart-type="type" chart-series='ser' chart-legend='{{legend}}' chart-options="options" ></canvas>
+		<canvas class="chart chart-base chart-stats" chart-labels="lab" chart-data="dat" chart-type="type" chart-series='ser' chart-legend='{{legend}}' chart-options="options" chart-colours="colors"></canvas>
 	</div>
 	<div class="panel-body" ng-if='table && !loading'>
 		<table-chart series='ser' labels='lab' data='dat'></table-chart>

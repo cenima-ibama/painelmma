@@ -35,6 +35,10 @@ angular.module('estatisticasApp')
           tooltipTemplate: " <%=label%>: <%= numeral(value).format('(00[.]00)') %> (<%= numeral(circumference / 6.283).format('(0[.][00]%)') %>)"
         };
         
+        scope.colors = ['#3ABCFC', '#FC2121', '#D0FC3F', '#FCAC0A',
+         '#67C2EF', '#FF5454', '#CBE968', '#FABB3D',
+         '#77A4BD', '#CC6C6C', '#A6B576', '#C7A258'];
+
         scope.toggleTable = function(){
           scope.table = !scope.table;
         };

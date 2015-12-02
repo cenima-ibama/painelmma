@@ -12,6 +12,17 @@
 
 	<form id='form-chart' ng-submit='filter(estado, mes, ano, tipo, estagio)' class='text-center'>
 		    
+		<div class='center'>
+			<figure class='quick quick-btn' id='selectMap' >
+				<a ng-repeat='ufs in estados' class='item {{ufs.selected}}' ng-click='changeClass(ufs)'  >
+					<img id='{{ufs.name}}' href='#' ng-src='{{ufs.image}}' value='{{ufs.name}}'>
+					<span class=''>{{ufs.subtitle}}</span>
+				</a>
+ 			</figure>
+		</div>
+
+		<br />
+
  		<div class="center filter-select">
  			<div class="form-group div-select">
 	 			<label> Mês</label>
@@ -33,17 +44,6 @@
  			<div class="form-group">
 				<button class='btn btn-primary form-control button-select' type='submit'>Pesquisar</button>	
 			</div>
-		</div>
-
-		<br />
-
-		<div class='center'>
-			<figure class='quick quick-btn' id='selectMap' >
-				<a ng-repeat='ufs in estados' class='item {{ufs.selected}}' ng-click='changeClass(ufs)'  >
-					<img id='{{ufs.name}}' href='#' ng-src='{{ufs.image}}' value='{{ufs.name}}'>
-					<span class=''>{{ufs.subtitle}}</span>
-				</a>
- 			</figure>
 		</div>
 
 	</form>

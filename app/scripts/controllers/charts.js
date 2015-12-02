@@ -49,7 +49,9 @@ angular.module('estatisticasApp')
       });
     };
 
-    $scope.evaluateStage = function(stage, tipo, changeType=false) {
+    $scope.evaluateStage = function(stage, tipo, changeType) {
+      if (typeof(changeType)==='undefined') changeType = false;
+
       if (changeType) {
         $scope.estagio = $scope.estagios.filter(function(a){if(a.value == 'corte_raso') return a})[0]
         stage = $scope.estagio.value

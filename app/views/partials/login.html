@@ -1,0 +1,47 @@
+
+<div class="modal-dialog">
+  <div class="modal-content md-padding" >
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <!-- <div layout='row' flex offset='25'>
+        <h4 class="modal-title" id="myModalLabel" ><img src='images/ibama-logo.png' height="30" width="30"></h4>
+        <h4 class="modal-title" id="myModalLabel" ><img src='images/ctf.png' height="30" width="80" ></h4>
+      </div> -->
+    </div>
+
+    <div class="modal-body">
+
+      <div ng-if='error' class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>{{errorLogin}}</strong> 
+      </div>
+
+      <form ng-submit='acessar(access)'>
+
+        <md-input-container flex>
+          <label>Usuário</label>
+          <input ng-model="access.login">
+        </md-input-container>
+
+        <md-input-container flex>
+          <label>Senha</label>
+          <input type='password' ng-model="access.password" >
+        </md-input-container>
+
+        <md-container layout='row'>
+          <div ng-if='login.carregar' layout="column" layout-align="space-around" flex >
+            <md-progress-circular md-mode="indeterminate"  class="md-hue-2"></md-progress-circular>
+          </div>
+          <div flex class='text-right' >
+            <md-button class="md-raised md-primary" layout='column' layout-sm="column" type='submit' >Enviar</md-button>
+          </div>
+        </md-container>
+        <hr>
+        <div class="control-group ">
+          <h4>Acesso Restrito</h4>
+          <p>O acesso a essa sessão é permitida somente a usuários registrados no sistema Ibama-Net.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

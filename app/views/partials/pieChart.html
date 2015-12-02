@@ -15,7 +15,6 @@
 		<div class="btn-group btn-group-sm header-right" ng-if="optionBut">
 			<button class="btn btn-default glyphicon glyphicon-list-alt" ng-click="toggleTable()"></button>
 			<button class="btn btn-default glyphicon glyphicon-download-alt"></button>
-			<button class="btn btn-default glyphicon glyphicon-chevron-up"></button>
 			<button class="btn btn-default glyphicon glyphicon-resize-full"></button>
 		</div>
 	</div>
@@ -23,7 +22,7 @@
 		<spinner></spinner>
 	</div>
 	<div class="panel-body" ng-if="!table && !loading">
-		<canvas class="chart-pie chart-stats" chart-data='dat' chart-labels='lab' chart-series='ser' chart-legend='{{legend}}' chart-options="options">
+		<canvas class="chart-pie chart-stats" chart-data='dat' chart-labels='lab' chart-series='ser' chart-legend='{{legend}}' chart-options="options" chart-colours="colors">
 		</canvas>
 	</div>
 	<div class="panel-body table-default" ng-if='table && !loading'>
