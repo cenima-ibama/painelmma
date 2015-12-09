@@ -8,7 +8,7 @@
  * Service in the estatisticasApp.
  */
 angular.module('estatisticasApp')
-  .service('formData', function () {
+  .service('formData', ['$cookies', function ($cookies) {
 
     	var	data,
     		baseUrl = 'images/icons',
@@ -28,16 +28,16 @@ angular.module('estatisticasApp')
  			anos: anos,
 
 	    	estados: [
-		        { name: 'AC', image: baseUrl + '/AC.png', subtitle: 'AC', selected:""},
-		        { name: 'AM', image: baseUrl + '/AM.png', subtitle: 'AM', selected:"" },
-		        { name: 'AP', image: baseUrl + '/AP.png', subtitle: 'AP', selected:"" },
-		        { name: 'MA', image: baseUrl + '/MA.png', subtitle: 'MA', selected:"" },
-		        { name: 'MT', image: baseUrl + '/MT.png', subtitle: 'MT', selected:"" },
-		        { name: 'PA', image: baseUrl + '/PA.png', subtitle: 'PA', selected:"" },
-		        { name: 'RO', image: baseUrl + '/RO.png', subtitle: 'RO', selected:"" },
-		        { name: 'RR', image: baseUrl + '/RR.png', subtitle: 'RR', selected:"" },
-		        { name: 'TO', image: baseUrl + '/TO.png', subtitle: 'TO', selected:"" },
-		        { name: '', image: baseUrl + '/BR.png', subtitle: 'AML', selected:"active" }
+		        { name: 'AC', image: baseUrl + '/AC.png', subtitle: 'AC', selected:''},
+		        { name: 'AM', image: baseUrl + '/AM.png', subtitle: 'AM', selected:'' },
+		        { name: 'AP', image: baseUrl + '/AP.png', subtitle: 'AP', selected:'' },
+		        { name: 'MA', image: baseUrl + '/MA.png', subtitle: 'MA', selected:'' },
+		        { name: 'MT', image: baseUrl + '/MT.png', subtitle: 'MT', selected:'' },
+		        { name: 'PA', image: baseUrl + '/PA.png', subtitle: 'PA', selected:'' },
+		        { name: 'RO', image: baseUrl + '/RO.png', subtitle: 'RO', selected:'' },
+		        { name: 'RR', image: baseUrl + '/RR.png', subtitle: 'RR', selected:'' },
+		        { name: 'TO', image: baseUrl + '/TO.png', subtitle: 'TO', selected:'' },
+		        { name: '', image: baseUrl + '/BR.png', subtitle: 'AML', selected:'active' }
 	        ],
 
 	        meses: [
@@ -56,8 +56,7 @@ angular.module('estatisticasApp')
 	        ],
 
 	        tipos: [
-				{name: 'DETER MODIS', value: 'DETER'},
-				{name: 'DETER AWiFS', value: 'AWIFS'}
+				{name: 'DETER MODIS', value: 'DETER'}
 	        ],
 
 	        estagios: [
@@ -70,7 +69,11 @@ angular.module('estatisticasApp')
  			
  		};
 
+ 		if ($cookies.get('user_data')) {
+ 			data.tipos.push({name: 'DETER AWiFS', value: 'AWIFS'});
+ 		}
+
  		return data;
 
  
-  });
+  }]);

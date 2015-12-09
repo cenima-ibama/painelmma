@@ -22,14 +22,15 @@ angular.module('estatisticasApp')
         legend: '=',
         verticalLines: '=',
         loading: '=',
-        object: '='
+        object: '=',
+        label: '='
       },
       link: function postLink(scope) {
 
         var showVerticalLines = 'true' || scope.verticalLines;
         scope.table = false;
         
-        scope.type = "StackedBar"
+        scope.type = 'StackedBar';
 
         scope.options = {
           animationSteps: 3,
@@ -53,7 +54,7 @@ angular.module('estatisticasApp')
           csv = csv[0].map(function(col, i) { 
             return csv.map(function(row) { 
               return row[i];
-            })
+            });
           });
 
           angular.forEach(csv,function(value, key){
@@ -63,25 +64,29 @@ angular.module('estatisticasApp')
           });
 
           return csv;
-        }
+        };
 
         scope.formatHeader = function(ser) {
+          var head;
           if (ser){
-            var head = ser.slice();
+            head = ser.slice();
           } else {
-            var head = ['Área'];
+            head = ['Área'];
           }
 
           head.reverse();
-          head.push("#")
+          if (scope.label)
+            head.push(scope.label);
+          else
+            head.push("#");
           head.reverse();
 
           return head;
-        }
+        };
 
         scope.formatName = function(name) {
           return name + '.csv';
-        }
+        };
 
         scope.$watch('bar',function(data){
 
@@ -99,6 +104,8 @@ angular.module('estatisticasApp')
               scope.sizeClass = 'col-sm-12';
               break;
             case 'medium':
+              scope.sizeClass = 'col-sm-6';
+              break;
             default :
               scope.sizeClass = 'col-sm-6';
               break;

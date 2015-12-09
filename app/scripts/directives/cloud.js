@@ -25,13 +25,13 @@ angular.module('estatisticasApp')
 				// Facilitando a comparação com o dado retornado do banco
 				for (var i = today.getFullYear(); i>= 2008 ; i--){
 					years.push(i.toString());
-				};
+				}
 
 				dado[0] = years;
 				var retorno = [];
 
 				for(var x=0; x < years.length; x++){
-					retorno[x] = []
+					retorno[x] = [];
 					for (var m = 1; m <= 12; m++){	
 						var lastDay = 0;
 						var end = 0;
@@ -97,7 +97,7 @@ angular.module('estatisticasApp')
 	  		scope.labels = ['AGO', 'SET','OUT', 'NOV', 'DEZ','JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL']; 
 	  		scope.series = [labels[labels.length-4],labels[labels.length-3], labels[labels.length-2]];
 	  		scope.data = [data[3], data[4], data[5]];
-	  	})
+	  	});
       }
     };
   });

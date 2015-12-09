@@ -28,11 +28,11 @@ angular.module('estatisticasApp')
         });
         while(labels[ele] <= labels[labels.length - 1]) {
           obj.data[0].push(sum);
-          ele++
+          ele++;
         }
       } else {
         angular.forEach(data, function(value,seriekey) {
-          obj.data[seriekey] = labels.map(function(a){return 0});
+          obj.data[seriekey] = labels.map(function(a){return 0;});
           angular.forEach(value.data,function(value, labelkey){
             var lab = obj.labels.indexOf(value[labelField]);
             obj.data[seriekey][lab] = value.total; 
@@ -53,7 +53,7 @@ angular.module('estatisticasApp')
         // TODO: work without series
       } else {
         angular.forEach(data, function(value,seriekey) {
-          obj.data[seriekey] = labels.map(function(a){return 0});
+          obj.data[seriekey] = labels.map(function(a){return 0;});
           angular.forEach(value.data,function(value, labelkey){
             var lab = obj.labels.indexOf(value[labelField]);
             obj.data[seriekey][lab] = value.total; 
@@ -71,7 +71,7 @@ angular.module('estatisticasApp')
       obj.labels = labels;
 
       if (!series) {
-        obj.data = labels.map(function(a){return 0});
+        obj.data = labels.map(function(a){return 0;});
         angular.forEach(data,function(value, key){
             var lab = obj.labels.indexOf(value[labelField]);
             obj.data[lab] = value.total; 
@@ -100,7 +100,7 @@ angular.module('estatisticasApp')
 
         for ( var i = 1; i <= lastDay; i++) {
           labels.push(i);
-        };
+        }
 
         var returnedObject = fillLineObject(ret, data[0].data, labels, 'dia');
         $rootScope.chart1.data = returnedObject;
@@ -142,7 +142,7 @@ angular.module('estatisticasApp')
           });
         });
 
-        labels.sort(function(a,b){return a-b});
+        labels.sort(function(a,b){return a-b;});
 
         var returnedObject = fillBarObject(ret, data, labels, 'periodo', series,'tipo');
         $rootScope.chart3.data = returnedObject;
@@ -153,10 +153,11 @@ angular.module('estatisticasApp')
         var labels = [];
         var series = [];
 
-        if ($rootScope.estado != '')
+        if ($rootScope.estado != ''){
           labels.push($rootScope.estado.trim());
-        else 
+        } else {
           labels = ['AC','AM','AP','MA','MT','PA','RO','RR','TO'];
+        }
 
         angular.forEach(data, function(value,key){
           if (series.indexOf(value.periodo) == -1) {
@@ -164,7 +165,7 @@ angular.module('estatisticasApp')
           }
         });
 
-        labels.sort(function(a,b){return a-b});
+        labels.sort(function(a,b){return a-b;});
 
         var returnedObject = fillBarObject(ret, data, labels, 'estado', series,'periodo');
         $rootScope.chart4.data = returnedObject;
@@ -186,7 +187,7 @@ angular.module('estatisticasApp')
           });
         });
 
-        labels.sort(function(a,b){return a>b});
+        labels.sort(function(a,b){return a>b;});
 
         var returnedObject = fillLineObject(ret, data, labels, 'periodo_prodes', series,'taxa');
         $rootScope.chart5.data = returnedObject;
@@ -197,10 +198,11 @@ angular.module('estatisticasApp')
         var labels = [];
         var series = [];
 
-        if ($rootScope.estado != '')
+        if ($rootScope.estado != '') {
           labels.push($rootScope.estado.trim());
-        else 
+        } else {
           labels = ['AC','AM','AP','MA','MT','PA','RO','RR','TO'];
+        }
 
         angular.forEach(data, function(value,key){
           if (series.indexOf(value.taxa) == -1) {
@@ -208,7 +210,7 @@ angular.module('estatisticasApp')
           }
         });
 
-        labels.sort(function(a,b){return a > b});
+        labels.sort(function(a,b){return a > b;});
 
         var returnedObject = fillBarObject(ret, data, labels, 'estado', series,'taxa');
         $rootScope.chart6.data = returnedObject;
@@ -232,10 +234,10 @@ angular.module('estatisticasApp')
       chart8: function success(data,status){
         var ret = {labels: [], data: []};
         var states = ['AC','AM','AP','MA','MT','PA','RO','RR','TO'];
-        var labels = data[0].data.map(function(d){ return d.estado});
+        var labels = data[0].data.map(function(d){ return d.estado;});
         var series = [];
 
-        states.map(function(s){if (labels.indexOf(s) == -1) labels.push(s);});
+        states.map(function(s){if (labels.indexOf(s) == -1) {labels.push(s);}});
 
         angular.forEach(data, function(value,key){
           if (series.indexOf(value.taxa) == -1) {
@@ -249,11 +251,11 @@ angular.module('estatisticasApp')
 
       chart9: function success(data,status){
         var ret = {labels: [], data: []};
-        var labels = data[0].data.map(function(d){ return d.estado});
+        var labels = data[0].data.map(function(d){ return d.estado;});
         var states = ['AC','AM','AP','MA','MT','PA','RO','RR','TO'];
         var series = [];
 
-        states.map(function(s){if (labels.indexOf(s) == -1) labels.push(s);});
+        states.map(function(s){if (labels.indexOf(s) == -1){labels.push(s);}});
 
         angular.forEach(data, function(value,key){
           if (series.indexOf(value.taxa) == -1) {

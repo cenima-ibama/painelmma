@@ -22,7 +22,8 @@ angular.module('estatisticasApp')
         legend: '=',
         verticalLines: '=',
         loading: '=',
-        object: '='
+        object: '=',
+        label: '='
       },
       link: function postLink(scope) {
 
@@ -43,6 +44,47 @@ angular.module('estatisticasApp')
           scope.table = !scope.table;
         };
 
+        scope.formatCsv = function(data, lab) {
+          
+          var csv = data.slice();
+          var el;
+
+          csv = csv[0].map(function(col, i) { 
+            return csv.map(function(row) { 
+              return row[i];
+            });
+          });
+
+          angular.forEach(csv,function(value, key){
+            value.reverse();
+            value.push(lab[key]);
+            value.reverse();
+          });
+
+          return csv;
+        };
+
+        scope.formatHeader = function(ser) {
+          if (ser){
+            var head = ser.slice();
+          } else {
+            var head = ['Área'];
+          }
+
+          head.reverse();
+          if (scope.label)
+            head.push(scope.label);
+          else
+            head.push("#");
+          head.reverse();
+
+          return head;
+        };
+
+        scope.formatName = function(name) {
+          return name + '.csv';
+        };
+
       	scope.$watch('pie',function(data){
 
       		if(data) {
@@ -58,6 +100,8 @@ angular.module('estatisticasApp')
               scope.sizeClass = 'col-sm-12';
               break;
             case 'medium':
+              scope.sizeClass = 'col-sm-6';
+              break;
             default :
               scope.sizeClass = 'col-sm-6';
               break;

@@ -98,9 +98,9 @@ angular.module('estatisticasApp')
                   val = isNaN(val) ? 0 : val;
                   acumuladoDeter[key][k] += parseFloat(val);
                   acumuladoDeter[key][k] = parseFloat(parseFloat(acumuladoDeter[key][k]).toFixed(2));
-                })
-              })
-            })
+                });
+              });
+            });
 
             // dado a ser utilizado no chart_4
             var yearsData = {};
@@ -111,9 +111,9 @@ angular.module('estatisticasApp')
                 angular.forEach(acumuladoDeter[k], function(val, ky){
                 if(value == ky)
                   yearsData[value][k] = val;
-                })
-              })
-            })
+                });
+              });
+            });
             jsonData.acumuladoDeter = acumuladoDeter;
             jsonData.acumuladoDeterAno = yearsData;
 

@@ -33,7 +33,15 @@ angular.module('estatisticasApp')
           headers:{
             'Content-Type': 'application/json'
           }
-        },   
+        },
+        obtain_pass : {
+          url : 'http://10.1.8.131:8000/login/obtain-pass/',
+          method : 'POST',
+          params : {
+            format : 'json'
+          },
+          isArray : false
+        }   
       },
       {stripTrailingSlashes: false}
     );

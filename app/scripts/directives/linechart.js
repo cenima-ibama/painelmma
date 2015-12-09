@@ -22,7 +22,8 @@ angular.module('estatisticasApp')
         legend: '=',
         verticalLines: '=',
         loading: '=',
-        object: '='
+        object: '=',
+        label: '='
       },
       link: function postLink(scope) {
   			
@@ -44,7 +45,7 @@ angular.module('estatisticasApp')
 
         scope.initiateCollapseEl = function() {
           $("#" + scope.object.tagId + " .panel-body").collapse();          
-        }
+        };
 
         scope.toggleTable = function(){
           scope.table = !scope.table;
@@ -58,7 +59,7 @@ angular.module('estatisticasApp')
           csv = csv[0].map(function(col, i) { 
             return csv.map(function(row) { 
               return row[i];
-            })
+            });
           });
 
           angular.forEach(csv,function(value, key){
@@ -80,7 +81,7 @@ angular.module('estatisticasApp')
 
 
           return csv;
-        }
+        };
 
         scope.formatHeader = function(ser) {
           if (ser){
@@ -90,23 +91,26 @@ angular.module('estatisticasApp')
           }
 
           head.reverse();
-          head.push("#")
+          if (scope.label)
+            head.push(scope.label);
+          else
+            head.push("#");
           head.reverse();
 
           return head;
-        }
+        };
 
         scope.formatName = function(name) {
           return name + '.csv';
-        }
+        };
 
         scope.hideGraph = function() {
-          $("#" + scope.object.tagId + " .panel-body").collapse('hide')
-        }
+          $("#" + scope.object.tagId + " .panel-body").collapse('hide');
+        };
 
         scope.showGraph = function() {
-          $("#" + scope.object.tagId + " .panel-body").collapse('show')
-        }
+          $("#" + scope.object.tagId + " .panel-body").collapse('show');
+        };
 
         scope.$watch('line',function(data){
 
@@ -124,6 +128,8 @@ angular.module('estatisticasApp')
               scope.sizeClass = 'col-sm-12';
               break;
             case 'medium':
+              scope.sizeClass = 'col-sm-6';
+              break;
             default :
               scope.sizeClass = 'col-sm-6';
               break;

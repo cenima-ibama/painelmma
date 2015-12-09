@@ -20,7 +20,7 @@ angular.module('estatisticasApp')
 				dado.acumuladoDeter = data.acumuladoDeter;
 				dado.acumuladoDeterAno = data.acumuladoDeterAno;
 
-				scope.$broadcast('load_prodes_uf', dado)
+				scope.$broadcast('load_prodes_uf', dado);
 			});
 
 			scope.$on('chart_3', function(event, data){
@@ -35,7 +35,7 @@ angular.module('estatisticasApp')
 
 				angular.forEach(acumuladoAno, function(value, key){
 					scope.labelsProdesUf.push(key);
-				})
+				});
 
 				// angular.forEach(acumuladoAno.ac, function(value, key){
 				// 	scope.seriesProdesUf.push(key);
@@ -49,9 +49,8 @@ angular.module('estatisticasApp')
 					angular.forEach(acumuladoAno[key], function(val, ky){
 						scope.dataProdesUf[key][i]=val;
 						i++;
-					})
-					// states++;
-				})
+					});
+				});
 
 				console.log(scope.dataProdesUf);
 

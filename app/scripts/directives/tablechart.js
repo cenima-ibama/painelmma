@@ -14,10 +14,11 @@ angular.module('estatisticasApp')
       scope: {
         series: '=',
         labels: '=',
-        data: '='
+        data: '=',
+        label: '='
       },
       link: function postLink(scope, element, attrs) {
-        // element.text('this is the table directive');
+        scope.id = scope.label ? scope.label : "#"
       }
     };
   });

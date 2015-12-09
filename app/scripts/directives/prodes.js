@@ -109,5 +109,5 @@ angular.module('estatisticasApp')
 
 
    		}
-   	}
+   	};
   });
