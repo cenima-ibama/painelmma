@@ -21,11 +21,15 @@
   ])
   .config(function ($routeProvider) {
     $routeProvider
+      // .when('/', {
+      //   templateUrl: 'views/main.html',
+      //   controller: 'MapCtrl'
+      // })
+      // .when('/consultar', {
+      //   templateUrl: 'views/charts.html',
+      //   controller: 'ChartsCtrl'
+      // })
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MapCtrl'
-      })
-      .when('/consultar', {
         templateUrl: 'views/charts.html',
         controller: 'ChartsCtrl'
       })
