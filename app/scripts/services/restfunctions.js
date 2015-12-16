@@ -19,15 +19,15 @@ angular.module('estatisticasApp')
       if (!series) {
         angular.forEach(data,function(value, key){
           while (labels[ele] < value[labelField]) {
-            obj.data[0].push(sum);
+            obj.data[0].push(parseFloat(sum).toFixed(2));
             ele++;  
           }
           sum += value.total;
-          obj.data[0].push(sum.toFixed(2));
+          obj.data[0].push(parseFloat(sum).toFixed(2));
           ele++;  
         });
         while(labels[ele] <= labels[labels.length - 1]) {
-          obj.data[0].push(sum);
+          obj.data[0].push(parseFloat(sum).toFixed(2));
           ele++;
         }
       } else {
@@ -35,7 +35,7 @@ angular.module('estatisticasApp')
           obj.data[seriekey] = labels.map(function(a){return 0;});
           angular.forEach(value.data,function(value, labelkey){
             var lab = obj.labels.indexOf(value[labelField]);
-            obj.data[seriekey][lab] = value.total; 
+            obj.data[seriekey][lab] = parseFloat(value.total).toFixed(2); 
           });
         });
         obj.series = series;
@@ -56,7 +56,7 @@ angular.module('estatisticasApp')
           obj.data[seriekey] = labels.map(function(a){return 0;});
           angular.forEach(value.data,function(value, labelkey){
             var lab = obj.labels.indexOf(value[labelField]);
-            obj.data[seriekey][lab] = value.total; 
+            obj.data[seriekey][lab] = parseFloat(value.total).toFixed(2); 
           });
         });
         obj.series = series;
@@ -74,7 +74,7 @@ angular.module('estatisticasApp')
         obj.data = labels.map(function(a){return 0;});
         angular.forEach(data,function(value, key){
             var lab = obj.labels.indexOf(value[labelField]);
-            obj.data[lab] = value.total; 
+            obj.data[lab] = parseFloat(value.total).toFixed(2); 
         });
       } else {
         // TODO: work without series

@@ -182,6 +182,11 @@ angular.module('estatisticasApp')
       $rootScope.chart9.returnFunction = restFunctions.chart9;
       restChart9 = RestApi.query($rootScope.chart9.restOptions, $rootScope.chart9.returnFunction).$promise;
 
+      $rootScope.chart10 = {};
+      $rootScope.chart10.data = [[0,0,0],[-10,20,-30],[10,-20,30]];
+      $rootScope.chart10.label = [1,2,3];
+      $rootScope.chart10.series = ['zero','a','b'];
+
 
       $rootScope.chart1.promise = function(){
         $rootScope.chart1.loading = false;
