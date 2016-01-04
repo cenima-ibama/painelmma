@@ -119,7 +119,7 @@ angular.module('estatisticasApp')
     };
 
     $scope.filter = function(estado,mes,ano,tipo,estagio) {
-      var restChart1, restChart2, restChart3, restChart4, restChart5, restChart6, restChart7, restChart8, restChart9;
+      var restChart1, restChart2, restChart3, restChart4, restChart5, restChart6, restChart7, restChart8, restChart9, restGauge1;
 
       var tipo_filtrado = (estagio.name != 'Degradação + Corte Raso' && tipo.value == 'DETER') ? 'DETER_QUALIF' : tipo.value;
       var estagio_filtrado = (estagio.name == 'Degradação + Corte Raso') ? '' : $scope.getProperStage(estagio.name);
@@ -137,6 +137,8 @@ angular.module('estatisticasApp')
       $rootScope.chart8 = {loading: true, rightSeries: $scope.rightSeries, leftSeries: $scope.leftSeries, showPie: $scope.showPie1, tagId: 'chart8'};
       $rootScope.chart9 = {loading: true, showPie: $scope.showPie2, tagId: 'chart9'};
 
+      $rootScope.gauge1 = {loading: true};
+
       $rootScope.ano = $scope.ano;
       $rootScope.mes = $scope.mes;
       $rootScope.estado = $scope.estado;
@@ -145,6 +147,10 @@ angular.module('estatisticasApp')
         $http.defaults.headers.get = [];
         $http.defaults.headers.get['Authorization'] = 'Token ' + angular.fromJson($cookies.get('user_data')).token;
       }
+
+      $rootScope.gauge1.restOptions = {type:'comparativo', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()};
+      $rootScope.gauge1.returnFunction = restFunctions.gauge1;
+      restGauge1 = RestApi.query($rootScope.gauge1.restOptions, $rootScope.gauge1.returnFunction).$promise;
 
       $rootScope.chart1.restOptions = {type:'diario', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()};
       $rootScope.chart1.returnFunction = restFunctions.chart1;
@@ -187,6 +193,14 @@ angular.module('estatisticasApp')
       $rootScope.chart10.label = [1,2,3];
       $rootScope.chart10.series = ['zero','a','b'];
 
+
+      $rootScope.gauge1.promise = function(){
+        $rootScope.gauge1.loading = false;
+
+        var estado = $scope.estado == '' ? 'AML' : $scope.estado;
+        $rootScope.gauge1.title = "Aumento em relação ao perído anterior";
+      }
+      restGauge1.then($rootScope.gauge1.promise);
 
       $rootScope.chart1.promise = function(){
         $rootScope.chart1.loading = false;

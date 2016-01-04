@@ -1,0 +1,11 @@
+<div>
+	<div class="gauge-body" ng-if="loading">
+		<spinner></spinner>
+	</div>
+	<div class="gauge-body" ng-if="!loading">
+		<div id='{{gaugeId}}'></div>
+	</div>
+	<div class="gauge-footer">
+		<p class="gauge-title"> {{object.title}}</p>
+	</div>
+</div>

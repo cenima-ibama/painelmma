@@ -157,6 +157,40 @@
   border-left: 1px solid;
   border-right: 1px solid;
   min-height: 72px;
+
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+.gauge-title {
+  padding: 0em 0.5em 0.5em 0em;
+  text-align: center;
+}
+
+.gauge-body {
+  border:  1px solid #DDDDDD;
+  border-radius: 40px 40px 0px 0px;
+}
+
+.gauge-footer {
+  /*padding: 0.5em 0.3em 0.5em 0.3em;*/
+
+  background-color: #fcfcfc;111111111111a1a11111111111111111111111111111111
+  background-image: -moz-linear-gradient(top, #fcfcfc, #efefef);
+  background-image: -webkit-linear-gradient(top, #fcfcfc, #efefef);
+  background-image: linear-gradient(to bottom, #fcfcfc, #efefef);
+
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  overflow: hidden;
+
+  border-right:  1px solid #DDDDDD;
+  border-left:  1px solid #DDDDDD;
+  border-bottom:  1px solid #DDDDDD;  
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  height: 3em;
 }
 
 .panel-body {
@@ -165,6 +199,8 @@
   border-right: 1px solid;
   border-color: #DDDDDD;
   height: 288px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .panel-heading .break {
@@ -316,4 +352,9 @@
   /* Mozilla */
   padding-left: 0;
   /* IE (handles all cases, really, but we should also include the vendor-specific properties just to be safe) */
+}
+
+hr.hr-style {
+  margin-right: 15px;
+  margin-left: 15px;
 }

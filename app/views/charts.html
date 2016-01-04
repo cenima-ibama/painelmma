@@ -48,7 +48,23 @@
 
 	</form>
 	
-	<hr />
+	<hr class="col-sm-12 hr-style"/>
+
+	<div clas="col-sm-12">
+		<div class="col-sm-5"></div>
+
+		<gauge-panel
+			gauge-id='"variacao"'
+			class="col-sm-2"
+			data="gauge1.data"
+			object='gauge1'
+			loading="gauge1.loading">
+		</gauge-panel>
+
+		<div class="col-sm-5"></div>
+	</div>
+
+	<hr class="col-sm-12 hr-style"/>
 
 	<div class="col-sm-12 chart-div">
 		<line-chart 

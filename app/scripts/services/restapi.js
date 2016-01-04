@@ -11,8 +11,8 @@
 
 angular.module('estatisticasApp')
   .factory('RestApi', function ($resource) {
-    // return $resource( 'http://10.1.8.210:8000/api/:type/', {type: '@type'},
-    return $resource( 'http://siscom.ibama.gov.br/painel_api/api/:type/', {type: '@type'},
+    return $resource( 'http://localhost:8000/api/:type/', {type: '@type'},
+    // return $resource( 'http://siscom.ibama.gov.br/painel_api/api/:type/', {type: '@type'},
       {
         get: {
           method:'GET',
@@ -35,7 +35,8 @@ angular.module('estatisticasApp')
           }
         },
         obtain_pass : {
-          url : 'http://siscom.ibama.gov.br/painel_api/login/obtain-pass/',
+          url : 'http://localhost:8000/login/obtain-pass/',
+          // url : 'http://siscom.ibama.gov.br/painel_api/login/obtain-pass/',
           method : 'POST',
           params : {
             format : 'json'

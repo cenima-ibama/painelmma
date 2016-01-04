@@ -89,6 +89,29 @@ angular.module('estatisticasApp')
     };
 
     return {
+      gauge1: function success(data,status){  
+        var dado = 0;
+
+        angular.forEach(data, function(value, key){
+          if (dado != 0) {
+            dado = parseFloat(dado) - parseFloat(value.total);
+          } else {
+            dado = parseFloat(value.total);
+          }
+        });
+
+        dado = (dado * 1000).toLocaleString().replace(',','.');
+
+
+        var formatFunction = function(value, ratio){
+          return (value * 1000).toLocaleString().replace(',','.'); 
+        }
+
+        var returnedObject = {label: 'comparativo entre períodos', data: dado, units: ' km²', formatValue: formatFunction}
+        $rootScope.gauge1.data = returnedObject;
+      },
+
+      
       chart1: function success(data,status){  
         var ret = {labels: [], data: [[]]};
         var lastDay = new Date($rootScope.ano,($rootScope.mes.value),0).getDate();
