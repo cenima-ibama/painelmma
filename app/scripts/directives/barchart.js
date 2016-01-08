@@ -66,6 +66,27 @@ angular.module('estatisticasApp')
           return csv;
         };
 
+        scope.maximize = function(element) {
+
+          scope.modal = scope.modal ? false : true;
+
+          scope.datModal = scope.dat;
+          scope.labModal = scope.lab;
+          scope.serModal = scope.ser;
+          scope.legendModal = scope.legend;
+          scope.optionsModal = scope.options;
+          scope.colorsModal = scope.colors;
+          // scope.heighModal = maxHeight;
+          
+          var height = $(window).height() - 20;
+          var width = $(window).width() - 155;
+
+          // $("#modal-" + scope.object.tagId + ">.panel-maximize").css('height',height);
+          // $("#modal-" + scope.object.tagId + ">.panel-maximize").css('width',width);
+
+          $("#modal-" + scope.object.tagId).modal('toggle');
+        };
+
         scope.formatHeader = function(ser) {
           if (ser){
             var head = ser.slice();

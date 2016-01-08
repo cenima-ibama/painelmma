@@ -15,7 +15,7 @@
 		<div class="btn-group btn-group-sm header-right" ng-if="optionBut">
 			<button class="btn btn-default glyphicon glyphicon-list-alt" ng-click="toggleTable()"></button>
 			<button class="btn btn-default glyphicon glyphicon-download-alt" ng-csv="formatCsv(dat, lab)" csv-header="formatHeader(ser)" filename="{{formatName(name)}}"></button>
-			<button class="btn btn-default glyphicon glyphicon-resize-full"></button>
+			<button class="btn btn-default glyphicon glyphicon-resize-full" ng-click="maximize(this)"></button>
 		</div>
 	</div>
 	<div class="panel-body" ng-if="loading">
@@ -27,5 +27,38 @@
 	</div>
 	<div class="panel-body table-default" ng-if='table && !loading'>
 		<table-chart series='ser' labels='lab' data='[dat]' label='label'></table-chart>
+	</div>
+
+	<div id="modal-{{object.tagId}}" class="modal fade in" data-backdrop="static">
+		<div class="modal-dialog panel-maximize">
+			<div class="modal-content">
+				<div class="panel-heading">
+					<div class="header-left">
+						<div class="btn-group btn-group-sm" ng-if="nextPrevBut">
+							<button class="btn btn-default glyphicon glyphicon-arrow-left" ng-click="object.leftSeries(object)"></button>
+							<button class="btn btn-default glyphicon glyphicon-arrow-right" ng-click="object.rightSeries(object)"></button>
+						</div>
+						<div class="btn-group btn-group-sm" ng-if="addBut">
+							<button class="btn btn-default glyphicon glyphicon-plus" ng-click="object.addSeries(object)"></button>
+							<button class="btn btn-default glyphicon glyphicon-minus" ng-click="object.removeSeries(object)" ng-disabled="!object.restOptions.frequencia"></button>
+						</div>
+						<span class="break" ng-if="addBut || nextPrevBut"></span>
+						<div class="head-title">{{name}}</div>
+					</div>
+					<div class="btn-group btn-group-sm header-right" ng-if="optionBut">
+						<button class="btn btn-default glyphicon glyphicon-list-alt" ng-click="toggleTable()"></button>
+						<button class="btn btn-default glyphicon glyphicon-download-alt" ng-csv="formatCsv(dat, lab)" csv-header="formatHeader(ser)" filename="{{formatName(name)}}"></button>
+						<button class="btn btn-default glyphicon glyphicon-resize-small" ng-click="maximize(this)"></button>
+					</div>
+				</div>
+				<div class="panel" ng-if='!table'>
+					<canvas class="chart-pie" chart-data='datModal' chart-labels='labModal' chart-series='serModal' chart-legend='{{legendModal}}' chart-options="optionsModal" chart-colours="colorsModal">
+					</canvas>
+				</div>
+				<div class="panel modal-table" ng-if='table'>
+					<table-chart series='serModal' labels='labModal' data='datModal' label="label"></table-chart>
+				</div>				
+			</div>
+		</div>
 	</div>
 </div>
