@@ -7,7 +7,7 @@
  * # lineChart
  */
 angular.module('estatisticasApp')
-  .directive('lineChart', function () {
+  .directive('lineChart',['$timeout',function ($timeout) {
     return {
       templateUrl: 'views/partials/lineChart.html',
       restrict: 'E',
@@ -29,6 +29,7 @@ angular.module('estatisticasApp')
   			
         var showVerticalLines = 'true' || scope.verticalLines;
         scope.table = false;
+        scope.modal = false;
 
         scope.options = {
           animationSteps: 3,
@@ -83,9 +84,13 @@ angular.module('estatisticasApp')
           return csv;
         };
 
-        scope.maximize = function(element) {
+        // scope.initModal = function() {
+        //   $timeout(function(){
+        //     $("#modal-" + scope.object.tagId).modal('toggle');
+        //   },0);          
+        // }
 
-          scope.modal = scope.modal ? false : true;
+        scope.maximize = function(element) {
 
           scope.datModal = scope.dat;
           scope.labModal = scope.lab;
@@ -101,7 +106,15 @@ angular.module('estatisticasApp')
           // $("#modal-" + scope.object.tagId + ">.panel-maximize").css('height',height);
           // $("#modal-" + scope.object.tagId + ">.panel-maximize").css('width',width);
 
+          // if (scope.modal) {
+          //   scope.initModal();
+          //   scope.modal = false;
+          // } else {
+          //   scope.modal = true;
+          // }
+
           $("#modal-" + scope.object.tagId).modal('toggle');
+          
         };
 
         scope.formatHeader = function(ser) {
@@ -159,4 +172,4 @@ angular.module('estatisticasApp')
         });
       }
     };
-  });
+  }]);
