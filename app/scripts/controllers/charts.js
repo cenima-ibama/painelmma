@@ -19,16 +19,27 @@ angular.module('estatisticasApp')
     $scope.tipos = formData.tipos;
     $scope.estagios = formData.estagios;
 
-    $scope.mes = $scope.meses[new Date().getMonth()];
-    $scope.ano = new Date().getFullYear();
-    $scope.tipo = $scope.tipos.filter(function(a){if(a.value=='DETER')return a;})[0];
-    $scope.estagio = $scope.estagios.filter(function(a){if(a.value=='corte_raso')return a;})[0];
-    $scope.estado = '';
 
-    $(".quick.quick-btn").hide();
+    var mes = $rootScope.filters ? $rootScope.filters.mes : new Date().getMonth();
+    $scope.mes = $scope.meses[mes];
+
+    var ano = $rootScope.filters ? $rootScope.filters.ano : new Date().getFullYear();
+    $scope.ano = ano;
+
+    var tipo = $rootScope.filters ? $rootScope.filters.tipo : 'DETER';
+    $scope.tipo = $scope.tipos.filter(function(a){if(a.value==tipo)return a;})[0];
+
+    var estagio = $rootScope.filters ? $scope.estagios.find(function(a){return a.name = $rootScope.filters.estagio}).value : 'corte_raso';
+    $scope.estagio = $scope.estagios.filter(function(a){if(a.value==estagio)return a;})[0];
+
+    var estado = $rootScope.filters ? $rootScope.filters.estado : '';
+    $scope.estado = estado;
+
+
+    // $(".quick.quick-btn").hide();
 
     var estado = $scope.estado == '' ? 'AML' : $scope.estado;
-    $scope.prodesAno = $scope.mes > 6 ? $scope.ano + "-" ($scope.ano + 1).toString.substr(2) : ($scope.ano - 1) + "-" + $scope.ano.toString().substr(2);
+    // $scope.prodesAno = $scope.mes > 6 ? $scope.ano + "-" ($scope.ano + 1).toString.substr(2) : ($scope.ano - 1) + "-" + $scope.ano.toString().substr(2);
 
     $scope.options = {
       animationSteps: 5,
@@ -188,6 +199,8 @@ angular.module('estatisticasApp')
       $rootScope.chart9.returnFunction = restFunctions.chart9;
       restChart9 = RestApi.query($rootScope.chart9.restOptions, $rootScope.chart9.returnFunction).$promise;
 
+      $rootScope.filters = {uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()};
+
       $rootScope.chart10 = {};
       $rootScope.chart10.data = [[0,0,0],[-10,20,-30],[10,-20,30]];
       $rootScope.chart10.label = [1,2,3];
@@ -277,5 +290,10 @@ angular.module('estatisticasApp')
       restChart9.then($rootScope.chart9.promise);
     };
     
-    $scope.filter($scope.estado,$scope.mes,$scope.ano,$scope.tipo,$scope.estagio);
+    if (!$rootScope.chart1) {
+      $scope.filter($scope.estado,$scope.mes,$scope.ano,$scope.tipo,$scope.estagio);
+    }
+
+    $scope.evaluateStage($scope.estagio.value, $scope.tipo.value, true);
+
   });
