@@ -20,8 +20,8 @@ angular.module('estatisticasApp')
     $scope.estagios = formData.estagios;
 
 
-    var mes = $rootScope.filters ? $rootScope.filters.mes : new Date().getMonth();
-    $scope.mes = $scope.meses[mes];
+    var mes = $rootScope.filters ? $rootScope.filters.mes : (new Date().getMonth() + 1);
+    $scope.mes = $scope.meses[mes-1];
 
     var ano = $rootScope.filters ? $rootScope.filters.ano : new Date().getFullYear();
     $scope.ano = ano;
@@ -157,6 +157,7 @@ angular.module('estatisticasApp')
       if ($cookies.get('user_data')){
         $http.defaults.headers.get = [];
         $http.defaults.headers.get['Authorization'] = 'Token ' + angular.fromJson($cookies.get('user_data')).token;
+        $scope.logged = true;
       }
 
       $rootScope.gauge1.restOptions = {type:'comparativo', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()};
@@ -199,7 +200,7 @@ angular.module('estatisticasApp')
       $rootScope.chart9.returnFunction = restFunctions.chart9;
       restChart9 = RestApi.query($rootScope.chart9.restOptions, $rootScope.chart9.returnFunction).$promise;
 
-      $rootScope.filters = {uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()};
+      $rootScope.filters = {uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo.value.trim(), estagio: estagio_filtrado.trim()};
 
       $rootScope.chart10 = {};
       $rootScope.chart10.data = [[0,0,0],[-10,20,-30],[10,-20,30]];
@@ -219,7 +220,7 @@ angular.module('estatisticasApp')
         $rootScope.chart1.loading = false;
 
         var estado = $scope.estado == '' ? 'AML' : $scope.estado;
-        $rootScope.chart1.title = 'Alerta ' + $scope.tipo.value + ": Detecção Diário em Km² [Filtros: " + $scope.mes.name + " / " + $scope.ano + " / " + $scope.estagio.name.replace(/\s\+\s/g,'+') + " / " + estado + "]";
+        $rootScope.chart1.title = 'Alerta ' + $scope.tipo.value + ": Detecção Diário em Km² [Filtros: " + $scope.mes.name + " / " + $scope.ano + " / Degradação + Corte Raso / " + estado + "]";
       }
       restChart1.then($rootScope.chart1.promise);
 

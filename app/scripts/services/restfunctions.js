@@ -210,7 +210,7 @@ angular.module('estatisticasApp')
           });
         });
 
-        labels.sort(function(a,b){return a>b;});
+        labels.sort(function(a,b){return a<b;});
 
         var returnedObject = fillLineObject(ret, data, labels, 'periodo_prodes', series,'taxa');
         $rootScope.chart5.data = returnedObject;

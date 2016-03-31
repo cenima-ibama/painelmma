@@ -50,7 +50,10 @@ angular.module('estatisticasApp')
 			}).addTo($scope.mapObject.map);
 
 			if ($rootScope.filters) {
-				var options = $rootScope.filters;
+				var options = jQuery.extend({}, $rootScope.filters);;
+
+				options.tipo = (options.estagio != 'Degradação + Corte Raso' && options.tipo == 'DETER') ? 'DETER_QUALIF' : options.tipo;
+
 				options.type = 'mapa';
 
 				RestApi.getObject(options, function success(data,status){
@@ -73,6 +76,8 @@ angular.module('estatisticasApp')
 					if (data.toJSON().features.length) {
 		    		$scope.mapObject.map.fitBounds(json.getBounds());
 		    	}
+
+		    	$scope.mapObject.map.addLayer(json);
 
 					$scope.mapObject.loading = false;
 				});
