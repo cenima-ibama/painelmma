@@ -51,7 +51,7 @@
 	<hr class="col-sm-12 hr-style" ng-if='logged'/>
 
 	<div clas="col-sm-12" ng-if='logged'>
-		<div class="col-sm-5"></div>
+		<div class="col-sm-4"></div>
 
 		<gauge-panel
 			gauge-id='"variacao"'
@@ -61,7 +61,15 @@
 			loading="gauge1.loading">
 		</gauge-panel>
 
-		<div class="col-sm-5"></div>
+		<gauge-panel
+			gauge-id='"variacaoprodes"'
+			class="col-sm-2"
+			data="gauge2.data"
+			object='gauge2'
+			loading="gauge2.loading">
+		</gauge-panel>
+
+		<div class="col-sm-4"></div>
 	</div>
 
 	<hr class="col-sm-12 hr-style"/>

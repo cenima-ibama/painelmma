@@ -130,7 +130,7 @@ angular.module('estatisticasApp')
     };
 
     $scope.filter = function(estado,mes,ano,tipo,estagio) {
-      var restChart1, restChart2, restChart3, restChart4, restChart5, restChart6, restChart7, restChart8, restChart9, restGauge1;
+      var restChart1, restChart2, restChart3, restChart4, restChart5, restChart6, restChart7, restChart8, restChart9, restGauge1, restGauge2;
 
       var tipo_filtrado = (estagio.name != 'Degradação + Corte Raso' && tipo.value == 'DETER') ? 'DETER_QUALIF' : tipo.value;
       var estagio_filtrado = (estagio.name == 'Degradação + Corte Raso') ? '' : $scope.getProperStage(estagio.name);
@@ -149,6 +149,7 @@ angular.module('estatisticasApp')
       $rootScope.chart9 = {loading: true, showPie: $scope.showPie2, tagId: 'chart9'};
 
       $rootScope.gauge1 = {loading: true};
+      $rootScope.gauge2 = {loading: true};
 
       $rootScope.ano = $scope.ano;
       $rootScope.mes = $scope.mes;
@@ -163,6 +164,10 @@ angular.module('estatisticasApp')
       $rootScope.gauge1.restOptions = {type:'comparativo', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()};
       $rootScope.gauge1.returnFunction = restFunctions.gauge1;
       restGauge1 = RestApi.query($rootScope.gauge1.restOptions, $rootScope.gauge1.returnFunction).$promise;
+
+      $rootScope.gauge2.restOptions = {type:'comparativo_prodes', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()};
+      $rootScope.gauge2.returnFunction = restFunctions.gauge2;
+      restGauge2 = RestApi.query($rootScope.gauge2.restOptions, $rootScope.gauge2.returnFunction).$promise;
 
       $rootScope.chart1.restOptions = {type:'diario', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()};
       $rootScope.chart1.returnFunction = restFunctions.chart1;
@@ -212,9 +217,17 @@ angular.module('estatisticasApp')
         $rootScope.gauge1.loading = false;
 
         var estado = $scope.estado == '' ? 'AML' : $scope.estado;
-        $rootScope.gauge1.title = "Aumento em relação ao perído anterior";
+        $rootScope.gauge1.title = "Variação em relação ao mesmo mês do ano anterior (VRMMAA)";
       }
       restGauge1.then($rootScope.gauge1.promise);
+
+      $rootScope.gauge2.promise = function(){
+        $rootScope.gauge2.loading = false;
+
+        var estado = $scope.estado == '' ? 'AML' : $scope.estado;
+        $rootScope.gauge2.title = "Variação em relação ao período PRODES anterior (VRPPA)";
+      }
+      restGauge2.then($rootScope.gauge2.promise);
 
       $rootScope.chart1.promise = function(){
         $rootScope.chart1.loading = false;

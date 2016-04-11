@@ -92,25 +92,39 @@ angular.module('estatisticasApp')
       gauge1: function success(data,status){  
         var dado = 0;
 
-        angular.forEach(data, function(value, key){
-          if (dado != 0) {
-            dado = parseFloat(dado) - parseFloat(value.total);
-          } else {
-            dado = parseFloat(value.total);
-          }
-        });
+        // angular.forEach(data, function(value, key){
+        //   if (dado != 0) {
+        //     dado = parseFloat(dado) - parseFloat(value.total);
+        //   } else {
+        //     dado = parseFloat(value.total);
+        //   }
+        // });
 
-        dado = (dado * 1000).toLocaleString().replace(',','.');
+        // dado = (dado * 1000).toLocaleString().replace(',','.');
 
+
+        dado = ((data[1].total - data[0].total) / data[0].total) * 100;
 
         var formatFunction = function(value, ratio){
-          return (value * 1000).toLocaleString().replace(',','.'); 
+          return value.toLocaleString().replace(',','.'); 
         }
 
-        var returnedObject = {label: 'comparativo entre períodos', data: dado, units: ' km²', formatValue: formatFunction}
+        var returnedObject = {label: '%', data: dado.toFixed(3), formatValue: formatFunction}
         $rootScope.gauge1.data = returnedObject;
       },
 
+      gauge2: function success(data,status){  
+        var dado = 0;
+
+        dado = ((data[1].total - data[0].total) / data[0].total) * 100;
+
+        var formatFunction = function(value, ratio){
+          return value.toLocaleString().replace(',','.'); 
+        }
+
+        var returnedObject = {label: '%', data: dado.toFixed(3), formatValue: formatFunction}
+        $rootScope.gauge2.data = returnedObject;
+      },
       
       chart1: function success(data,status){  
         var ret = {labels: [], data: [[]]};

@@ -50,9 +50,9 @@ angular.module('estatisticasApp')
 						    	min: -100
 						    },
 						    color: {
-						        pattern: ["#0066CC", "#60B044", "#F6C600", "#F97600", "#FF0000"], // the three color levels for the percentage values.
+						        pattern: ["#60B044","#60B044","#FF0000"], // the three color levels for the percentage values.
 						        threshold: {
-						            values: [-99, -49, 1, 51, 100]
+						            values: [-99, 0, 100]
 						        }
 						    }
 						    // data: {
