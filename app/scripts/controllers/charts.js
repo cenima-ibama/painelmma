@@ -148,8 +148,8 @@ angular.module('estatisticasApp')
       $rootScope.chart8 = {loading: true, rightSeries: $scope.rightSeries, leftSeries: $scope.leftSeries, showPie: $scope.showPie1, tagId: 'chart8'};
       $rootScope.chart9 = {loading: true, showPie: $scope.showPie2, tagId: 'chart9'};
 
-      $rootScope.gauge1 = {loading: true};
-      $rootScope.gauge2 = {loading: true};
+      $rootScope.gauge1 = {loading: true, tooltip:"Variação em relação ao mesmo mês do ano anterior"};
+      $rootScope.gauge2 = {loading: true, tooltip:"Variação em relação ao período PRODES anterior"};
 
       $rootScope.ano = $scope.ano;
       $rootScope.mes = $scope.mes;
@@ -217,7 +217,7 @@ angular.module('estatisticasApp')
         $rootScope.gauge1.loading = false;
 
         var estado = $scope.estado == '' ? 'AML' : $scope.estado;
-        $rootScope.gauge1.title = "Variação em relação ao mesmo mês do ano anterior (VRMMAA)";
+        $rootScope.gauge1.title = "VRMMAA";
       }
       restGauge1.then($rootScope.gauge1.promise);
 
@@ -225,7 +225,7 @@ angular.module('estatisticasApp')
         $rootScope.gauge2.loading = false;
 
         var estado = $scope.estado == '' ? 'AML' : $scope.estado;
-        $rootScope.gauge2.title = "Variação em relação ao período PRODES anterior (VRPPA)";
+        $rootScope.gauge2.title = "VRPPA";
       }
       restGauge2.then($rootScope.gauge2.promise);
 
