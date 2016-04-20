@@ -52,7 +52,7 @@ angular.module('estatisticasApp')
 			if ($rootScope.filters) {
 				var options = jQuery.extend({}, $rootScope.filters);;
 
-				options.tipo = (options.estagio != 'Degradação + Corte Raso' && options.tipo == 'DETER') ? 'DETER_QUALIF' : options.tipo;
+				options.tipo = (options.estagio != '') && (options.tipo == 'DETER') ? 'DETER_QUALIF' : options.tipo;
 
 				options.type = 'mapa';
 

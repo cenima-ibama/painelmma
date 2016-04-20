@@ -29,7 +29,11 @@ angular.module('estatisticasApp')
     var tipo = $rootScope.filters ? $rootScope.filters.tipo : 'DETER';
     $scope.tipo = $scope.tipos.filter(function(a){if(a.value==tipo)return a;})[0];
 
-    var estagio = $rootScope.filters ? $scope.estagios.find(function(a){return a.name = $rootScope.filters.estagio}).value : 'corte_raso';
+    var filter_function = function(a){
+      var estagio_original = $rootScope.filters.estagio == '' ? 'Degradação + Corte Raso' : $rootScope.filters.estagio;
+      return a.name = estagio_original;
+    };
+    var estagio = $rootScope.filters ? $scope.estagios.find(filter_function).value : 'corte_raso';
     $scope.estagio = $scope.estagios.filter(function(a){if(a.value==estagio)return a;})[0];
 
     var estado = $rootScope.filters ? $rootScope.filters.estado : '';
