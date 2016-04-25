@@ -224,7 +224,7 @@ angular.module('estatisticasApp')
           });
         });
 
-        labels.sort(function(a,b){return parseInt(b)-parseInt(a);});
+        labels.sort(function(a,b){return parseInt(a)-parseInt(b);});
         // labels.sort(function(a,b){return a<b;});
 
         var returnedObject = fillLineObject(ret, data, labels, 'periodo_prodes', series,'taxa');
