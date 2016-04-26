@@ -109,7 +109,7 @@ angular.module('estatisticasApp')
           return value.toLocaleString().replace(',','.'); 
         }
 
-        var returnedObject = {label: '%', data: dado.toFixed(3), formatValue: formatFunction}
+        var returnedObject = {label: '%', data: dado.toFixed(2), formatValue: formatFunction}
         $rootScope.gauge1.data = returnedObject;
       },
 
@@ -122,7 +122,7 @@ angular.module('estatisticasApp')
           return value.toLocaleString().replace(',','.'); 
         }
 
-        var returnedObject = {label: '%', data: dado.toFixed(3), formatValue: formatFunction}
+        var returnedObject = {label: '%', data: dado.toFixed(2), formatValue: formatFunction}
         $rootScope.gauge2.data = returnedObject;
       },
       

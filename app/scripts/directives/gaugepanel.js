@@ -28,6 +28,11 @@ angular.module('estatisticasApp')
 	      		$timeout(function() {
 			      	var id = '#' + scope.gaugeId
 
+			      	// var value = data.data - 100;
+			      	var value = (Math.abs(data.data) + 100) * -1;
+
+			      	value = value + Math.abs(value % 100);
+
 			      	var chart = c3.generate({
 						    bindto: id,   
 					    	data: {
@@ -46,13 +51,14 @@ angular.module('estatisticasApp')
 		        			label: {
 										format: data.formatValue,
 		        			},
-						    	units: data.units,
-						    	min: -100
+						    	units: data.label,
+						    	min: (Math.abs(value) * -1),
+						    	max: Math.abs(value)
 						    },
 						    color: {
 						        pattern: ["#60B044","#60B044","#FF0000"], // the three color levels for the percentage values.
 						        threshold: {
-						            values: [-99, 0, 100]
+						            values: [-100, 0, 100]
 						        }
 						    }
 						    // data: {
