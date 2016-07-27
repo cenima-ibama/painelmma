@@ -1,0 +1,113 @@
+
+<div id='page'>
+	<form id='form-chart' ng-submit='filter(tipo, anoInicio, anoFim, estagio, area, dominio, estado)' class='text-center '>
+
+			<div class='center'>
+				<figure class='quick quick-btn' id='selectMap' >
+					<a ng-repeat='ufs in estados' class='item {{ufs.selected}}' ng-click='changeClass(ufs)'  >
+						<img id='{{ufs.name}}' href='#' ng-src='{{ufs.image}}' value='{{ufs.name}}'>
+						<span class=''>{{ufs.subtitle}}</span>
+					</a>
+	 			</figure>
+			</div>
+
+			<div class="center filter-select chart-block">
+	 			<div class="form-group div-select">
+		 			<label> Tipo de Detecção</label>
+					<select class='btn btn-default form-control' ng-options='tipo.name for tipo in tipos' ng-model='tipo' ng-change='changeStage(tipo.value)'></select> 
+				</div>
+	 			<div class="form-group div-select">
+		 			<label> Data Inicial</label>
+		 			<input type="text" class="form-control" calendar ng-model="anoInicio" mask='39/19/9999'/>
+				</div>
+	 			<div class="form-group div-select">
+		 			<label> Data Final</label>
+		 			<input type="text" class="form-control" calendar ng-model="anoFim" mask='39/19/9999'/>
+				</div>
+	 			<div class="form-group div-select">
+		 			<label> Estagio da Alteração</label>
+					<select class='btn btn-default form-control' ng-model="estagio" ng-options="estagio.name for estagio in estagios | filter: {type: tipo.value}" ng-change='evaluateStage(estagio.value, tipo.value)'>
+					</select> 
+				</div>
+	 			<div class="form-group div-select">
+		 			<label> Áreas de Comparação </label>
+					<select class='btn btn-default form-control' ng-model="area" ng-options="area.name for area in areas_comparacao" ng-change='evaluateStage(estagio.value, tipo.value)'>
+					</select> 
+				</div>
+	 			<div class="form-group div-select">
+		 			<label> Domínio </label>
+					<select class='btn btn-default form-control' ng-model="dominio" ng-options="dominio.name for dominio in dominios | filter: {type: area.value}" ng-change='evaluateStage(estagio.value, tipo.value)'>
+					</select> 
+				</div>
+	 			<div class="form-group">
+					<button class='btn btn-primary form-control button-select' type='submit'>Pesquisar</button>	
+				</div>
+			</div>
+
+	</form>
+
+	<hr class="col-sm-12 hr-style"/>
+
+	<div class="col-sm-12 chart-div chart-block" ng-if='showCharts'>
+		<line-chart 
+			id="cruzChart1"
+			name='cruzChart1.title' 
+			data="cruzChart1.data" 
+			add-but="false" 
+			option-but='true'
+			legend='false'
+			vertical-lines='"true"'
+			loading='cruzChart1.loading'
+			object='cruzChart1'
+			error='cruzChart2.error'>
+			</line-chart>
+
+		<pie-chart 
+			id='"cruzChart2"'
+			name='cruzChart2.title' 
+			data="cruzChart2.data" 
+			next-prev-but="false" 
+			option-but='true'
+			legend="true"
+			loading='cruzChart2.loading'
+			object='cruzChart2'
+			error='cruzChart2.error'>
+		</pie-chart>
+
+		<!-- <pie-chart 
+			id="cruzChart2"
+			name='cruzChart2.title' 
+			data="cruzChart2.data" 
+			add-but="true" 
+			option-but='true'
+			legend='true'
+			vertical-lines='"false"'
+			loading='cruzChart2.loading'
+			object='cruzChart2'>
+			</pie-chart> -->
+
+<!-- 		<line-chart 
+			id="cruzChart3"
+			name='cruzChart3.title' 
+			data="cruzChart3.data" 
+			add-but="true" 
+			option-but='true'
+			legend='true'
+			vertical-lines='"false"'
+			loading='cruzChart3.loading'
+			object='cruzChart3'>
+			</line-chart> -->
+
+<!-- 		<line-chart 
+			id="cruzChart4"
+			name='cruzChart4.title' 
+			data="cruzChart4.data" 
+			add-but="true" 
+			option-but='true'
+			legend='true'
+			vertical-lines='"false"'
+			loading='cruzChart4.loading'
+			object='cruzChart4'>
+			</line-chart> -->
+	</div>
+</div>

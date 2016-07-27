@@ -21,7 +21,10 @@
 	<div class="panel-body" ng-if="loading">
 		<spinner></spinner>
 	</div>
-	<div class="panel-body" ng-if='!table && !loading'>
+	<div class="panel-body" ng-if="error && !loading">
+		<span> {{error}} </span>
+	</div>
+	<div class="panel-body" ng-if='!table && !loading && !error'>
 		<canvas class="chart-line chart-stats" chart-data='dat' chart-labels='lab' chart-series='ser' chart-legend='{{legend}}' chart-options="options" chart-colours="colors">
 		</canvas>
 	</div>

@@ -25,10 +25,10 @@
         templateUrl: 'views/map.html',
         controller: 'MapCtrl'
       })
-      // .when('/consultar', {
-      //   templateUrl: 'views/charts.html',
-      //   controller: 'ChartsCtrl'
-      // })
+      .when('/cruzamentos', {
+        templateUrl: 'views/cruzamentos.html',
+        controller: 'CruzamentosCtrl'
+      })
       .when('/', {
         templateUrl: 'views/charts.html',
         controller: 'ChartsCtrl'

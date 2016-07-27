@@ -13,6 +13,7 @@ angular.module('estatisticasApp')
       restrict: 'E',
       replace: true,
       scope: {
+        id: '=',
         pie: '=data',
         name: '=',
         addBut: '=',
@@ -23,14 +24,15 @@ angular.module('estatisticasApp')
         verticalLines: '=',
         loading: '=',
         object: '=',
-        label: '='
+        label: '=',
+        error: '='
       },
       link: function postLink(scope) {
 
         scope.table = false;
 
         scope.options = {
-          animationSteps: 3,
+          animationSteps: 50,
           pointDot : false,
           pointHitDetectionRadius: 5,
           tooltipTemplate: " <%=label%>: <%= numeral(value).format('(00[.]00)') %> (<%= numeral(circumference / 6.283).format('(0[.][00]%)') %>)"
@@ -74,6 +76,7 @@ angular.module('estatisticasApp')
           scope.legendModal = scope.legend;
           scope.optionsModal = scope.options;
           scope.colorsModal = scope.colors;
+
           // scope.heighModal = maxHeight;
           
           var height = $(window).height() - 20;
@@ -111,7 +114,35 @@ angular.module('estatisticasApp')
       		if(data) {
 		      	scope.dat = data.data;
 		      	scope.lab = data.labels;
+
+            // if (scope.object.clickFunc) {
+
+              // var column1 = data.data;
+              // column1.unshift(data.labels[0]);
+
+              // var column2 = data.data[1].slice();
+              // column2.unshift(data.labels[1]);
+
+              // var columns = [];
+              // angular.forEach(data.data, function(value,key){
+              //   columns.push([data.labels[key],value]);
+              // });
+
+              // c3.generate({
+              //   bindto: '#' + scope.id + '-canvas',
+              //   data: {
+              //     columns: columns,
+              //     type: 'pie',
+              //     onclick: scope.object.clickFunc
+              //   }
+              // });
+              
+            // }
 					}
+        
+
+
+          // scope.onclick = scope.object.clickFunc;
 
           switch (scope.size) {
             case 'small' :

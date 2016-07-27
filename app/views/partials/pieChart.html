@@ -21,9 +21,12 @@
 	<div class="panel-body" ng-if="loading">
 		<spinner></spinner>
 	</div>
-	<div class="panel-body" ng-if="!table && !loading">
-		<canvas class="chart-pie chart-stats" chart-data='dat' chart-labels='lab' chart-series='ser' chart-legend='{{legend}}' chart-options="options" chart-colours="colors">
-		</canvas>
+	<div class="panel-body" ng-if="error && !loading">
+		<span> {{error}} </span>
+	</div>
+	<div class="panel-body" ng-if="!table && !loading && !error">
+		<canvas id="{{id}}-canvas"class="chart-pie chart-stats" chart-data='dat' chart-labels='lab' chart-series='ser' chart-legend='{{legend}}' chart-options="options" chart-colours="colors" chart-click="object.clickFunc">
+		<!-- <div id="{{id}}-canvas" class="chart-stats"></div> -->
 	</div>
 	<div class="panel-body table-default" ng-if='table && !loading'>
 		<table-chart series='ser' labels='lab' data='[dat]' label='label'></table-chart>
@@ -52,7 +55,7 @@
 					</div>
 				</div>
 				<div class="panel" ng-if='!table'>
-					<canvas class="chart-pie" chart-data='datModal' chart-labels='labModal' chart-series='serModal' chart-legend='{{legendModal}}' chart-options="optionsModal" chart-colours="colorsModal">
+					<canvas class="chart-pie" chart-data='datModal' chart-labels='labModal' chart-series='serModal' chart-legend='{{legendModal}}' chart-options="optionsModal" chart-colours="colorsModal" chart-onclick="{{onclick}}">
 					</canvas>
 				</div>
 				<div class="panel modal-table" ng-if='table'>

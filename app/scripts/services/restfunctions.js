@@ -89,6 +89,10 @@ angular.module('estatisticasApp')
     };
 
     return {
+      errorFunc: function error(data,status){  
+        $rootScope.cruzChart2.error = 'Erro ao conectar no servidor. Procure o administrador.';
+      },
+
       gauge1: function success(data,status){  
         var dado = 0;
 
@@ -303,6 +307,53 @@ angular.module('estatisticasApp')
 
         var returnedObject = fillPieObject(ret, data[0].data, labels, 'estado');
         $rootScope.chart9.data = returnedObject;
+      },
+
+      cruzChart1: function success(data,status){
+        // console.log(data);
+
+        var lab = [];
+        var dat = [[]];
+        var ele;
+
+        angular.forEach(data[0], function(value,key) {
+
+            if(value.label.toString().split('T').length > 1) {
+                var label = value.label.split('T')[0].split('-')
+                ele = label[2] + '/' + label[1] + '/' + label[0]
+            } else {
+                var label = value.label
+                ele = label
+            }
+
+            lab.push(ele);
+            dat[0].push(value.total);
+        });
+
+        if ((lab.length == 0) && (dat[0].length == 0)) {
+            dat = [[0]];
+            lab = [0];
+        }
+
+        $rootScope.cruzChart1.data = {labels: lab, data: dat};
+      },
+
+      cruzChart2: function success(data,status){
+
+        var lab = ['Estadual','Federal'];
+        var dat = [0,0];
+
+        $rootScope.cruzChart2.restReturn = data;
+
+        angular.forEach(data[0].estadual, function(value, key){
+          dat[0] = dat[0] + value;
+        });
+
+        angular.forEach(data[0].federal, function(value, key){
+          dat[1] = dat[1] + value;
+        });
+
+        $rootScope.cruzChart2.data = {labels: lab, data: dat};
       }
     };
   }]);

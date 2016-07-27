@@ -11,6 +11,8 @@
 angular.module('estatisticasApp')
   .controller('ChartsCtrl', function ($scope, $rootScope, formData, RestApi, restFunctions, $cookies, $http) {
     $rootScope.mapView = false;
+    $rootScope.statView = true;
+    $rootScope.crossView = false;
     $rootScope.today = new Date();
 
     $scope.meses = formData.meses;

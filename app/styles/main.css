@@ -51,6 +51,10 @@
   text-align: left;
 }
 
+.chart-block {
+  padding-top: 4em;
+}
+
 .chart-container{
 /*  max-width: 585px !important;
   height: 251px !important;*/

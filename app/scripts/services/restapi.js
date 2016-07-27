@@ -11,7 +11,7 @@
 
 angular.module('estatisticasApp')
   .factory('RestApi', function ($resource) {
-    // return $resource( 'http://10.1.8.131:8000/api/:type/', {type: '@type'},
+    // return $resource( 'http://10.1.8.173:8000/api/:type/', {type: '@type'},
     // return $resource( 'http://localhost:8000/api/:type/', {type: '@type'},
     return $resource( 'http://siscom.ibama.gov.br/painel_api/api/:type/', {type: '@type'},
       {

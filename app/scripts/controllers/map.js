@@ -10,6 +10,8 @@
 angular.module('estatisticasApp')
   .controller('MapCtrl', function ($scope, $rootScope, RestApi, $timeout) {
     $rootScope.mapView = true;
+    $rootScope.statView = false;
+    $rootScope.crossView = false;
 		$scope.mapObject = {loading: true};
 
     $timeout(function(){
@@ -61,6 +63,10 @@ angular.module('estatisticasApp')
 					// var json = data.toJSON();
 
 
+		    	// var markers = L.markerClusterGroup();
+
+		   //  	var markers = new L.MarkerClusterGroup();
+
 					var json = L.geoJson(data.toJSON(), {
 	    			onEachFeature: function(feature, layer) {
 	    				var tipo = $rootScope.filters.tipo == 'DETER_QUALIF' ? 'DETER Qualificado' : ($rootScope.filters.tipo == 'DETER' ? 'DETER' : 'AWIFS');
@@ -68,16 +74,29 @@ angular.module('estatisticasApp')
     					layer.bindPopup( '<h4> Dados ' + tipo + ' </h4>'+
     													'<h5><b>Data imagem:</b> ' + feature.properties.data_imagem + ' </h5>' +
     													'<h5><b>Área:</b> ' + feature.properties.area_km2 + ' km²</h5>');
+
+    					// var coord = angular.forEach(feature.geometry.coordinates[0], function(value, key){
+    					// 	var sup = value[1];
+    					// 	value[1] = value[0];
+    					// 	value[0] = sup;
+    					// });
+
+    					// var pol = new L.Polygon(coord).getBounds().getCenter();
+    					// markers.addLayer(new L.Marker(pol));
 	    			}
 	    		});
 
 	    		$scope.mapObject.control.addOverLayer(json, 'DETER Filtrado', true);
+	    		// $scope.mapObject.control.addOverLayer(markers, 'Clusters', true);
 
 					if (data.toJSON().features.length) {
 		    		$scope.mapObject.map.fitBounds(json.getBounds());
 		    	}
 
 		    	$scope.mapObject.map.addLayer(json);
+
+		    	// $scope.mapObject.map.addLayer(markers);
+
 
 					$scope.mapObject.loading = false;
 				});
