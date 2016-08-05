@@ -93,6 +93,30 @@ angular.module('estatisticasApp')
         $scope.cruzChart2.data = {labels:lab, data:dat};
     }
 
+    $scope.queryChart2 = function(options, tipo, ano_inicio, ano_fim, estagio, estado){
+        if (options){
+            if (options.tipo != tipo){
+                return true;
+            }
+            if (options.ano_inicio != ano_inicio){
+                return true;
+            }
+            if (options.ano_fim != ano_fim){
+                return true;
+            }
+            if (options.estagio != estagio){
+                return true;
+            }
+            if (options.estado != estado){
+                return true;
+            }
+
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     // $rootScope.cruzChart1.data = {'labels':['1','2','3','4','5','6','7','8','9','12','13','14','15','16','17','18','19'], data: [['193.12','18471.31','18.12','101.12','1.1','9782.21','8190.123','192.12','10192.13','18471.31','18.12','101.12','1.1','9782.21','8190.123','192.12','10192.13']]};
     // $scope.chart1.label = ['a','b','c','d','e','f','g','h','i'];
@@ -126,11 +150,13 @@ angular.module('estatisticasApp')
             var restChart1 = RestApi.query($scope.cruzChart1.options, $scope.cruzChart1.returnFunction).$promise;
 
 
-            $rootScope.cruzChart2.options = {type: 'cruz-grafico2', tipo: tipo.value, ano_inicio: ano_inicio, ano_fim: ano_fim, estagio: estagio.value, area: area.value, dominio: dominio.value, estado: estado};
-            $rootScope.cruzChart2.returnFunction = restFunctions.cruzChart2;
-            $rootScope.cruzChart2.clickFunc = $scope.expandPie;
-            $rootScope.cruzChart2.error = null;
-            var restChart2 = RestApi.query($scope.cruzChart2.options, $scope.cruzChart2.returnFunction, restFunctions.errorFunc).$promise;
+            if ($scope.queryChart2($rootScope.cruzChart2.options, tipo.value, ano_inicio, ano_fim, estagio.value, estado)){
+                $rootScope.cruzChart2.options = {type: 'cruz-grafico2', tipo: tipo.value, ano_inicio: ano_inicio, ano_fim: ano_fim, estagio: estagio.value, area: area.value, dominio: dominio.value, estado: estado};
+                $rootScope.cruzChart2.returnFunction = restFunctions.cruzChart2;
+                $rootScope.cruzChart2.clickFunc = $scope.expandPie;
+                $rootScope.cruzChart2.error = null;
+                var restChart2 = RestApi.query($scope.cruzChart2.options, $scope.cruzChart2.returnFunction, restFunctions.errorFunc).$promise;
+            }
 
 
 	    	$scope.cruzChart1.loading = false;

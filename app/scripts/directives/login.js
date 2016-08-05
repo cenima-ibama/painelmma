@@ -7,13 +7,20 @@
  * # login
  */
 angular.module('estatisticasApp')
-  .directive('login', ['RestApi','$cookies', '$window', function (RestApi, $cookies, $window) {
+  .directive('login', ['RestApi','$cookies', '$window', '$http', function (RestApi, $cookies, $window, $http) {
     return {
       templateUrl: 'views/partials/login.html',
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
 
     		scope.logged = $cookies.get('user_data') ? true : false;
+
+
+        if ($cookies.get('user_data')){
+          $http.defaults.headers.get = [];
+          $http.defaults.headers.get['Authorization'] = 'Token ' + angular.fromJson($cookies.get('user_data')).token;
+        }
+
 
     		function showMessage (argument) {
     			scope.errorLogin = argument;

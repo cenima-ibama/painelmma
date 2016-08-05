@@ -59,7 +59,7 @@ angular.module('estatisticasApp')
         ],
 			  tipos_cruzamento: [
 					{name: 'DETER', value: 'Alerta DETER'},
-					{name: 'AWIFS', value: 'Alerta AWiFS'},
+					// {name: 'AWIFS', value: 'Alerta AWiFS'},
 					// {name: 'PRODES', value: 'PRODES'},
 					// {name: 'INDICAR', value: 'INDICAR'},
         ],
@@ -106,6 +106,7 @@ angular.module('estatisticasApp')
 
  		if ($cookies.get('user_data')) {
  			data.tipos.push({name: 'DETER AWiFS', value: 'AWIFS'});
+ 			data.tipos_cruzamento.push({name: 'AWIFS', value: 'Alerta AWiFS'});
  		}
 
  		return data;

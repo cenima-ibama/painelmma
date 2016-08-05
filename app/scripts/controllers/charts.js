@@ -162,8 +162,8 @@ angular.module('estatisticasApp')
       $rootScope.estado = $scope.estado;
 
       if ($cookies.get('user_data')){
-        $http.defaults.headers.get = [];
-        $http.defaults.headers.get['Authorization'] = 'Token ' + angular.fromJson($cookies.get('user_data')).token;
+        // $http.defaults.headers.get = [];
+        // $http.defaults.headers.get['Authorization'] = 'Token ' + angular.fromJson($cookies.get('user_data')).token;
         $scope.logged = true;
       }
 
