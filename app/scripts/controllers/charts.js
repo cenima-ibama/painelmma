@@ -141,9 +141,6 @@ angular.module('estatisticasApp')
       var tipo_filtrado = (estagio.name != 'Degradação + Corte Raso' && tipo.value == 'DETER') ? 'DETER_QUALIF' : tipo.value;
       var estagio_filtrado = (estagio.name == 'Degradação + Corte Raso') ? '' : $scope.getProperStage(estagio.name);
 
-      $scope.showPie1 = tipo_filtrado == 'DETER_QUALIF' ? false : true;
-      $scope.showPie2 = tipo_filtrado == 'DETER_QUALIF' ? false : true;
-
       $rootScope.chart1 = {loading: true, tagId: 'chart1'};
       $rootScope.chart2 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries, tagId: 'chart2'};
       $rootScope.chart3 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries, tagId: 'chart3'};
@@ -151,8 +148,8 @@ angular.module('estatisticasApp')
       $rootScope.chart5 = {loading: true, tagId: 'chart5'};
       $rootScope.chart6 = {loading: true, rightSeries: $scope.rightSeries, leftSeries: $scope.leftSeries, tagId: 'chart6'};
       $rootScope.chart7 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries, tagId: 'chart7'};
-      $rootScope.chart8 = {loading: true, rightSeries: $scope.rightSeries, leftSeries: $scope.leftSeries, showPie: $scope.showPie1, tagId: 'chart8'};
-      $rootScope.chart9 = {loading: true, showPie: $scope.showPie2, tagId: 'chart9'};
+      $rootScope.chart8 = {loading: true, rightSeries: $scope.rightSeries, leftSeries: $scope.leftSeries, tagId: 'chart8'};
+      $rootScope.chart9 = {loading: true, tagId: 'chart9'};
 
       $rootScope.gauge1 = {loading: true, tooltip:"Variação em relação ao mesmo mês do ano anterior"};
       $rootScope.gauge2 = {loading: true, tooltip:"Variação em relação ao período PRODES anterior"};
