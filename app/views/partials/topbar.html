@@ -1,54 +1,11 @@
-<!-- <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <ul class="nav navbar-nav">
-        <li class="navbar-brand"href="#/">Painel de Desmatamento</li>
-      </ul>
-    </div>
-    <div class="collapse navbar-collapse" >
-      <ul class="nav navbar-nav">
-        <li ng-class="{active : mapView}">
-          <a href="#/">Mapa</span>
-            <span class='glyphicon glyphicon-globe'></span>
-          </a>
-        </li>
-        <li ng-class="{active : !mapView}">
-          <a href="#/consultar">Estatísticas
-            <span class='glyphicon glyphicon-stats'></span>
-          </a>
-        </li>
-      </ul>
-
-        <div class="nav navbar-nav navbar-right" ng-if='!logged'>
-            <li class=''><a href='' data-toggle="modal" data-target="#loginModal"><i class='glyphicon glyphicon-user'></i> Login</a></li>
-        </div>
-        
-        <div class="nav navbar-nav navbar-right" ng-if='logged'>
-          <li class="dropdown">
-            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class='glyphicon glyphicon-user'></i>  {{dataUser.userName}} <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="" ng-click='logout()'>Logout</a></li>
-            </ul>
-          </li>
-        </div>
-
-
-    </div>
-  </div>
-</nav> -->
-
-
-
 <nav class='navbar navbar-inverse navbar-collapse navbar-fixed'>
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse"
          data-target="#navbar-collapse">
-        <!-- <span class='glyphicon glyphicon-menu-down'></span> -->
-        <!-- <span class="sr-only">Toggle navigation</span> -->
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="icon-bar" ng-if='user_data'></span>
       </button>
       <ul class="nav navbar-nav">
         <li class="navbar-brand" href="#/" >Painel de Desmatamento</li>
@@ -57,9 +14,8 @@
     <div class="collapse navbar-collapse" id="navbar-collapse">
         <div class="nav navbar-nav">
             <li ng-class='{active: mapView}'><a href='#/mapa'><i class='glyphicon glyphicon-globe'></i> Mapa</a></li>
-            <!-- <li ng-class='{active: !mapView}'><a href='#/'><i class='glyphicon glyphicon-signal'></i> Estatística</a></li> -->
             <li ng-class='{active: statView}'><a href='#/'><i class='glyphicon glyphicon-signal'></i> Estatística</a></li>
-            <li ng-class='{active: crossView}'><a href='#/cruzamentos'><i class='glyphicon glyphicon-signal'></i> Cruzamentos</a></li>
+            <li ng-class='{active: crossView}' ng-if='user_data'><a href='#/cruzamentos'><i class='glyphicon glyphicon-signal'></i> Cruzamentos</a></li>
         </div>        
         <div class="nav navbar-nav navbar-right" ng-if='!user_data'>
             <li class=''><a href='' data-toggle="modal" data-target="#loginModal"><i class='glyphicon glyphicon-user'></i> Login</a></li>
