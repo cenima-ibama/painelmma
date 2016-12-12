@@ -19,8 +19,9 @@
     'chart.js',
     'ngCsv'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
+  .config(function ($routeProvider, $locationProvider) {
+      $locationProvider.hashPrefix('');
+      $routeProvider
       .when('/mapa', {
         templateUrl: 'views/map.html',
         controller: 'MapCtrl'
