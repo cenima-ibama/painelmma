@@ -9,20 +9,22 @@
  */
 
 angular.module('estatisticasApp')
-  .controller('ChartsCtrl', function ($scope, $rootScope, formData, RestApi, restFunctions, $cookies, $http) {
-    $rootScope.mapView = false;
-    $rootScope.statView = true;
-    $rootScope.crossView = false;
-    $rootScope.today = new Date();
+  .controller('ChartsCtrl', function ($scope, $rootScope, formData, RestApi, restFunctions, $cookies, $http, $timeout) {
+  $rootScope.mapView = false;
+  $rootScope.statView = true;
+  $rootScope.crossView = false;
+  $rootScope.today = new Date();
 
-    $scope.meses = formData.meses;
-    $scope.anos = formData.anos;
-    $scope.estados = formData.estados;
-    $scope.tipos = formData.tipos;
-    $scope.estagios = formData.estagios;
+  $scope.meses = formData.meses;
+  $scope.anos = formData.anos;
+  $scope.estados = formData.estados;
+  $scope.tipos = formData.tipos;
+  $scope.estagios = formData.estagios;
 
 
-    var mes = $rootScope.filters ? $rootScope.filters.mes : (new Date().getMonth() + 1);
+  $timeout(function(){
+    // var mes = $rootScope.filters ? $rootScope.filters.mes : (new Date().getMonth() + 1);
+    var mes = 1;
     $scope.mes = $scope.meses[mes-1];
 
     var ano = $rootScope.filters ? $rootScope.filters.ano : new Date().getFullYear();
@@ -136,7 +138,7 @@ angular.module('estatisticasApp')
     };
 
     $scope.filter = function(estado,mes,ano,tipo,estagio) {
-      var restChart1, restChart2, restChart3, restChart4, restChart5, restChart6, restChart7, restChart8, restChart9, restGauge1, restGauge2;
+      var restChart1, restChart2, restChart3, restChart4, restChart5, restChart6, restChart7, restChart8, restChart9, restChart10, restGauge1, restGauge2;
 
       var tipo_filtrado = (estagio.name != 'Degradação + Corte Raso' && tipo.value == 'DETER') ? 'DETER_QUALIF' : tipo.value;
       var estagio_filtrado = (estagio.name == 'Degradação + Corte Raso') ? '' : $scope.getProperStage(estagio.name);
@@ -150,6 +152,7 @@ angular.module('estatisticasApp')
       $rootScope.chart7 = {loading: true, addSeries: $scope.addSeries, removeSeries: $scope.removeSeries, tagId: 'chart7'};
       $rootScope.chart8 = {loading: true, rightSeries: $scope.rightSeries, leftSeries: $scope.leftSeries, tagId: 'chart8'};
       $rootScope.chart9 = {loading: true, tagId: 'chart9'};
+      $rootScope.chart10 = {loading: true, tagId: 'chart10'};
 
       $rootScope.gauge1 = {loading: true, tooltip:"Variação em relação ao mesmo mês do ano anterior"};
       $rootScope.gauge2 = {loading: true, tooltip:"Variação em relação ao período PRODES anterior"};
@@ -159,8 +162,11 @@ angular.module('estatisticasApp')
       $rootScope.estado = $scope.estado;
 
       if ($cookies.get('user_data')){
-        // $http.defaults.headers.get = [];
-        // $http.defaults.headers.get['Authorization'] = 'Token ' + angular.fromJson($cookies.get('user_data')).token;
+        if(!$http.defaults.headers.get)
+          $http.defaults.headers.get = [];
+        if (!$http.defaults.headers.get['Authorization'])
+          $http.defaults.headers.get['Authorization'] = 'Token ' + angular.fromJson($cookies.get('user_data')).token;
+
         $scope.logged = true;
       }
 
@@ -208,12 +214,17 @@ angular.module('estatisticasApp')
       $rootScope.chart9.returnFunction = restFunctions.chart9;
       restChart9 = RestApi.query($rootScope.chart9.restOptions, $rootScope.chart9.returnFunction).$promise;
 
+      $rootScope.chart10.restOptions = {type:'get-data', uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo_filtrado.trim(), estagio: estagio_filtrado.trim()};
+      $rootScope.chart10.returnFunction = restFunctions.chart10;
+      restChart10 = RestApi.get_painelmma($rootScope.chart10.restOptions, $rootScope.chart10.returnFunction).$promise;
+
+
       $rootScope.filters = {uf: $scope.estado.trim(), ano: $scope.ano, mes: $scope.mes.value.trim(), tipo: tipo.value.trim(), estagio: estagio_filtrado.trim()};
 
-      $rootScope.chart10 = {};
-      $rootScope.chart10.data = [[0,0,0],[-10,20,-30],[10,-20,30]];
-      $rootScope.chart10.label = [1,2,3];
-      $rootScope.chart10.series = ['zero','a','b'];
+      // $rootScope.chart10 = {};
+      // $rootScope.chart10.data = [[0,0,0],[-10,20,-30],[10,-20,30]];
+      // $rootScope.chart10.label = [1,2,3];
+      // $rootScope.chart10.series = ['zero','a','b'];
 
 
       $rootScope.gauge1.promise = function(){
@@ -305,6 +316,14 @@ angular.module('estatisticasApp')
         $rootScope.chart9.title = $scope.mes.name.substr(0,3) + ", " + $scope.ano  + " [Filtros: " + $scope.tipo.value  + " / " + $scope.estagio.name.replace(/\s\+\s/g,'+') + "]";
       }
       restChart9.then($rootScope.chart9.promise);
+
+      $rootScope.chart10.promise = function(){
+        $rootScope.chart10.loading = false;
+
+        var estado = $scope.estado == '' ? 'AML' : $scope.estado;
+        $rootScope.chart10.title = "Poligonos Hex Skynet: Detecção Diário em ha [Filtros: " + $scope.mes.name + " / " + $scope.ano + " / " +  $scope.estagio.name.replace(/\s\+\s/g,'+') + "]";
+      }
+      restChart10.then($rootScope.chart10.promise);
     };
     
     if (!$rootScope.chart1) {
@@ -312,5 +331,5 @@ angular.module('estatisticasApp')
     }
 
     $scope.evaluateStage($scope.estagio.value, $scope.tipo.value, true);
-
-  });
+  },0);
+});

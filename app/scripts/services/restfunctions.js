@@ -308,6 +308,23 @@ angular.module('estatisticasApp')
         var returnedObject = fillPieObject(ret, data[0].data, labels, 'estado');
         $rootScope.chart9.data = returnedObject;
       },
+      
+      chart10: function success(data,status){  
+        var ret = {labels: [], data: [[]]};
+        var lastDay = new Date($rootScope.ano,($rootScope.mes.value),0).getDate();
+        var labels = [];
+
+        data.sort(function(a,b){
+          return a.dia - b.dia;
+        });
+
+        for ( var i = 1; i <= lastDay; i++) {
+          labels.push(i);
+        }
+
+        var returnedObject = fillLineObject(ret, data, labels, 'dia');
+        $rootScope.chart10.data = returnedObject;
+      },
 
       cruzChart1: function success(data,status){
         // console.log(data);

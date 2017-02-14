@@ -24,7 +24,8 @@ angular.module('estatisticasApp')
         loading: '=',
         object: '=',
         label: '=',
-        error: '='
+        error: '=',
+        measure: '='
       },
       link: function postLink(scope) {
   			
@@ -33,6 +34,7 @@ angular.module('estatisticasApp')
         scope.modal = false;
 
         var lab = typeof(scope.label) === 'undefined' ? '' : scope.label;
+        var meas = typeof(scope.measure) === 'undefined' ? 'Km²' : scope.measure;
 
         scope.options = {
           animationSteps: 3,
@@ -40,7 +42,7 @@ angular.module('estatisticasApp')
           scaleShowVerticalLines: showVerticalLines,
           pointDot : false,
           pointHitDetectionRadius: 5,
-          tooltipTemplate: "<%if (label){%>" + lab + " <%=label%>: <%}%><%= value %> Km²",
+          tooltipTemplate: "<%if (label){%>" + lab + " <%=label%>: <%}%><%= value %> " + meas,
         };
 
         scope.colors = ['#3ABCFC', '#FC2121', '#D0FC3F', '#FCAC0A',
